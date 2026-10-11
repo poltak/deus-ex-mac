@@ -28,6 +28,8 @@ Scripted tests on an M2 Max show that these parts work:
 - Lockpicks on locked doors and multitools on keypads.
 - Swimming, the breath timer and drowning. The death of the player, with the camera sequence and the return to the title screen.
 - Ladders: the player climbs up with a level view and down with the view down, holds on with no key down, and gets on a ladder that starts above the floor with a jump.
+- Landings: a person pushes off a player who lands on its head, a burning barrel burns, and a long fall hurts the legs.
+- The music: the calm, combat and conversation parts of a song, the fades between them, and the return to the place where the calm part stopped.
 - The vision augmentation shows people as bright shapes.
 - The animated fire textures of the game: flames, static, laser beams, fountains, lightning.
 - All 88 map files of the game start with no error.

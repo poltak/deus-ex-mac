@@ -1,0 +1,19 @@
+# Liberty Island (start with --url=01_NYC_UNATCOIsland): the player drops onto a person and onto a burning barrel,
+# and then falls from a height.
+# A person pushes the player off. The barrel burns the player and becomes the base. The long fall hurts the legs.
+# tests/player-landing.expect has the lines that the log must have.
+2.0  exec set DeusExPlayer bCheatsEnabled True
+2.5  teleport -4761 10431 -250 0
+3.0  exec Summon UNATCOTroop
+4.0  dump UNATCOTroop 200 Health
+4.5  teleport -4689 10431 -110 0
+4.7  dump DeusExPlayer 0 Base,Physics
+5.5  dump DeusExPlayer 0 Base,Physics
+7.0  dump DeusExPlayer 0 Base,Physics
+7.1  dump UNATCOTroop 300 Health
+8.0  teleport 1533 -2269 -40 0
+8.2  dump DeusExPlayer 0 Base,Physics
+9.0  dump DeusExPlayer 0 Base,Physics
+11.0 dump DeusExPlayer 0 Base,Physics
+12.0 teleport -4761 10431 400 0
+15.0 dump DeusExPlayer 0 Base,HealthLegLeft,HealthLegRight,HealthTorso
