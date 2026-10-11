@@ -1,0 +1,26 @@
+# Liberty Island (start with --url=01_NYC_UNATCOIsland): ladders.
+# First ladder: walk to it and climb up with a level view, hold on with no key down, then look down and climb down.
+# Second ladder: it starts above the floor, so the player gets on it only with a jump.
+# tests/player-ladder.expect has the lines that the log must have.
+2.0  exec set DeusExPlayer bCheatsEnabled True
+2.1  exec God
+2.5  surfaces Ladder 0
+3.0  teleport -6384 1420 -240 16384
+4.0  dump DeusExPlayer 0 Physics
+4.1  keydown w
+6.0  dump DeusExPlayer 0 Physics
+6.1  keyup w
+8.0  dump DeusExPlayer 0 Physics
+8.1  raw 0 600
+8.4  raw 0 600
+8.7  dump DeusExPlayer 0 ViewRotation
+8.8  keydown w
+10.0 dump DeusExPlayer 0 Physics
+10.1 keyup w
+11.0 teleport 7760 -2804 -420 32768
+11.5 keydown w
+12.5 dump DeusExPlayer 0 Physics
+12.6 key space
+14.5 dump DeusExPlayer 0 Physics
+14.6 keyup w
+16.0 dump DeusExPlayer 0 Physics

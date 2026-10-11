@@ -1,0 +1,18 @@
+# The log of the test must have a line for each of these patterns (grep -E).
+\[2\.50\].* surfaces Ladder count=174
+# First ladder. The player starts on the floor.
+\[4\.00\].* JCDentonMale0 .* loc=\(-6384 1420 -244\)
+# With the walk key and a level view, the player goes up the ladder to the ceiling of the room.
+\[6\.00\].* JCDentonMale0 .* loc=\(-6384 1479 -172\) .*Physics=PHYS_Walking
+# With no key down, the player stays on the ladder.
+\[8\.00\].* JCDentonMale0 .* loc=\(-6384 1479 -172\)
+# With the view down and the walk key, the player goes down to the floor.
+\[8\.70\].* ViewRotation=\(Pitch=(49|50)[0-9][0-9][0-9], Yaw=16384, Roll=0\)
+\[10\.00\].* JCDentonMale0 .* loc=\(-6384 1479 -244\)
+# Second ladder. It starts above the floor, so the walk key alone does not start the climb.
+\[12\.50\].* JCDentonMale0 .* loc=\(7705 -2804 -420\) .*Physics=PHYS_Walking
+# After a jump, the player is on the ladder and goes up. The physics mode stays the falling mode, as in the original.
+\[14\.50\].* JCDentonMale0 .* loc=\(7704 -2804 -348\) .*Physics=PHYS_Falling
+\[16\.00\].* JCDentonMale0 .* loc=\(7704 -2804 -348\) .*Physics=PHYS_Falling
+# The jump gives no script warning: a player on level geometry has the level as its base.
+!Accessed None

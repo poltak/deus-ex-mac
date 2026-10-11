@@ -20,11 +20,14 @@ Scripted tests on an M2 Max show that these parts work:
 - Key bindings of the game, the talk line as console, cheats.
 - The six settings screens. The Screen Resolution setting changes the size of the window.
 - Buttons, checkboxes, sliders and scroll bars of the interface. A list or a text moves with the thumb, the arrow buttons, the mouse wheel and the page keys.
-- The keyboard in menus: the arrow keys and the Tab key move the focus, and the Enter key presses a button.
+- The keyboard in menus: the arrow keys and the Tab key move the focus, and the Enter key presses a button. A dialog keeps the keys and the mouse while it is open, and the focus goes back to the screen below when it closes.
+- The mouse cursor of the interface: the arrow, the text cursor on edit fields, and the picture of an inventory item during a drag. The cursor does not show while a person speaks in a conversation, and the answer under the mouse has a highlight.
+- Keys across screens: a movement key that you release while a screen is open does not stay active, and a held key runs its command one time.
 - The eight player screens: inventory, health, augmentations, skills, goals, conversations, images and logs. A medkit heals, and skill points upgrade a skill.
 - Computers: login with user name and password, email, bulletins, the security screen with its camera picture, doors and turrets, the ATM, and the hack of a computer.
 - Lockpicks on locked doors and multitools on keypads.
 - Swimming, the breath timer and drowning. The death of the player, with the camera sequence and the return to the title screen.
+- Ladders: the player climbs up with a level view and down with the view down, holds on with no key down, and gets on a ladder that starts above the floor with a jump.
 - The vision augmentation shows people as bright shapes.
 - The animated fire textures of the game: flames, static, laser beams, fountains, lightning.
 - All 88 map files of the game start with no error.
