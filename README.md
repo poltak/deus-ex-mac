@@ -14,8 +14,9 @@ Scripted tests on an M2 Max show that these parts work:
 - Conversations and infolinks: text, choices, the transfer of objects, mouth shapes.
 - Enemies and allies: patrol, see and hear the player, attack, flee. Animals wander.
 - Pickups, datacubes, keypads, doors, the inventory and goals screens.
-- Quick save and quick load, the Save Game and Load Game screens, a load directly after the start of the program.
+- Quick save and quick load, the Save Game and Load Game screens, a load directly after the start of the program. A load after a fight gives the dead guard, its body and the things of the body back as they were.
 - Travel between maps with inventory, credits and flags. A map keeps its state when you come back.
+- The mission script of Liberty Island: when the statue mission is complete, the terrorists die, the UNATCO soldiers come into the map, Paul goes to the HQ and its doors open. The boat ride to mission 2 plays as a camera path, the game goes to Battery Park, and the talk with Anna Navarre starts there.
 - Particle effects, lightmaps with moving and animated lights.
 - Key bindings of the game, the talk line as console, cheats.
 - The six settings screens. The Screen Resolution setting changes the size of the window. A new key binding from the Keyboard/Mouse Settings screen works at once and after a new start, and a key that lost its binding stays without it.

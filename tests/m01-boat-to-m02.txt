@@ -1,0 +1,18 @@
+# Liberty Island (start with --url=01_NYC_UNATCOIsland): the boat ride to mission 2.
+# The map exit at the dock gets its trigger event, as the talk at the boat gives it. The player then moves along a
+# camera path that shows the boat, the game goes to Battery Park, and the first talk of mission 2 starts there.
+# The log times start at 0 again in the new map.
+# tests/m01-boat-to-m02.expect has the lines that the log must have.
+2.0  exec set DeusExPlayer bCheatsEnabled True
+2.2  exec God
+3.1  inv
+3.5  trigger Dock_boat
+3.7  dump DeusExPlayer 0 Physics,bInterpolating,NextMap
+8.0  shot 1-ride
+10.0 dump DeusExPlayer 0 Physics,bInterpolating
+14.0 dump DeusExPlayer 0 Physics,bInterpolating
+22.0 dump DeusExPlayer 0 Physics,bInterpolating
+22.1 inv
+22.2 windows
+22.3 dump AnnaNavarre 999999
+22.5 shot 2-battery-park

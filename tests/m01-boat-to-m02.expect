@@ -1,0 +1,16 @@
+# The log of the test must have a line for each of these patterns (grep -E).
+# The trigger event puts the player on the camera path, with Battery Park as the next map.
+\[3\.50\].* trigger Dock_boat: 2 actors
+\[3\.70\].* dump JCDentonMale0 state=Interpolating .* Physics=PHYS_Interpolating bInterpolating=True NextMap="02_NYC_BatteryPark"
+# The player moves along the path.
+\[10\.00\].* dump JCDentonMale0 state=Interpolating loc=\(-6736 10221 143\)
+\[14\.00\].* dump JCDentonMale0 state=Interpolating loc=\(-4550 9101 143\)
+# At the end of the path the game goes to the first map of mission 2, and the things of the player go with it.
+Deus Ex travel to 02_NYC_BatteryPark: the current mission number is 1, the next is 2
+Deus Ex travel: the player accepted [0-9]+ objects
+# In Battery Park the player stands at the boat and talks with Anna Navarre.
+dump JCDentonMale[0-9]+ state=Conversation loc=\(-620 -3679 284\) .* Physics=PHYS_Walking bInterpolating=False
+dump AnnaNavarre0 state=Conversation 
+window +TextWindow .* text="Anna Navarre: "
+inv count=1 NanoKeyRing
+!^\[[0-9.]+\] ([^D]|D[^a])[^:]*: Accessed None
