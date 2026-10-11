@@ -1,0 +1,18 @@
+# New game, open the main menu, open the Save Game screen, save a new game with the Save Game button,
+# then open the Load Game screen to see the two saves.
+3.0  key esc
+4.5  click 0.511 0.169
+6.5  click 0.50 0.425
+8.5  click 0.742 0.9375
+14.0 key esc
+18.0 raw 1500 0
+19.0 key esc
+20.5 shot 1-menu
+21.0 click 0.511 0.241
+23.0 shot 2-save-screen
+23.5 click 0.727 0.834
+25.5 shot 3-after-save
+26.5 key esc
+28.0 shot 4-menu-again
+28.5 click 0.511 0.315
+30.5 shot 5-load-screen

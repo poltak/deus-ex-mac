@@ -1,0 +1,19 @@
+# Start the game and load the quick save from the title screen. Run tests/save-load.txt first to make the save.
+3.0  exec LoadGame -1
+8.0  dump DeusExPlayer 0 Credits,FirstGoal,FirstNote,conHistory,AugmentationSystem,SkillSystem,KeyRing,FlagBase,rootWindow
+8.1  inv
+8.2  flags Harness
+8.3  shot 1-loaded
+9.0  raw -1500 0
+9.5  keydown w
+11.5 keyup w
+12.0 dump DeusExPlayer
+12.1 shot 2-walk
+12.5 dump ScriptedPawn 4000
+13.0 key f2
+14.5 shot 3-goals
+15.0 key esc
+16.0 key f1
+17.5 shot 4-inventory
+18.0 key esc
+19.0 shot 5-end

@@ -1,0 +1,16 @@
+# New game, open the main menu, open the Load Game screen and load the quick save with the Load Game button.
+# Run tests/save-load.txt first to make a quick save.
+3.0  key esc
+4.5  click 0.511 0.169
+6.5  click 0.50 0.425
+8.5  click 0.742 0.9375
+14.0 key esc
+18.0 raw 1500 0
+18.5 dump DeusExPlayer
+19.0 key esc
+21.0 click 0.511 0.315
+23.0 shot 1-load-screen
+23.5 click 0.727 0.834
+27.0 shot 2-after-load-button
+28.0 dump DeusExPlayer
+28.1 flags Harness
