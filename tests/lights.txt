@@ -1,0 +1,10 @@
+# Light of the fire barrels and lamps on the surfaces around them (dynamic lights in the lightmaps)
+3.0 teleportto BarrelFire0 220
+4.0 shot barrel0-a
+4.5 shot barrel0-b
+5.0 teleportto BarrelFire3 220
+6.0 shot barrel3
+7.0 teleportto Lamp3 200
+8.0 shot lamp3
+9.0 teleportto BarrelFire1 220
+10.0 shot barrel1

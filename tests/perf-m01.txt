@@ -1,0 +1,5 @@
+# Frame time on Liberty Island: start the map with --url=01_NYC_UNATCOIsland.
+# The "perf" lines in the log give the mean frame time and the script work for each frame.
+5.0 perf
+15.0 perf
+25.0 perf
