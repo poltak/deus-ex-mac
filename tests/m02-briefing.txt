@@ -2,7 +2,7 @@
 # Anna Navarre gives the orders and a picture of the barrel. After the talk the player can move, has the picture,
 # and the goals screen shows the goal of the mission.
 # The goal is a secondary goal in the conversation data. A goal that the GoalAdd cheat adds with the word True is a
-# primary goal.
+# primary goal. The text of that command is in quotes. Text with no quotes goes on to the end of the command.
 # tests/m02-briefing.expect has the lines that the log must have.
 5.0  dump DeusExPlayer 0 Physics
 5.1  windows
@@ -14,7 +14,8 @@
 58.2 flags M02
 58.3 goals
 58.4 exec set DeusExPlayer bCheatsEnabled True
-58.5 exec GoalAdd TestGoal TestText True
+58.5 exec GoalAdd TestGoal "Test text" True
+58.6 exec GoalAdd OtherGoal Other text True
 58.7 goals
 59.0 key f2
 61.0 windows
