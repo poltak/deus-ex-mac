@@ -1,0 +1,9 @@
+# Liberty Island start: walk along the dock toward Paul and wait for the first conversation
+1.0  keydown w
+9.0  keyup w
+9.2  shot a-9s
+14.0 shot b-14s
+20.0 shot c-20s
+26.0 shot d-26s
+32.0 shot e-32s
+38.0 shot f-38s

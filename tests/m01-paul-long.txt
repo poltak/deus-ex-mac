@@ -1,0 +1,15 @@
+# Liberty Island: full first conversation with Paul, no choice input
+1.0 keydown w
+9.0 keyup w
+28.0 shot t28
+36.0 shot t36
+44.0 shot t44
+52.0 shot t52
+60.0 shot t60
+68.0 shot t68
+76.0 shot t76
+84.0 shot t84
+92.0 shot t92
+100.0 shot t100
+108.0 shot t108
+116.0 shot t116

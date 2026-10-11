@@ -1,0 +1,13 @@
+# Liberty Island: first conversation with Paul, take the GEP gun, then open the inventory
+1.0  keydown w
+9.0  keyup w
+80.0 move 0.34 0.853
+80.5 shot choice-hover
+81.0 click 0.34 0.853
+84.0 shot after-choice
+92.0 shot later-1
+100.0 shot later-2
+110.0 shot later-3
+120.0 shot later-4
+121.0 key f1
+123.0 shot inventory
