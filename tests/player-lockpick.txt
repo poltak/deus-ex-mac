@@ -1,0 +1,26 @@
+# Liberty Island (start with --url=01_NYC_UNATCOIsland): make a lockpick with a cheat, pick it up, go to a locked
+# door, take the lockpick in the hand and use it on the door with the left mouse button. The lock strength goes
+# down to zero, the lockpick is gone, and the right mouse button then opens the door.
+# tests/player-lockpick.expect has the lines that the log must have.
+2.0  exec set DeusExPlayer bCheatsEnabled True
+2.2  exec God
+3.0  teleport -4761 10431 -250 0
+3.2  exec Summon Lockpick
+4.0  teleportto Lockpick 50
+4.6  rclick 0.5 0.5
+5.2  inv
+5.5  teleportto DeusExMover5 110
+6.5  dump DeusExMover 200 bLocked,lockStrength,bPicking
+6.7  shot 1-door
+7.0  key 1
+8.0  shot 2-lockpick-in-hand
+8.5  keydown lmb
+8.7  keyup lmb
+9.5  shot 3-picking
+9.7  dump DeusExMover 200 bLocked,lockStrength,bPicking
+12.0 dump DeusExMover 200 bLocked,lockStrength,bPicking
+12.2 inv
+14.0 shot 4-picked
+15.0 rclick 0.5 0.5
+17.5 shot 5-open
+17.7 dump DeusExMover 200 bLocked,lockStrength,bPicking,KeyNum

@@ -1,0 +1,8 @@
+# The log of the test must have a line for each of these patterns (grep -E).
+\[5\.20\].* inv count=2 Multitool NanoKeyRing
+\[6\.50\].* Keypad0 .* hackStrength=0\.100000 bHackable=True bHacking=False
+\[9\.70\].* Keypad0 .* hackStrength=0\.0[0-9]+ bHackable=True bHacking=True
+\[13\.00\].* Keypad0 .* hackStrength=0\.000000 bHackable=True bHacking=False
+# The multitool is used up, and the door of the keypad is at its open position.
+\[13\.20\].* inv count=1 NanoKeyRing
+\[14\.20\].* DeusExMover21 .* KeyNum=1

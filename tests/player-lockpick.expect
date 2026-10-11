@@ -1,0 +1,6 @@
+# The log of the test must have a line for each of these patterns (grep -E).
+\[5\.20\].* inv count=2 Lockpick NanoKeyRing
+\[6\.50\].* DeusExMover5 .* bLocked=True lockStrength=0\.100000 bPicking=False
+\[9\.70\].* DeusExMover5 .* bLocked=True lockStrength=0\.0[0-9]+ bPicking=True
+# The lock is open, the door is at its open position, and the lockpick is used up.
+\[17\.70\].* DeusExMover5 .* bLocked=False lockStrength=0\.000000 bPicking=False KeyNum=1

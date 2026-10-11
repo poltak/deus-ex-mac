@@ -1,0 +1,24 @@
+# Liberty Island (start with --url=01_NYC_UNATCOIsland): make a multitool with a cheat, pick it up, go to the keypad
+# of the UNATCO HQ door, take the multitool in the hand and use it on the keypad with the left mouse button.
+# The hack strength goes down to zero, the multitool is gone, and the door of the keypad opens.
+# tests/player-multitool.expect has the lines that the log must have.
+2.0  exec set DeusExPlayer bCheatsEnabled True
+2.2  exec God
+3.0  teleport -4761 10431 -250 0
+3.2  exec Summon Multitool
+4.0  teleportto Multitool 50
+4.6  rclick 0.5 0.5
+5.2  inv
+5.5  teleportto Keypad0 60
+6.5  dump Keypad 200 hackStrength,bHackable,bHacking
+6.7  shot 1-keypad
+7.0  key 1
+8.0  shot 2-tool-in-hand
+8.5  keydown lmb
+8.7  keyup lmb
+9.5  shot 3-hacking
+9.7  dump Keypad 200 hackStrength,bHackable,bHacking
+13.0 dump Keypad 200 hackStrength,bHackable,bHacking
+13.2 inv
+14.0 shot 4-hacked
+14.2 dump DeusExMover 400 bLocked,KeyNum
