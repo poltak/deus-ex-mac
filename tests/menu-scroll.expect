@@ -1,0 +1,11 @@
+# The log of the test must have a line for each of these patterns (grep -E).
+\[7\.70\].* MenuUIListWindow .* rows=61
+\[7\.70\].* ScaleWindow .* tick=0/61 span=22
+\[9\.20\].* ClipWindow .* child=0,26
+\[9\.20\].* ScaleWindow .* tick=26/61 span=22
+\[10\.00\].* ClipWindow .* child=0,27
+\[12\.20\].* ClipWindow .* child=0,16
+\[13\.00\].* ClipWindow .* child=0,38
+\[14\.20\].* ClipWindow .* child=0,35
+\[19\.20\].* ScaleWindow .* tick=3/11
+\[20\.70\].* ScaleWindow .* tick=7/11

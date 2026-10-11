@@ -1,0 +1,46 @@
+# Title screen: scroll the key list of the Keyboard/Mouse settings screen in each way, then move a slider of the
+# Sound settings screen. tests/menu-scroll.expect has the positions that the log must show.
+# The list has 61 rows, and 22 rows fit in its area. The thumb of the scroll bar is 86 pixels long.
+3.0  key esc
+4.5  click 0.511 0.388
+6.0  click 0.505 0.258
+7.5  shot 1-list-top
+7.7  windows
+# Move the thumb with the mouse: 100 pixels down is 26 rows.
+8.0  mousedown 0.7867 0.25
+8.2  move 0.7867 0.35
+8.4  move 0.7867 0.4583
+8.6  mouseup 0.7867 0.4583
+9.0  shot 2-thumb-moved
+9.2  windows
+# One click on the down button is one row.
+9.5  click 0.7867 0.7115
+10.0 windows
+# Hold the up button for 1.5 seconds: one row at the press, and ten rows from the repeat.
+10.5 mousedown 0.7867 0.1844
+12.0 mouseup 0.7867 0.1844
+12.2 windows
+# A click on the scale below the thumb is one page of 22 rows.
+12.5 click 0.7867 0.68
+13.0 windows
+# Three steps of the mouse wheel over the list are three rows.
+13.5 wheelup 0.4 0.4
+13.7 wheelup 0.4 0.4
+13.9 wheelup 0.4 0.4
+14.2 windows
+14.5 shot 3-list-end
+# The Sound settings screen: a click on the scale of the sound effects volume puts the thumb there (3 of 10),
+# and the thumb then moves with the mouse (7 of 10).
+15.0 key esc
+16.5 click 0.505 0.633
+18.0 shot 4-sound
+18.5 click 0.6047 0.2271
+19.0 shot 5-slider-click
+19.2 windows
+19.5 mousedown 0.6047 0.2271
+19.7 move 0.65 0.2271
+19.9 move 0.7047 0.2271
+20.1 mouseup 0.7047 0.2271
+20.5 shot 6-slider-moved
+20.7 windows
+21.0 key esc

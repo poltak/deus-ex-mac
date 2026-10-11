@@ -59,4 +59,5 @@ run player-health 27
 run fire-textures 9 --url=01_NYC_UNATCOIsland
 run player-weapons 110 --url=01_NYC_UNATCOIsland
 run computer-email 17 --url=01_NYC_UNATCOHQ
+run menu-scroll 23
 exit $FAILED
