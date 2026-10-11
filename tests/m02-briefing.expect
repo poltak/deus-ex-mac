@@ -1,0 +1,17 @@
+# The log of the test must have a line for each of these patterns (grep -E).
+# The talk starts when the map starts.
+\[5\.00\].* dump JCDentonMale0 state=Conversation loc=\(-620 -3679 284\)
+\[5\.10\].* TextWindow .* text="Anna Navarre: "
+\[5\.10\].* TextWindow .* text="Alright, let's go\.
+\[25\.00\].* TextWindow .* text="A precious opportunity we cannot neglect\."
+# Anna Navarre gives the picture, and the game shows what the player got.
+\[45\.00\].* TextWindow .* text="Received:"
+\[45\.00\].* TextWindow .* text="IMAGE"
+# After the talk the player has the picture and can move.
+\[58\.00\].* dump JCDentonMale0 state=PlayerWalking loc=\(-620 -3679 284\)
+\[58\.10\].* inv count=2 Image02_Ambrosia_Flyer NanoKeyRing
+\[65\.50\].* dump JCDentonMale0 state=PlayerWalking loc=\(-1[0-9]+ -3[0-9]+ 284\)
+# The goals screen has the goal of the mission.
+\[61\.00\].* PersonaHeaderTextWindow .* text="Primary Goals"
+\[61\.00\].* PersonaGoalTextWindow .* text="Locate the stolen barrel of Ambrosia in Castle C
+!^\[[0-9.]+\] ([^D]|D[^a])[^:]*: Accessed None

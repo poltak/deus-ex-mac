@@ -81,6 +81,7 @@ run perf-m01 26 --url=01_NYC_UNATCOIsland
 run m01-paul-choice 130 --url=01_NYC_UNATCOIsland
 run m01-mission-complete 14 --url=01_NYC_UNATCOIsland
 run m01-boat-to-m02 24 --url=01_NYC_UNATCOIsland
+run m02-briefing 67 --url=02_NYC_BatteryPark
 run menu-settings 28
 run aug-vision 11 --url=01_NYC_UNATCOIsland
 run persona-screens 27 --url=01_NYC_UNATCOIsland
