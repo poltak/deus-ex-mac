@@ -13,12 +13,18 @@ R="$W/runs/$NAME"; rm -rf "$R"; mkdir -p "$R"
 B="$W/SurrealEngine/build/SurrealEngine.app/Contents/MacOS/SurrealEngine"
 GAME="${GAME:-$W/DeusEx}"
 SCRIPT_ARG=()
-[ -n "$SCRIPT" ] && SCRIPT_ARG=(--script="$SCRIPT")
+# The engine starts in a different folder, so give it the full path of the input script.
+case "$SCRIPT" in
+  "") ;;
+  /*) SCRIPT_ARG=(--script="$SCRIPT") ;;
+  *) SCRIPT_ARG=(--script="$PWD/$SCRIPT") ;;
+esac
 MUTE_ARG=(--mute)
 [ "$MUTE" = 0 ] && MUTE_ARG=()
 STATS_ARG=(--stats)
 [ "$STATS" = 0 ] && STATS_ARG=()
-WINSIZE_ARG=(--winsize="${WINSIZE:-1280x960}")
+# The engine does not start the game before the file $R/window-ready is there. See the window manager step below.
+WINSIZE_ARG=(--winsize="${WINSIZE:-1280x960}" --wait-file="$R/window-ready")
 [ "$WINSIZE" = none ] && WINSIZE_ARG=()
 ARGS=(--nograb "${MUTE_ARG[@]}" "${STATS_ARG[@]}" --logfile="$R/log.txt" --shots="$R" --shot-interval="${SHOT_INTERVAL:-5}" --shot-first="${SHOT_FIRST:-3}" --exit-after="$SECS" "${WINSIZE_ARG[@]}" --fixed-fps="${FIXED_FPS:-30}" --seed="${SEED:-1}" "${SCRIPT_ARG[@]}" "$@")
 # ENGINE_ENV="NAME=value NAME2=value2": environment variables for the engine process

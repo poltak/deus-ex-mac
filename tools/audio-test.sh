@@ -10,7 +10,12 @@ R="$W/runs/$NAME"; rm -rf "$R"; mkdir -p "$R"
 GAME="${GAME:-$W/DeusEx}"
 printf '[general]\ndrivers = wave\n\n[wave]\nfile = %s\n' "$R/audio.wav" > "$R/alsoft.conf"
 SCRIPT_ARG=()
-[ -n "$SCRIPT" ] && SCRIPT_ARG=(--script="$SCRIPT")
+# The engine starts in a different folder, so give it the full path of the input script.
+case "$SCRIPT" in
+  "") ;;
+  /*) SCRIPT_ARG=(--script="$SCRIPT") ;;
+  *) SCRIPT_ARG=(--script="$PWD/$SCRIPT") ;;
+esac
 open -g -n -W --stdout "$R/stdout.txt" --stderr "$R/stderr.txt" --env "ALSOFT_DRIVERS=wave" --env "ALSOFT_CONF=$R/alsoft.conf" \
   "$W/SurrealEngine/build/SurrealEngine.app" --args --nolauncher --nograb --logfile="$R/log.txt" --shots="$R" --shot-interval=0 \
   --exit-after="$SECS" --winsize=1280x960 --seed=1 "${SCRIPT_ARG[@]}" "$@" "$GAME" &
