@@ -1,0 +1,16 @@
+# Liberty Island: walk forward, turn, jump, open the goals screen
+1.0  shot start
+1.5  keydown w
+4.5  keyup w
+4.6  shot walked
+5.0  raw 400 0
+5.5  shot turned
+6.0  key space
+6.3  shot jump
+7.0  keydown w
+10.0 keyup w
+10.2 shot walked2
+11.0 key f2
+12.0 shot goals
+13.0 key esc
+14.0 shot end
