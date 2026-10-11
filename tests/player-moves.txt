@@ -1,0 +1,32 @@
+# Liberty Island (start with --url=01_NYC_UNATCOIsland): the basic moves of the player: run, walk with Shift, crouch with X,
+# jump with Space and lean with E.
+# tests/player-moves.expect has the lines that the log must have.
+2.5  teleport -4761 10431 -250 0
+3.0  dump DeusExPlayer 0 CollisionHeight,BaseEyeHeight,GroundSpeed
+3.1  keydown w
+5.1  keyup w
+5.6  dump DeusExPlayer 0 Velocity
+6.0  teleport -4761 10431 -250 0
+6.5  keydown shift
+6.6  keydown w
+8.6  keyup w
+8.7  keyup shift
+9.1  dump DeusExPlayer 0 Velocity
+9.5  teleport -4761 10431 -250 0
+10.0 keydown x
+10.5 dump DeusExPlayer 0 CollisionHeight,BaseEyeHeight,bIsCrouching
+10.6 keydown w
+12.6 keyup w
+13.0 dump DeusExPlayer 0 CollisionHeight
+13.1 keyup x
+13.6 dump DeusExPlayer 0 CollisionHeight,BaseEyeHeight,bIsCrouching
+14.0 teleport -4761 10431 -250 0
+14.5 key space
+14.7 dump DeusExPlayer 0 Velocity,Physics
+14.9 dump DeusExPlayer 0 Velocity,Physics
+15.1 dump DeusExPlayer 0 Velocity,Physics
+15.6 dump DeusExPlayer 0 Velocity,Physics
+16.0 keydown e
+16.6 dump DeusExPlayer 0 curLeanDist,ViewRotation
+16.7 keyup e
+17.3 dump DeusExPlayer 0 curLeanDist,ViewRotation

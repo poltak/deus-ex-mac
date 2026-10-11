@@ -1,0 +1,18 @@
+# The log of the test must have a line for each of these patterns (grep -E).
+\[3\.00\].* CollisionHeight=43\.000000 BaseEyeHeight=40\.000000 GroundSpeed=320\.000000
+# Two seconds of the run key: 606 units.
+\[5\.60\].* JCDentonMale0 .* loc=\(-4155 10431 -260\)
+# Two seconds with the walk key: 182 units.
+\[9\.10\].* JCDentonMale0 .* loc=\(-4579 10431 -260\)
+# The crouch makes the player 16 units high and as slow as a walk. The player stands up again after it.
+\[10\.50\].* loc=\(-4761 10431 -287\) .* CollisionHeight=16\.000000 BaseEyeHeight=13\.000000 bIsCrouching=True
+\[13\.00\].* loc=\(-4579 10431 -287\) .* CollisionHeight=16\.000000
+\[13\.60\].* loc=\(-4579 10431 -260\) .* CollisionHeight=43\.000000 BaseEyeHeight=40\.000000 bIsCrouching=False
+# The jump goes up about 45 units and ends on the ground.
+\[14\.90\].* loc=\(-4761 10431 -217\) .* Physics=PHYS_Falling
+\[15\.60\].* loc=\(-4761 10431 -260\) .* Physics=PHYS_Walking
+# The lean moves the player to the side and tilts the view. The player comes back after it.
+\[16\.60\].* curLeanDist=40\.000000 ViewRotation=\(Pitch=0, Yaw=0, Roll=800\)
+\[17\.30\].* curLeanDist=0\.000000 ViewRotation=\(Pitch=0, Yaw=0, Roll=0\)
+# A jump from level geometry gives no script warning.
+!DoJump

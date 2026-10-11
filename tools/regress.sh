@@ -91,6 +91,7 @@ run player-aug-install 16 --url=01_NYC_UNATCOHQ
 run fire-textures 9 --url=01_NYC_UNATCOIsland
 run player-weapons 110 --url=01_NYC_UNATCOIsland
 run player-swim 41 --url=01_NYC_UNATCOIsland
+run player-moves 18 --url=01_NYC_UNATCOIsland
 run player-ladder 17 --url=01_NYC_UNATCOIsland
 run player-landing 16 --url=01_NYC_UNATCOIsland
 run player-elevator 12 --url=03_NYC_AirfieldHeliBase
