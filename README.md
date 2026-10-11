@@ -34,7 +34,7 @@ Scripted tests on an M2 Max show that these parts work:
 
 Speed: the main thread needs about 9 ms of processor time for each frame on Liberty Island and on the MJ12 lab in Hong Kong, the two heaviest maps. The mean of all maps is 4.5 ms. A display with 120 Hz shows the game at 120 frames per second on most maps.
 
-Sound: a test tool records the sound output to a file. The recordings of the intro and of a conversation have music and speech at correct levels, and the output does not clip.
+Sound: a test tool records the sound output to a file. The recordings of the intro and of a conversation have music and speech in each second. In the recording of the conversation, 134 of 4.3 million samples are at full scale, in runs of 4 samples at most. The music changes to the combat and the conversation part of a song at the same song position as with the original sound code.
 
 No person has checked these parts yet:
 
@@ -184,6 +184,8 @@ SCRIPT=tests/audio-intro.txt tools/audio-test.sh audio-intro 60
 ```
 
 This runs the game in real time and sends the sound to `runs/audio-intro/audio.wav`, not to the speakers. Then it prints the level of each second of the file. `tests/audio-paul.txt` does the same for a conversation on Liberty Island (add `--url=01_NYC_UNATCOIsland`).
+
+`tools/modsections.cpp` prints where each section of a music file starts. Its first lines tell how to build it.
 
 ### Measure memory
 

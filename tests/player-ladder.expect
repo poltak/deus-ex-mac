@@ -16,3 +16,5 @@
 \[16\.00\].* JCDentonMale0 .* loc=\(7704 -2804 -348\) .*Physics=PHYS_Falling
 # The jump gives no script warning: a player on level geometry has the level as its base.
 !Accessed None
+# The guard at the second ladder sees the player, and the music goes to the combat section, which is order 3.
+Music: LibertyIsland_Music section 3 starts at order 3

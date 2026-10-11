@@ -12,3 +12,6 @@
 # After the conversation, the inventory screen opens and the cursor shows again.
 \[128\.10\].* Harness: cursor DeusExCursor
 \[128\.20\].* PersonaScreenInventory 
+# The music goes to the conversation section of the song, which is order 4, and back to the first section.
+\[25\.27\].* Music: LibertyIsland_Music section 4 starts at order 4
+\[121\.90\].* Music: LibertyIsland_Music section 0 starts at order 0
