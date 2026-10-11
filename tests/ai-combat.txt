@@ -1,0 +1,15 @@
+# Liberty Island: stand in the path of an NSF patrol. Do the guards shoot, and does the player take damage?
+1.0  teleport 700 4900 -60 27853
+1.2  setprop PlayerPawn bCheatsEnabled True
+18.0 shot t18
+18.1 dump Terrorist 900
+18.2 dump DeusExPlayer
+24.0 shot t24
+24.1 dump Terrorist 900
+24.2 dump DeusExPlayer
+30.0 shot t30
+30.1 dump Terrorist 900
+30.2 dump DeusExPlayer
+38.0 shot t38
+38.1 dump Terrorist 900
+38.2 dump DeusExPlayer
