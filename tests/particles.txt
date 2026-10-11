@@ -1,0 +1,8 @@
+# Liberty Island: put an incense burner in front of the player. Its smoke comes from a particle generator.
+1.0  setprop PlayerPawn bCheatsEnabled True
+2.0  exec summon HKIncenseBurner
+3.0  dump ParticleGenerator 600 bSpewing,bFrozen,particleTexture,frequency,particleLifeSpan,riseRate,particleDrawScale,bScale,bFade
+3.5  shot 1-burner
+5.0  shot 2-burner
+8.0  shot 3-burner
+8.1  dump ParticleProxy 600 bHidden,Texture,Style,DrawScale
