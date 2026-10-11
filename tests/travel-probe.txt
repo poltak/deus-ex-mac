@@ -1,0 +1,10 @@
+# New game, then list the map exits of Liberty Island.
+3.0  key esc
+4.5  click 0.511 0.169
+6.5  click 0.50 0.425
+8.5  click 0.742 0.9375
+14.0 key esc
+18.0 dump MapExit 0 DestMap,Tag,bPlayTransition
+18.1 dump Teleporter 0 URL,Tag
+18.2 dump PlayerStart 0 Tag
+19.0 quit

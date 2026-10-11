@@ -1,0 +1,34 @@
+# New game, turn away from the infolink trigger, walk, quick save, walk more, load the quick save.
+# The player must be back at the saved position with the same flags and inventory.
+# LoadGame -1 is the confirmed form of QuickLoad (QuickLoad opens a message box first).
+3.0  key esc
+4.5  click 0.511 0.169
+6.5  click 0.50 0.425
+8.5  click 0.742 0.9375
+14.0 key esc
+18.0 raw 1500 0
+18.5 keydown w
+19.5 keyup w
+20.0 setflag HarnessSaveTest true
+20.5 dump DeusExPlayer
+20.55 flags Harness
+20.56 inv
+20.6 shot 1-before-save
+21.0 exec QuickSave
+23.0 shot 2-after-save
+23.5 keydown w
+25.0 keyup w
+25.2 setflag HarnessAfterSave true
+25.5 dump DeusExPlayer
+25.55 flags Harness
+25.6 shot 3-moved
+26.0 exec LoadGame -1
+28.0 shot 4-loading
+33.0 dump DeusExPlayer
+33.05 flags Harness
+33.06 inv
+33.1 shot 5-after-load
+34.0 keydown w
+35.5 keyup w
+36.0 dump DeusExPlayer
+36.1 shot 6-walk-after-load

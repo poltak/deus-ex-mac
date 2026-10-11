@@ -1,0 +1,39 @@
+# New game. Go from Liberty Island into UNATCO HQ as the door teleporter does it, and go back.
+# The player must keep the credits, the inventory and the flags. Liberty Island must keep its state.
+3.0  key esc
+4.5  click 0.511 0.169
+6.5  click 0.50 0.425
+8.5  click 0.742 0.9375
+14.0 key esc
+18.0 setflag HarnessTravel true
+18.1 inv
+18.2 flags Harness
+18.3 dump DeusExPlayer 0 Credits,SkillPointsAvail,SkillPointsTotal
+18.35 dump Crowbar 0 Owner
+18.4 setprop PlayerPawn Credits 777
+18.5 travel 01_NYC_UNATCOHQ#Inside_UN_HQ
+23.0 dump DeusExPlayer 0 Credits,SkillPointsAvail,SkillPointsTotal
+23.1 inv
+23.2 flags Harness
+23.3 dump Teleporter 0 URL,Tag
+23.5 shot 1-hq
+24.0 keydown w
+25.0 keyup w
+25.5 shot 2-hq-walk
+26.0 dump DeusExPlayer
+26.2 setflag HarnessInHQ true
+26.5 travel 01_NYC_UNATCOIsland#tunnel_drop_nyc
+31.0 dump DeusExPlayer 0 Credits,SkillPointsAvail,SkillPointsTotal
+31.1 inv
+31.2 flags Harness
+31.3 dump Teleporter 0 URL,Tag
+31.5 shot 3-island-again
+32.0 keydown w
+33.0 keyup w
+33.5 shot 4-island-walk
+34.0 dump DeusExPlayer
+34.5 travel 01_NYC_UNATCOHQ#Inside_UN_HQ
+39.0 dump DeusExPlayer 0 Credits
+39.1 inv
+39.2 flags Harness
+39.5 shot 5-hq-again
