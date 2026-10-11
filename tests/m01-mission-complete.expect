@@ -1,0 +1,26 @@
+# The log of the test must have a line for each of these patterns (grep -E).
+# Before: terrorists are alive, the custody soldier is hidden far above the map, Gunther is there, the flag is not set.
+\[3\.00\].* dump Terrorist3 state=
+\[3\.00\].* dump Terrorist36 state=
+\[3\.10\].* dump UNATCOTroop3 state=Idle .* BindName="custodytroop" bHidden=True
+\[3\.20\].* dump PaulDenton0 state=Standing loc=\(-2366 8295 -260\)
+\[3\.30\].* dump GuntherHermann0 
+\[3\.40\].* dump AutoTurret0 
+\[3\.50\].* flags count=0
+# After: no terrorist is alive (the commander has another class), and each one left a body.
+!\[12\.00\].* dump Terrorist[0-9]+ state=
+\[12\.60\].* dump TerroristCarcass29 state=Dead
+# The hidden soldiers are in the map now and patrol.
+\[12\.10\].* dump UNATCOTroop3 state=Patrolling .* BindName="custodytroop" bHidden=False
+\[12\.10\].* dump UNATCOTroop9 state=Patrolling .* BindName="postmissiontroops" bHidden=False
+# Paul stands at the HQ, Gunther and the thugs are gone, and only the small turret is left.
+\[12\.20\].* dump PaulDenton0 state=Standing loc=\(-4681 2640 -96\)
+!\[12\.30\].* dump GuntherHermann0 state=
+!\[12\.40\].* dump AutoTurret[02] state=
+\[12\.40\].* dump AutoTurretSmall0 
+!\[12\.70\].* dump ThugMale[0-9]+ state=
+# The doors of the HQ are open (key frame 1) with no lock, and the mission script set its flag.
+\[12\.80\].* dump DeusExMover16 .* Tag=UN_maindoor bLocked=False KeyNum=1
+\[12\.80\].* dump DeusExMover17 .* Tag=UN_maindoor bLocked=False KeyNum=1
+\[12\.50\].* flags count=[0-9]+ .*MS_MissionComplete=True
+!^\[[0-9.]+\] ([^D]|D[^a])[^:]*: Accessed None

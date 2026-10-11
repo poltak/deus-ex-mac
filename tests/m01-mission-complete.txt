@@ -1,0 +1,23 @@
+# Liberty Island (start with --url=01_NYC_UNATCOIsland): the end of the statue mission.
+# The conversation with the NSF commander sets the flag StatueMissionComplete. The mission script then kills the
+# terrorists, brings the hidden UNATCO soldiers into the map, moves Paul to the HQ, removes Gunther and two gun
+# turrets, and opens the doors of the HQ. The test sets the flag directly.
+# tests/m01-mission-complete.expect has the lines that the log must have.
+2.0  exec set DeusExPlayer bCheatsEnabled True
+2.2  exec God
+3.0  dump Terrorist 999999 Health
+3.1  dump UNATCOTroop 999999 BindName,bHidden
+3.2  dump PaulDenton 999999 Orders
+3.3  dump GuntherHermann 999999
+3.4  dump AutoTurret 999999 Tag
+3.5  flags MS_
+4.0  setflag StatueMissionComplete true
+12.0 dump Terrorist 999999 Health
+12.1 dump UNATCOTroop 999999 BindName,bHidden
+12.2 dump PaulDenton 999999 Orders
+12.3 dump GuntherHermann 999999
+12.4 dump AutoTurret 999999 Tag
+12.5 flags MS_
+12.6 dump TerroristCarcass 999999
+12.7 dump ThugMale2 999999
+12.8 dump DeusExMover 999999 Tag,bLocked,KeyNum
