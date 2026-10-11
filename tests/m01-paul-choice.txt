@@ -8,6 +8,7 @@
 80.0 move 0.34 0.853
 80.5 shot choice-hover
 80.6 cursor
+80.7 windows
 81.0 click 0.34 0.853
 84.0 shot after-choice
 84.1 cursor

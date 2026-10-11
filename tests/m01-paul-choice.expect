@@ -3,6 +3,8 @@
 \[60\.00\].* Harness: cursor hidden
 # The cursor shows on the answers.
 \[80\.60\].* Harness: cursor DeusExCursor1 .* window=ConChoiceWindow
+# The answer under the mouse has the keyboard focus, which gives it the highlight.
+\[80\.70\].* ConChoiceWindow .* focus mouse text="~ Never know when
 # No cursor after the answer.
 \[84\.10\].* Harness: cursor hidden
 # The player has the weapon that Paul gives.

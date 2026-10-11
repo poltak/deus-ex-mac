@@ -22,7 +22,10 @@
 12.5 mousedown 0.1906 0.1854
 12.7 move 0.1906 0.25
 12.9 move 0.1906 0.33
-13.1 move 0.1906 0.4063
+13.1 move 0.1906 0.40
+# The item button goes to a new place when the mouse comes to that place. The drop is valid only when a later move
+# finds the button under the mouse, so the drag ends with a small move in the same place, as a real mouse does.
+13.2 move 0.1906 0.4063
 13.3 shot 3-dragging
 13.4 cursor
 13.5 mouseup 0.1906 0.4063
