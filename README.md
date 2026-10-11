@@ -145,7 +145,7 @@ The first argument is the name of the run and the second is the time in seconds 
 
 A run repeats exactly. The game advances a fixed time for each frame with a fixed random seed, and it starts only when the window has its size, because the size of the view changes which actors the player sees. A run is also faster than real time, and it does not wait for the display after each frame (`VSYNC=1` turns that wait on).
 
-`SCRIPT=tests/<name>.txt` gives the run an input script. Each line has a time and a command: keys, mouse clicks, console commands, pictures, and commands that list actors, flags and the inventory. `SurrealEngine/SurrealEngine/Harness.cpp` has the full list.
+`SCRIPT=tests/<name>.txt` gives the run an input script. Each line has a time and a command: keys, mouse clicks, console commands, pictures, commands that list actors, flags, goals, interface windows and the inventory, and commands that set a flag or send a trigger event to actors. The file `SurrealEngine/SurrealEngine/Harness.h` has the full list. `SurrealEngine/SurrealEngine/Harness.cpp` has the full list.
 
 `APP="dist/Deus Ex.app"` runs the packaged app and its start script. `GAME=<folder>` selects a different game folder. `tools/fresh-game.sh <new folder>` makes a game folder in the state of a first start: links to the data in `DeusEx/`, copies of the ini files of the game, no saved games.
 
