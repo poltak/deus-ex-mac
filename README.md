@@ -18,21 +18,28 @@ Scripted tests on an M2 Max show that these parts work:
 - Travel between maps with inventory, credits and flags. A map keeps its state when you come back.
 - Particle effects, lightmaps with moving and animated lights.
 - Key bindings of the game, the talk line as console, cheats.
+- The six settings screens. The Screen Resolution setting changes the size of the window.
+- The eight player screens: inventory, health, augmentations, skills, goals, conversations, images and logs. A medkit heals.
+- The vision augmentation shows people as bright shapes.
+- The animated fire textures of the game: flames, static, laser beams, fountains, lightning.
+- All 88 map files of the game start with no error.
 
-Speed: Liberty Island, the heaviest map in the tests, takes 10 ms for each frame (about 97 frames per second).
+Speed: the main thread needs about 9 ms of processor time for each frame on Liberty Island and on the MJ12 lab in Hong Kong, the two heaviest maps. The mean of all maps is 4.5 ms. A display with 120 Hz shows the game at 120 frames per second on most maps.
+
+Sound: a test tool records the sound output to a file. The recordings of the intro and of a conversation have music and speech at correct levels, and the output does not clip.
 
 No person has checked these parts yet:
 
-- Sound. All test runs are muted.
+- Sound by ear. The test runs are muted or go to a file.
 - Mouse look in real play. The tests send input without the mouse capture.
-- Fullscreen. The tests run in a window.
+- Fullscreen. The tests run in a window, and no test covers the fullscreen switch.
 - A full mission from start to end.
 
 Known gaps:
 
-- A save game has no picture (`RootWindow.GenerateSnapshot`).
-- `Actor.StopSound` and `Actor.SetInstantSpeechVolume` do nothing.
-- The program uses about 22 MB more memory after each map load, because the engine does not free a map that it left.
+- A save game has no picture. The original also makes no picture with its OpenGL renderer.
+- The program uses about 15 MB more memory after each map change. The engine frees the geometry, the lightmaps and the textures of a map that it left, but it has no garbage collector for the objects of that map.
+- The Effects Channels setting applies at the next start.
 - Multiplayer is not tested.
 
 ## Play
@@ -85,7 +92,9 @@ The game folder does not need the original `DeusEx.exe`. A folder where a mod la
 ### Controls and settings
 
 - The first start opens a window that is the largest whole multiple of 640x480 pixels that fits on your screen. The game scales its screens by whole numbers, as the original does.
-- The window size and the fullscreen switch are in `System/SE-DeusEx.ini` in the game folder, section `[Engine.SurrealClient]`: `WindowedViewportX`, `WindowedViewportY` (in points) and `StartupFullscreen`.
+- Settings, Display, Screen Resolution in the game changes the size of the window. The list has each whole multiple of 640x480 pixels that fits on your screen. The engine keeps the size for the next start.
+- Settings, Display, Toggle Full-Screen Mode and the green button of the window switch between the window and fullscreen.
+- The window size and the fullscreen switch are also in `System/SE-DeusEx.ini` in the game folder, section `[Engine.SurrealClient]`: `WindowedViewportX`, `WindowedViewportY` (in points) and `StartupFullscreen`.
 - The key bindings are the ones of the game. Change them in the game under Settings, Keyboard/Mouse. The engine saves them in `System/SE-User.ini`.
 - The engine does not change `DeusEx.ini` and `User.ini` of the game. It keeps its own copies with the prefix `SE-`.
 - T opens the talk line, which is also the console. To turn the cheats on, press T, delete `Say`, and type `set DeusExPlayer bCheatsEnabled True`.
@@ -116,11 +125,13 @@ GMDX installs its conversation files over the original ones. A game folder with 
 tools/run-dx.sh m01 60 --url=01_NYC_UNATCOIsland
 ```
 
-The first argument is the name of the run and the second is the time in seconds of game time. The log and the pictures go to `runs/m01/`. The game advances a fixed time for each frame with a fixed random seed, so a run repeats exactly and is faster than real time. A test run makes no sound and does not take the keyboard or the mouse.
+The first argument is the name of the run and the second is the time in seconds of game time. The log and the pictures go to `runs/m01/`. A test run makes no sound and does not take the keyboard or the mouse.
+
+A run repeats exactly. The game advances a fixed time for each frame with a fixed random seed, and it starts only when the window has its size, because the size of the view changes which actors the player sees. A run is also faster than real time, and it does not wait for the display after each frame (`VSYNC=1` turns that wait on).
 
 `SCRIPT=tests/<name>.txt` gives the run an input script. Each line has a time and a command: keys, mouse clicks, console commands, pictures, and commands that list actors, flags and the inventory. `SurrealEngine/SurrealEngine/Harness.cpp` has the full list.
 
-`APP="dist/Deus Ex.app"` runs the packaged app and its start script. `GAME=<folder>` selects a different game folder.
+`APP="dist/Deus Ex.app"` runs the packaged app and its start script. `GAME=<folder>` selects a different game folder. `tools/fresh-game.sh <new folder>` makes a game folder in the state of a first start: links to the data in `DeusEx/`, copies of the ini files of the game, no saved games.
 
 ### Regression tests
 
@@ -128,7 +139,7 @@ The first argument is the name of the run and the second is the time in seconds 
 tools/regress.sh
 ```
 
-This runs the scripted tests and prints one line for each. The line has the count of script errors, the last inventory list and the total count of script calls. The totals are the same in each run of a test, so a difference shows a change of behavior.
+This runs the scripted tests in a new first-start game folder and prints one line for each. The line has the count of script errors, the last inventory list and the total count of script calls. The totals are the same in each run of a test, so a difference shows a change of behavior.
 
 ```bash
 tests/start-script-test.sh
@@ -137,14 +148,40 @@ tests/start-script-test.sh
 This tests the start script of the app with a fake engine and fake dialogs.
 
 ```bash
+tests/window-size-test.sh
+```
+
+This checks that the Screen Resolution setting changes the window and that the next start opens with the same size.
+
+```bash
 tools/map-sweep.sh
 ```
 
-This starts each map of the game for some seconds and writes the errors and the frame time of each map to `runs/map-sweep.txt`.
+This starts each map of the game for some seconds and writes the errors and the frame times of each map to `runs/map-sweep.txt`.
+
+`tests/fire-textures.txt` uses the harness command `showtex` to draw the 40 fire textures of the game in a grid. A square that stays black shows a spark type that does not work.
+
+### Test the sound
+
+```bash
+SCRIPT=tests/audio-intro.txt tools/audio-test.sh audio-intro 60
+```
+
+This runs the game in real time and sends the sound to `runs/audio-intro/audio.wav`, not to the speakers. Then it prints the level of each second of the file. `tests/audio-paul.txt` does the same for a conversation on Liberty Island (add `--url=01_NYC_UNATCOIsland`).
+
+### Measure memory
+
+`tests/memory.txt` goes between two maps twelve times and logs the memory of the process after each change:
+
+```bash
+FIXED_FPS=60 SCRIPT=tests/memory.txt SHOT_INTERVAL=0 tools/run-dx.sh memory 130 --url=01_NYC_UNATCOIsland
+```
+
+`tools/heap-growth.sh` runs the same test with the allocation log of macOS and prints which call stacks hold more memory after later map changes.
 
 ### Measure speed
 
-`tests/perf-m01.txt` has `perf` commands, which log the mean frame time in real time:
+`tests/perf-m01.txt` has `perf` commands. Each one logs the mean frame time in real time (`ms`) and the mean processor time of the main thread for a frame (`cpums`). When the display shows the test window, `ms` cannot go below the frame time of the display. Use `cpums` to compare two versions of the engine.
 
 ```bash
 FIXED_FPS=60 SCRIPT=tests/perf-m01.txt SHOT_INTERVAL=0 tools/run-dx.sh perf 26 --url=01_NYC_UNATCOIsland
