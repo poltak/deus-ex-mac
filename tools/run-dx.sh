@@ -4,27 +4,38 @@
 # The game advances 1/FIXED_FPS seconds per frame (default 30) with a fixed random seed, so a run repeats exactly
 # and runs faster than real time. <seconds> and the script times are game time.
 # A test run makes no sound. Set MUTE=0 to hear it.
-# Environment: MUTE=0, FIXED_FPS=<n>, SEED=<n>, WINSIZE=<W>x<H>, FOREGROUND=1 (start in front, default is background), SCRIPT=<input script file>, SHOT_INTERVAL=<seconds, 0 = off>, SHOT_FIRST=<seconds>, LOG_HEAD=<lines>
+# Environment: MUTE=0, FIXED_FPS=<n>, SEED=<n>, WINSIZE=<W>x<H> (or "none": keep the size that the engine selects), FOREGROUND=1 (start in front, default is background), SCRIPT=<input script file>, SHOT_INTERVAL=<seconds, 0 = off>, SHOT_FIRST=<seconds>, LOG_HEAD=<lines>
+# STATS=0: do not show the frame rate and object counts on the screen.
+# GAME=<game folder> (default DeusEx/), APP=<path of a packaged "Deus Ex.app">: test the packaged app and its start script, not the engine build.
 W="$(cd "$(dirname "$0")/.." && pwd)"
 NAME="$1"; SECS="$2"; shift 2
 R="$W/runs/$NAME"; rm -rf "$R"; mkdir -p "$R"
 B="$W/SurrealEngine/build/SurrealEngine.app/Contents/MacOS/SurrealEngine"
+GAME="${GAME:-$W/DeusEx}"
 SCRIPT_ARG=()
 [ -n "$SCRIPT" ] && SCRIPT_ARG=(--script="$SCRIPT")
 MUTE_ARG=(--mute)
 [ "$MUTE" = 0 ] && MUTE_ARG=()
-ARGS=(--nolauncher --nograb "${MUTE_ARG[@]}" --logfile="$R/log.txt" --shots="$R" --shot-interval="${SHOT_INTERVAL:-5}" --shot-first="${SHOT_FIRST:-3}" --exit-after="$SECS" --winsize="${WINSIZE:-1280x960}" --fixed-fps="${FIXED_FPS:-30}" --seed="${SEED:-1}" "${SCRIPT_ARG[@]}" "$@" "$W/DeusEx")
-if [ -n "$FOREGROUND" ]; then
-  "$B" "${ARGS[@]}" > "$R/stdout.txt" 2> "$R/stderr.txt" &
+STATS_ARG=(--stats)
+[ "$STATS" = 0 ] && STATS_ARG=()
+WINSIZE_ARG=(--winsize="${WINSIZE:-1280x960}")
+[ "$WINSIZE" = none ] && WINSIZE_ARG=()
+ARGS=(--nograb "${MUTE_ARG[@]}" "${STATS_ARG[@]}" --logfile="$R/log.txt" --shots="$R" --shot-interval="${SHOT_INTERVAL:-5}" --shot-first="${SHOT_FIRST:-3}" --exit-after="$SECS" "${WINSIZE_ARG[@]}" --fixed-fps="${FIXED_FPS:-30}" --seed="${SEED:-1}" "${SCRIPT_ARG[@]}" "$@")
+if [ -n "$APP" ]; then
+  # The start script of the app adds --direct and the game folder. An error opens the error window of the engine, as it does for a player.
+  open -g -n -W --stdout "$R/stdout.txt" --stderr "$R/stderr.txt" --env "DEUSEX_GAME_FOLDER=$GAME" "$APP" --args "${ARGS[@]}" &
+  WAITER=$!
+elif [ -n "$FOREGROUND" ]; then
+  "$B" --nolauncher "${ARGS[@]}" "$GAME" > "$R/stdout.txt" 2> "$R/stderr.txt" &
   WAITER=$!
 else
   # -g starts the app in the background, so the test window does not take the keyboard focus from the person at the computer.
-  open -g -n -W --stdout "$R/stdout.txt" --stderr "$R/stderr.txt" "$W/SurrealEngine/build/SurrealEngine.app" --args "${ARGS[@]}" &
+  open -g -n -W --stdout "$R/stdout.txt" --stderr "$R/stderr.txt" "$W/SurrealEngine/build/SurrealEngine.app" --args --nolauncher "${ARGS[@]}" "$GAME" &
   WAITER=$!
 fi
 PID=""
 for i in $(seq 1 40); do
-  PID=$(pgrep -n -f "SurrealEngine.app/Contents/MacOS/SurrealEngine.*--logfile=$R/log.txt")
+  PID=$(pgrep -n -f "MacOS/SurrealEngine.*--logfile=$R/log.txt")
   [ -n "$PID" ] && break
   sleep 0.25
 done
