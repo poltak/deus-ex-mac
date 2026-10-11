@@ -1,0 +1,26 @@
+# UNATCO HQ (start with --url=01_NYC_UNATCOHQ): make an augmentation canister with a cheat, give it the Aqualung and
+# Environmental Resistance augmentations, pick it up, use the medical bot, select Aqualung and click Install.
+# The pickup of a canister logs one "Accessed None": the SpawnCopy function of the canister script has no return.
+# tests/player-aug-install.expect has the lines that the log must have.
+2.0  exec set DeusExPlayer bCheatsEnabled True
+2.2  teleportto MedicalBot0 150
+3.0  exec Summon AugmentationCannister
+3.5  setprop AugmentationCannister AddAugs[0] AugAqualung
+3.6  setprop AugmentationCannister AddAugs[1] AugEnviro
+4.0  teleportto AugmentationCannister 50
+4.8  rclick 0.5 0.5
+5.5  inv
+6.0  teleportto MedicalBot0 80
+7.0  rclick 0.5 0.5
+8.5  shot 1-medbot-augs
+9.0  click 0.8516 0.1875
+9.8  shot 2-aug-selected
+10.0 windows
+10.5 click 0.6547 0.8667
+12.0 shot 3-installed
+12.2 windows
+12.4 inv
+13.0 key esc
+14.0 dump AugAqualung 1000000 bHasIt,bIsActive,CurrentLevel
+14.2 dump AugEnviro 1000000 bHasIt,bIsActive,CurrentLevel
+14.5 shot 4-closed

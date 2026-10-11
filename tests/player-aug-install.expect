@@ -1,0 +1,10 @@
+# The log of the test must have a line for each of these patterns (grep -E).
+\[5\.50\].* inv count=2 AugmentationCannister NanoKeyRing
+\[10\.00\].* HUDMedBotAddAugsScreen 
+\[10\.00\].* text="Contains:\|n Aqualung\|n Environmental Resistance"
+\[10\.00\].* PersonaHeaderTextWindow .* text="Aqualung"
+# After the install the canister is gone and the player has the augmentation.
+\[12\.20\].* text="No Augmentation Cannisters Available!"
+\[12\.40\].* inv count=1 NanoKeyRing
+\[14\.00\].* AugAqualung0 .* bHasIt=True
+\[14\.20\].* AugEnviro0 .* bHasIt=False
