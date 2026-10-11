@@ -19,7 +19,12 @@ Scripted tests on an M2 Max show that these parts work:
 - Particle effects, lightmaps with moving and animated lights.
 - Key bindings of the game, the talk line as console, cheats.
 - The six settings screens. The Screen Resolution setting changes the size of the window.
-- The eight player screens: inventory, health, augmentations, skills, goals, conversations, images and logs. A medkit heals.
+- Buttons, checkboxes, sliders and scroll bars of the interface. A list or a text moves with the thumb, the arrow buttons, the mouse wheel and the page keys.
+- The keyboard in menus: the arrow keys and the Tab key move the focus, and the Enter key presses a button.
+- The eight player screens: inventory, health, augmentations, skills, goals, conversations, images and logs. A medkit heals, and skill points upgrade a skill.
+- Computers: login with user name and password, email, bulletins, the security screen with its camera picture, doors and turrets, the ATM, and the hack of a computer.
+- Lockpicks on locked doors and multitools on keypads.
+- Swimming, the breath timer and drowning. The death of the player, with the camera sequence and the return to the title screen.
 - The vision augmentation shows people as bright shapes.
 - The animated fire textures of the game: flames, static, laser beams, fountains, lightning.
 - All 88 map files of the game start with no error.
@@ -140,6 +145,14 @@ tools/regress.sh
 ```
 
 This runs the scripted tests in a new first-start game folder and prints one line for each. The line has the count of script errors, the last inventory list and the total count of script calls. The totals are the same in each run of a test, so a difference shows a change of behavior.
+
+A test can have a file `tests/<name>.expect`. Each line of that file is a pattern that the log of the test must have. The test fails when a line is missing. The harness command `windows` writes the visible interface windows to the log, with the text of text windows, the row count of lists, the state of checkboxes and the position of scroll bars. The command `dump` writes properties of actors. With these two commands a test can check what a screen shows and what the game state is.
+
+To run only some tests, give their names:
+
+```bash
+tools/regress.sh computer-email menu-scroll
+```
 
 ```bash
 tests/start-script-test.sh

@@ -56,11 +56,13 @@ run menu-settings 28
 run aug-vision 11 --url=01_NYC_UNATCOIsland
 run persona-screens 27 --url=01_NYC_UNATCOIsland
 run player-health 27
+run persona-skill-upgrade 12 --url=01_NYC_UNATCOIsland
 run fire-textures 9 --url=01_NYC_UNATCOIsland
 run player-weapons 110 --url=01_NYC_UNATCOIsland
 run player-swim 41 --url=01_NYC_UNATCOIsland
 run player-lockpick 19 --url=01_NYC_UNATCOIsland
 run player-multitool 16 --url=01_NYC_UNATCOIsland
+run player-death 30 --url=01_NYC_UNATCOIsland
 run computer-email 17 --url=01_NYC_UNATCOHQ
 run menu-scroll 23
 run menu-keyboard 11

@@ -1,0 +1,14 @@
+# Liberty Island (start with --url=01_NYC_UNATCOIsland): the player dies. The camera goes up above the body, the
+# picture goes to white and then to black, and after about 21 seconds the game goes to the title screen.
+# tests/player-death.expect has the lines that the log must have.
+3.0  exec Suicide
+3.5  dump DeusExPlayer 100000 Health
+4.0  shot 1-dying-1s
+7.0  shot 2-dying-4s
+10.5 shot 3-dying-7s
+14.0 shot 4-dying-11s
+20.0 shot 5-dying-17s
+22.5 dump DeusExPlayer 100000 Health
+27.0 shot 6-after
+27.2 windows
+27.4 dump DeusExPlayer 100000 Health

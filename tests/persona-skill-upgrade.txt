@@ -1,0 +1,17 @@
+# Liberty Island (start with --url=01_NYC_UNATCOIsland): get skill points with a cheat, open the skills screen,
+# select the Computer skill and click Upgrade two times.
+# tests/persona-skill-upgrade.expect has the lines that the log must have.
+2.0  exec set DeusExPlayer bCheatsEnabled True
+2.2  exec AllSkillPoints
+3.0  exec ShowSkillsWindow
+4.5  shot 1-skills
+4.7  windows
+5.0  click 0.283 0.708
+5.5  click 0.0969 0.8146
+6.5  shot 2-computer-trained
+6.7  windows
+7.0  click 0.0969 0.8146
+8.0  shot 3-computer-advanced
+8.2  windows
+9.0  key esc
+10.0 shot 4-closed

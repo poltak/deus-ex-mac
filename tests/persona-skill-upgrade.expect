@@ -1,0 +1,8 @@
+# The log of the test must have a line for each of these patterns (grep -E).
+# The skill points and the level of the Computer skill before the upgrade, after one and after two upgrades.
+\[4\.70\].* text="115900"
+\[4\.70\].* PersonaSkillTextWindow x=165 y=0 .* text="UNTRAINED"
+\[6\.70\].* text="114775"
+\[6\.70\].* PersonaSkillTextWindow x=264 y=0 .* text="2250"
+\[8\.20\].* text="112525"
+\[8\.20\].* PersonaSkillTextWindow x=165 y=0 .* text="ADVANCED"

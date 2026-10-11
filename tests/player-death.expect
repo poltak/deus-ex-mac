@@ -1,0 +1,6 @@
+# The log of the test must have a line for each of these patterns (grep -E).
+\[3\.50\].* JCDentonMale0 state=Dying .* Health=0
+\[22\.50\].* JCDentonMale0 state=Dying 
+# The script of the dying state opens the title map.
+Deus Ex travel to DXONLY
+JCDentonMale1 state=Paralyzed .* Health=100
