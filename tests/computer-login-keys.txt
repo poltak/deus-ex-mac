@@ -1,0 +1,18 @@
+# UNATCO HQ (start with --url=01_NYC_UNATCOHQ): log in to the computer of JC with the keyboard only.
+# The Tab key goes from the user name to the password, then to the Login button, and then to the user name again.
+# tests/computer-login-keys.expect has the lines that the log must have.
+3.0  teleportto ComputerPersonal7 60
+4.0  rclick 0.5 0.5
+6.3  char JCD
+6.6  key tab
+7.2  char bionicman
+7.5  shot 1-typed
+7.8  key tab
+8.1  windows
+8.4  key tab
+8.7  windows
+9.0  key tab
+9.3  windows
+9.6  key enter
+11.0 shot 2-email
+11.2 windows

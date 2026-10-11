@@ -1,0 +1,8 @@
+# The log of the test must have a line for each of these patterns (grep -E).
+# The four positions of the focus: New Game, Load Game, Settings, and Load Game again.
+\[5\.30\].* MenuUIMenuButtonWindow x=7 y=13 .* focus
+\[5\.90\].* MenuUIMenuButtonWindow x=7 y=85 .* focus
+\[6\.50\].* MenuUIMenuButtonWindow x=7 y=121 .* focus
+\[7\.10\].* MenuUIMenuButtonWindow x=7 y=85 .* focus
+# The Enter key on the Settings button opens the settings menu.
+\[9\.70\].* window +MenuSettings 

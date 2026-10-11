@@ -1,0 +1,8 @@
+# The log of the test must have a line for each of these patterns (grep -E).
+# The focus after each Tab key: the Login button, the user name, the password.
+\[8\.10\].* MenuUIActionButtonWindow .* focus
+\[8\.70\].* MenuUIEditWindow .* focus text="JCD"
+\[9\.30\].* MenuUIEditWindow .* focus text="bionicman"
+# The Enter key in the password field starts the login.
+\[11\.20\].* ComputerScreenEmail 
+\[11\.20\].* MenuUIListWindow .* rows=3
