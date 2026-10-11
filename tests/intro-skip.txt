@@ -1,0 +1,3 @@
+8.0  key esc
+10.0 shot after-esc
+16.0 shot later

@@ -1,0 +1,12 @@
+# Main menu -> New Game -> Medium -> Start Game -> intro -> skip the intro -> Liberty Island
+3.0  key esc
+4.5  click 0.51 0.19
+6.5  click 0.50 0.43
+8.5  click 0.727 0.91
+14.0 shot intro
+15.0 key esc
+20.0 shot m01-a
+26.0 shot m01-b
+27.0 keydown w
+31.0 keyup w
+31.5 shot m01-walked
