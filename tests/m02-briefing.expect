@@ -11,6 +11,10 @@
 \[58\.00\].* dump JCDentonMale0 state=PlayerWalking loc=\(-620 -3679 284\)
 \[58\.10\].* inv count=2 Image02_Ambrosia_Flyer NanoKeyRing
 \[65\.50\].* dump JCDentonMale0 state=PlayerWalking loc=\(-1[0-9]+ -3[0-9]+ 284\)
+# The goal from the talk is a secondary goal, and the goal from the cheat command is a primary goal.
+\[58\.30\].* goal FindAmbrosia primary=False completed=False text="Locate the stolen barrel of Ambrosia in Castle Clinton\."
+\[58\.70\].* goal TestGoal primary=True completed=False text="TestText"
+\[61\.00\].* PersonaGoalTextWindow .* text="TestText"
 # The goals screen has the goal of the mission.
 \[61\.00\].* PersonaHeaderTextWindow .* text="Primary Goals"
 \[61\.00\].* PersonaGoalTextWindow .* text="Locate the stolen barrel of Ambrosia in Castle C

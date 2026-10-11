@@ -195,6 +195,12 @@ This runs the game in real time and sends the sound to `runs/audio-intro/audio.w
 
 `tools/modsections.cpp` prints where each section of a music file starts. Its first lines tell how to build it.
 
+`tools/upkgprops.py <package> <class> [text]` prints the saved properties of each object of a class in a game package. It shows what the game data has, for example which goals of the conversation file are primary goals:
+
+```bash
+python3 tools/upkgprops.py DeusEx/System/DeusExConText.u ConEventAddGoal Ambrosia
+```
+
 ### Measure memory
 
 `tests/memory.txt` goes between two maps twelve times and logs the memory of the process after each change:

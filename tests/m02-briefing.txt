@@ -1,6 +1,8 @@
 # Battery Park (start with --url=02_NYC_BatteryPark): the first talk of mission 2.
 # Anna Navarre gives the orders and a picture of the barrel. After the talk the player can move, has the picture,
 # and the goals screen shows the goal of the mission.
+# The goal is a secondary goal in the conversation data. A goal that the GoalAdd cheat adds with the word True is a
+# primary goal.
 # tests/m02-briefing.expect has the lines that the log must have.
 5.0  dump DeusExPlayer 0 Physics
 5.1  windows
@@ -10,6 +12,10 @@
 58.0 dump DeusExPlayer 0 Physics
 58.1 inv
 58.2 flags M02
+58.3 goals
+58.4 exec set DeusExPlayer bCheatsEnabled True
+58.5 exec GoalAdd TestGoal TestText True
+58.7 goals
 59.0 key f2
 61.0 windows
 61.5 shot 2-goals
