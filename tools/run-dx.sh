@@ -49,12 +49,17 @@ for i in $(seq 1 40); do
   sleep 0.25
 done
 # AeroSpace (tiling window manager) resizes new windows. Make this one window float. This changes no configuration.
-if [ -n "$PID" ] && command -v aerospace >/dev/null 2>&1; then
+# The size of the window changes what the game does, so the engine waits for the file window-ready before it starts
+# the game. Then each run of a test gives the same result.
+if [ -n "$PID" ] && command -v aerospace >/dev/null 2>&1 && aerospace list-windows --all >/dev/null 2>&1; then
   ( for i in $(seq 1 40); do
       ID=$(aerospace list-windows --all --format '%{window-id}|%{app-pid}' 2>/dev/null | grep "|$PID\$" | cut -d'|' -f1 | head -1)
       if [ -n "$ID" ]; then aerospace layout --window-id "$ID" floating >/dev/null 2>&1; break; fi
       sleep 0.25
-    done ) &
+    done
+    touch "$R/window-ready" ) &
+else
+  touch "$R/window-ready"
 fi
 # A run that hangs gets a kill signal after the game time plus WATCHDOG seconds (default 120) of real time
 ( sleep $((SECS + ${WATCHDOG:-120})); [ -n "$PID" ] && kill -9 $PID 2>/dev/null ) 2>/dev/null &

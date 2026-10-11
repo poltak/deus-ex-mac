@@ -2,7 +2,12 @@
 # regress.sh: run the scripted tests that start a new game and print one line for each.
 # A test passes this check when the run ends correctly and the log has no script error.
 # The pictures and the logs are in runs/reg-<test>/ for a closer look.
+# Each run of this script uses a new game folder in the state of a first start (tools/fresh-game.sh). So the result
+# does not depend on the runs before, and the tests put no saved games and no settings into the game folder.
+# The totals of script calls are the same in each run. A difference shows a change of behavior.
 W="$(cd "$(dirname "$0")/.." && pwd)"
+GAME="$("$W/tools/fresh-game.sh" "$W/runs/reg-game" "${GAME:-$W/DeusEx}")" || exit 2
+export GAME
 FAILED=0
 run() {
   local name="$1" secs="$2"; shift 2
