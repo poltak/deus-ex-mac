@@ -1,0 +1,183 @@
+# Liberty Island (start with --url=01_NYC_UNATCOIsland): turn the cheats and the god mode on. Then for each weapon
+# in the list: make it with the Summon cheat at the start place, pick it up, go to a place near the NSF guards, take
+# it in the hand, fire, take a picture, and drop it. The rifle also shows its scope.
+# The run must end with no script error. Each "inv" line must have the weapon of that step and no weapon of a step
+# before it.
+# A grenade that flies near a person made the game hang before the engine had the original ParabolicTrace.
+2.0 exec set DeusExPlayer bCheatsEnabled True
+2.2 exec God
+3.0 teleport -4761 10431 -250 0
+3.2 exec Summon WeaponPistol
+4.0 teleportto WeaponPistol 50
+4.6 rclick 0.5 0.5
+5.2 inv
+5.3 teleport 700 4900 -60 27853
+5.5 key 1
+7.2 keydown lmb
+8.4 keyup lmb
+8.8 shot 01-Pistol
+9.1 dump WeaponPistol 80 AmmoType,ClipCount
+9.6 exec DropItem
+10.2 teleport -4761 10431 -250 0
+10.4 exec Summon WeaponAssaultGun
+11.2 teleportto WeaponAssaultGun 50
+11.8 rclick 0.5 0.5
+12.4 inv
+12.5 teleport 700 4900 -60 27853
+12.7 key 1
+14.4 keydown lmb
+15.6 keyup lmb
+16.0 shot 02-AssaultGun
+16.3 dump WeaponAssaultGun 80 AmmoType,ClipCount
+16.8 exec DropItem
+17.4 teleport -4761 10431 -250 0
+17.6 exec Summon WeaponRifle
+18.4 teleportto WeaponRifle 50
+19.0 rclick 0.5 0.5
+19.6 inv
+19.7 teleport 700 4900 -60 27853
+19.9 key 1
+21.4 exec ToggleScope
+22.4 shot 03-Rifle-scope
+22.6 keydown lmb
+22.8 keyup lmb
+23.2 shot 03-Rifle
+25.4 exec ToggleScope
+26.0 dump WeaponRifle 80 AmmoType,ClipCount
+26.4 exec DropItem
+27.0 teleport -4761 10431 -250 0
+27.2 exec Summon WeaponSawedOffShotgun
+28.0 teleportto WeaponSawedOffShotgun 50
+28.6 rclick 0.5 0.5
+29.2 inv
+29.3 teleport 700 4900 -60 27853
+29.5 key 1
+31.2 keydown lmb
+32.4 keyup lmb
+32.8 shot 04-SawedOffShotgun
+33.1 dump WeaponSawedOffShotgun 80 AmmoType,ClipCount
+33.6 exec DropItem
+34.2 teleport -4761 10431 -250 0
+34.4 exec Summon WeaponMiniCrossbow
+35.2 teleportto WeaponMiniCrossbow 50
+35.8 rclick 0.5 0.5
+36.4 inv
+36.5 teleport 700 4900 -60 27853
+36.7 key 1
+38.4 keydown lmb
+39.6 keyup lmb
+40.0 shot 05-MiniCrossbow
+40.3 dump WeaponMiniCrossbow 80 AmmoType,ClipCount
+40.8 exec DropItem
+41.4 teleport -4761 10431 -250 0
+41.6 exec Summon WeaponFlamethrower
+42.4 teleportto WeaponFlamethrower 50
+43.0 rclick 0.5 0.5
+43.6 inv
+43.7 teleport 700 4900 -60 27853
+43.9 key 1
+45.6 keydown lmb
+46.8 keyup lmb
+47.2 shot 06-Flamethrower
+47.5 dump WeaponFlamethrower 80 AmmoType,ClipCount
+48.0 exec DropItem
+48.6 teleport -4761 10431 -250 0
+48.8 exec Summon WeaponGEPGun
+49.6 teleportto WeaponGEPGun 50
+50.2 rclick 0.5 0.5
+50.8 inv
+50.9 teleport 700 4900 -60 27853
+51.1 key 1
+52.8 keydown lmb
+54.0 keyup lmb
+54.4 shot 07-GEPGun
+54.7 dump WeaponGEPGun 80 AmmoType,ClipCount
+55.2 exec DropItem
+55.8 teleport -4761 10431 -250 0
+56.0 exec Summon WeaponPlasmaRifle
+56.8 teleportto WeaponPlasmaRifle 50
+57.4 rclick 0.5 0.5
+58.0 inv
+58.1 teleport 700 4900 -60 27853
+58.3 key 1
+60.0 keydown lmb
+61.2 keyup lmb
+61.6 shot 08-PlasmaRifle
+61.9 dump WeaponPlasmaRifle 80 AmmoType,ClipCount
+62.4 exec DropItem
+63.0 teleport -4761 10431 -250 0
+63.2 exec Summon WeaponNanoSword
+64.0 teleportto WeaponNanoSword 50
+64.6 rclick 0.5 0.5
+65.2 inv
+65.3 teleport 700 4900 -60 27853
+65.5 key 1
+67.2 keydown lmb
+68.4 keyup lmb
+68.8 shot 09-NanoSword
+69.1 dump WeaponNanoSword 80 AmmoType,ClipCount
+69.6 exec DropItem
+70.2 teleport -4761 10431 -250 0
+70.4 exec Summon WeaponPepperGun
+71.2 teleportto WeaponPepperGun 50
+71.8 rclick 0.5 0.5
+72.4 inv
+72.5 teleport 700 4900 -60 27853
+72.7 key 1
+74.4 keydown lmb
+75.6 keyup lmb
+76.0 shot 10-PepperGun
+76.3 dump WeaponPepperGun 80 AmmoType,ClipCount
+76.8 exec DropItem
+77.4 teleport -4761 10431 -250 0
+77.6 exec Summon WeaponShuriken
+78.4 teleportto WeaponShuriken 50
+79.0 rclick 0.5 0.5
+79.6 inv
+79.7 teleport 700 4900 -60 27853
+79.9 key 1
+81.6 keydown lmb
+82.8 keyup lmb
+83.2 shot 11-Shuriken
+83.5 dump WeaponShuriken 80 AmmoType,ClipCount
+84.0 exec DropItem
+84.6 teleport -4761 10431 -250 0
+84.8 exec Summon WeaponGasGrenade
+85.6 teleportto WeaponGasGrenade 50
+86.2 rclick 0.5 0.5
+86.8 inv
+86.9 teleport 700 4900 -60 27853
+87.1 key 1
+88.8 keydown lmb
+90.0 keyup lmb
+90.4 shot 12-GasGrenade
+90.7 dump WeaponGasGrenade 80 AmmoType,ClipCount
+91.2 exec DropItem
+91.8 teleport -4761 10431 -250 0
+92.0 exec Summon WeaponLAM
+92.8 teleportto WeaponLAM 50
+93.4 rclick 0.5 0.5
+94.0 inv
+94.1 teleport 700 4900 -60 27853
+94.3 key 1
+96.0 keydown lmb
+97.2 keyup lmb
+97.6 shot 13-LAM
+97.9 dump WeaponLAM 80 AmmoType,ClipCount
+98.4 exec DropItem
+99.0 teleport -4761 10431 -250 0
+99.2 exec Summon WeaponEMPGrenade
+100.0 teleportto WeaponEMPGrenade 50
+100.6 rclick 0.5 0.5
+101.2 inv
+101.3 teleport 700 4900 -60 27853
+101.5 key 1
+103.2 keydown lmb
+104.4 keyup lmb
+104.8 shot 14-EMPGrenade
+105.1 dump WeaponEMPGrenade 80 AmmoType,ClipCount
+105.6 exec DropItem
+106.7 dump Terrorist 1500
+106.8 dump DeusExPlayer 0 Health
+106.9 inv
+107.2 shot 99-end

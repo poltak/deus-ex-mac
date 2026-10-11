@@ -39,4 +39,5 @@ run aug-vision 11 --url=01_NYC_UNATCOIsland
 run persona-screens 27 --url=01_NYC_UNATCOIsland
 run player-health 27
 run fire-textures 9 --url=01_NYC_UNATCOIsland
+run player-weapons 110 --url=01_NYC_UNATCOIsland
 exit $FAILED
