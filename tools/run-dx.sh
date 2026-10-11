@@ -37,7 +37,24 @@ fi
 WD=$!
 wait $WAITER; RC=$?
 { kill $WD; wait $WD; } 2>/dev/null
-echo "exit code: $RC"
+# "open" does not pass the exit code of the app on. A run that ended correctly logs "Shutting down".
+if grep -a -q "Shutting down" "$R/log.txt" 2>/dev/null; then
+  echo "run ended correctly"
+else
+  echo "RUN DID NOT END CORRECTLY (crash, fatal error or watchdog)"
+  IPS=$(ls -t "$HOME/Library/Logs/DiagnosticReports"/SurrealEngine-*.ips 2>/dev/null | head -1)
+  if [ -n "$IPS" ] && [ "$IPS" -nt "$R/stdout.txt" ]; then
+    python3 -I - "$IPS" <<'PYEOF'
+import json, sys
+hdr, body = open(sys.argv[1]).read().split("\n", 1)
+d = json.loads(body)
+print("crash:", d.get("exception", {}).get("type"), d.get("exception", {}).get("subtype", ""))
+t = [t for t in d["threads"] if t.get("triggered")][0]
+for f in t["frames"][:14]:
+    print("   ", f.get("symbol", "?")[:110], f.get("sourceFile", ""), f.get("sourceLine", ""))
+PYEOF
+  fi
+fi
 for f in "$R"/*.bmp; do [ -f "$f" ] && sips -s format png -Z 1100 "$f" --out "${f%.bmp}.png" >/dev/null 2>&1 && rm -f "$f"; done
 echo "log lines: $(wc -l < "$R/log.txt")   shots: $(ls "$R" | grep -c png)"
 echo "--- FATAL / stderr (no MoltenVK noise)"

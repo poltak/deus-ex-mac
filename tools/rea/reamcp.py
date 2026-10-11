@@ -9,7 +9,8 @@ import json, os, socket, subprocess, sys, threading
 
 def serve(sock_path):
     env = dict(os.environ)
-    proc = subprocess.Popen(["node", os.path.expanduser("~/src/rea/scripts/rea.mjs"), "mcp"],
+    rea_home = os.environ.get("REA_HOME", os.path.expanduser("~/src/rea"))
+    proc = subprocess.Popen(["node", os.path.join(rea_home, "scripts", "rea.mjs"), "mcp"],
                             stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=open(sock_path + ".stderr", "w"), env=env)
     lock = threading.Lock()
     nextid = [0]

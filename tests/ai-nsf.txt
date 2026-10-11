@@ -1,0 +1,15 @@
+# Liberty Island: put the player in the path of an NSF patrol and watch the reaction
+1.0  teleport 700 4900 -60 27853
+1.5  shot t01
+1.6  dump Terrorist 1500
+4.0  shot t04
+4.1  dump Terrorist 1500
+7.0  shot t07
+7.1  dump Terrorist 1500
+10.0 shot t10
+10.1 dump Terrorist 1500
+14.0 shot t14
+14.1 dump Terrorist 1500
+18.0 shot t18
+18.1 dump Terrorist 1500
+18.2 dump DeusExPlayer

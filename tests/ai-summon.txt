@@ -1,0 +1,14 @@
+# Liberty Island: summon a hostile NSF terrorist next to the player and watch if he detects and attacks
+1.0  setprop PlayerPawn bCheatsEnabled True
+1.5  exec summon Terrorist
+2.0  dump ScriptedPawn 800
+2.1  shot t02
+4.0  dump ScriptedPawn 800
+4.1  shot t04
+7.0  dump ScriptedPawn 800
+7.1  shot t07
+10.0 dump ScriptedPawn 800
+10.1 shot t10
+14.0 dump ScriptedPawn 800
+14.1 shot t14
+14.2 dump DeusExPlayer
