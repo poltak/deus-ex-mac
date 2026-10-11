@@ -6,6 +6,7 @@
 # A test run makes no sound. Set MUTE=0 to hear it.
 # Environment: MUTE=0, FIXED_FPS=<n>, SEED=<n>, WINSIZE=<W>x<H> (or "none": keep the size that the engine selects), FOREGROUND=1 (start in front, default is background), SCRIPT=<input script file>, SHOT_INTERVAL=<seconds, 0 = off>, SHOT_FIRST=<seconds>, LOG_HEAD=<lines>
 # STATS=0: do not show the frame rate and object counts on the screen. WATCHDOG=<seconds>: time limit for a run that hangs.
+# VSYNC=1: wait for the display after each frame, as a normal start does.
 # GAME=<game folder> (default DeusEx/), APP=<path of a packaged "Deus Ex.app">: test the packaged app and its start script, not the engine build.
 W="$(cd "$(dirname "$0")/.." && pwd)"
 NAME="$1"; SECS="$2"; shift 2
@@ -23,10 +24,14 @@ MUTE_ARG=(--mute)
 [ "$MUTE" = 0 ] && MUTE_ARG=()
 STATS_ARG=(--stats)
 [ "$STATS" = 0 ] && STATS_ARG=()
+# A visible window waits for the display after each frame, and a hidden one does not. Without that wait a frame time
+# is only the work of the engine, and a run is faster.
+VSYNC_ARG=(--novsync)
+[ "$VSYNC" = 1 ] && VSYNC_ARG=()
 # The engine does not start the game before the file $R/window-ready is there. See the window manager step below.
 WINSIZE_ARG=(--winsize="${WINSIZE:-1280x960}" --wait-file="$R/window-ready")
 [ "$WINSIZE" = none ] && WINSIZE_ARG=()
-ARGS=(--nograb "${MUTE_ARG[@]}" "${STATS_ARG[@]}" --logfile="$R/log.txt" --shots="$R" --shot-interval="${SHOT_INTERVAL:-5}" --shot-first="${SHOT_FIRST:-3}" --exit-after="$SECS" "${WINSIZE_ARG[@]}" --fixed-fps="${FIXED_FPS:-30}" --seed="${SEED:-1}" "${SCRIPT_ARG[@]}" "$@")
+ARGS=(--nograb "${MUTE_ARG[@]}" "${STATS_ARG[@]}" "${VSYNC_ARG[@]}" --logfile="$R/log.txt" --shots="$R" --shot-interval="${SHOT_INTERVAL:-5}" --shot-first="${SHOT_FIRST:-3}" --exit-after="$SECS" "${WINSIZE_ARG[@]}" --fixed-fps="${FIXED_FPS:-30}" --seed="${SEED:-1}" "${SCRIPT_ARG[@]}" "$@")
 # ENGINE_ENV="NAME=value NAME2=value2": environment variables for the engine process
 ENV_ARG=()
 for pair in $ENGINE_ENV; do ENV_ARG+=(--env "$pair"); done
