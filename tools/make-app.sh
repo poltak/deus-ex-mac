@@ -22,6 +22,20 @@ cp "$W/packaging/DeusEx.sh" "$APP/Contents/MacOS/DeusEx"
 chmod +x "$APP/Contents/MacOS/DeusEx" "$APP/Contents/MacOS/SurrealEngine"
 sed "s/VERSION/$VERSION/g" "$W/packaging/Info.plist" > "$APP/Contents/Info.plist"
 
+# The app icon is the icon of the engine. The game has its own logo, which is not ours to put in the app.
+ICONSET="$(mktemp -d "${TMPDIR:-/tmp}/dx-icon.XXXXXX")/AppIcon.iconset"
+mkdir -p "$ICONSET"
+RES="$W/SurrealEngine/Resources"
+cp "$RES/surreal-engine-icon-16.png" "$ICONSET/icon_16x16.png"
+cp "$RES/surreal-engine-icon-32.png" "$ICONSET/icon_16x16@2x.png"
+cp "$RES/surreal-engine-icon-32.png" "$ICONSET/icon_32x32.png"
+cp "$RES/surreal-engine-icon-64.png" "$ICONSET/icon_32x32@2x.png"
+cp "$RES/surreal-engine-icon-128.png" "$ICONSET/icon_128x128.png"
+cp "$RES/surreal-engine-icon-256.png" "$ICONSET/icon_128x128@2x.png"
+cp "$RES/surreal-engine-icon-256.png" "$ICONSET/icon_256x256.png"
+iconutil -c icns "$ICONSET" -o "$APP/Contents/Resources/AppIcon.icns" 2>/dev/null || echo "note: the app icon was not made (iconutil failed)"
+rm -rf "$(dirname "$ICONSET")"
+
 # The engine must find its libraries in the app only, not in the build folder of this computer
 BIN="$APP/Contents/MacOS/SurrealEngine"
 otool -l "$BIN" | awk '/LC_RPATH/ {getline; getline; sub(/^ *path /, ""); sub(/ \(offset [0-9]+\)$/, ""); print}' | while IFS= read -r rpath; do
