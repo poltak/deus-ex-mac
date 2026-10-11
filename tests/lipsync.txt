@@ -1,0 +1,44 @@
+# Liberty Island (start with --url=01_NYC_UNATCOIsland): walk to Paul. While Paul and the player speak, list the blend
+# animation slots of both. Slot 0 has the mouth shape and slot 1 has the eye blink. A frame number below zero is a tween.
+1.0  keydown w
+9.0  keyup w
+29.00 dump PaulDenton 100000 BlendAnimSequence,BlendAnimFrame,BlendTweenRate,BlendAnimRate,BlendAnimLast
+29.10 dump PaulDenton 100000 BlendAnimSequence,BlendAnimFrame,BlendTweenRate,BlendAnimRate,BlendAnimLast
+29.20 dump PaulDenton 100000 BlendAnimSequence,BlendAnimFrame,BlendTweenRate,BlendAnimRate,BlendAnimLast
+29.30 dump PaulDenton 100000 BlendAnimSequence,BlendAnimFrame,BlendTweenRate,BlendAnimRate,BlendAnimLast
+29.40 dump PaulDenton 100000 BlendAnimSequence,BlendAnimFrame,BlendTweenRate,BlendAnimRate,BlendAnimLast
+29.50 dump PaulDenton 100000 BlendAnimSequence,BlendAnimFrame,BlendTweenRate,BlendAnimRate,BlendAnimLast
+29.60 dump PaulDenton 100000 BlendAnimSequence,BlendAnimFrame,BlendTweenRate,BlendAnimRate,BlendAnimLast
+29.70 dump PaulDenton 100000 BlendAnimSequence,BlendAnimFrame,BlendTweenRate,BlendAnimRate,BlendAnimLast
+29.80 dump PaulDenton 100000 BlendAnimSequence,BlendAnimFrame,BlendTweenRate,BlendAnimRate,BlendAnimLast
+29.90 dump PaulDenton 100000 BlendAnimSequence,BlendAnimFrame,BlendTweenRate,BlendAnimRate,BlendAnimLast
+30.00 dump PaulDenton 100000 BlendAnimSequence,BlendAnimFrame,BlendTweenRate,BlendAnimRate,BlendAnimLast
+30.10 dump PaulDenton 100000 BlendAnimSequence,BlendAnimFrame,BlendTweenRate,BlendAnimRate,BlendAnimLast
+30.20 dump PaulDenton 100000 BlendAnimSequence,BlendAnimFrame,BlendTweenRate,BlendAnimRate,BlendAnimLast
+30.30 dump PaulDenton 100000 BlendAnimSequence,BlendAnimFrame,BlendTweenRate,BlendAnimRate,BlendAnimLast
+30.40 dump PaulDenton 100000 BlendAnimSequence,BlendAnimFrame,BlendTweenRate,BlendAnimRate,BlendAnimLast
+30.50 dump PaulDenton 100000 BlendAnimSequence,BlendAnimFrame,BlendTweenRate,BlendAnimRate,BlendAnimLast
+30.60 dump PaulDenton 100000 BlendAnimSequence,BlendAnimFrame,BlendTweenRate,BlendAnimRate,BlendAnimLast
+30.70 dump PaulDenton 100000 BlendAnimSequence,BlendAnimFrame,BlendTweenRate,BlendAnimRate,BlendAnimLast
+30.80 dump PaulDenton 100000 BlendAnimSequence,BlendAnimFrame,BlendTweenRate,BlendAnimRate,BlendAnimLast
+30.90 dump PaulDenton 100000 BlendAnimSequence,BlendAnimFrame,BlendTweenRate,BlendAnimRate,BlendAnimLast
+31.00 dump PaulDenton 100000 BlendAnimSequence,BlendAnimFrame,BlendTweenRate,BlendAnimRate,BlendAnimLast
+31.10 dump PaulDenton 100000 BlendAnimSequence,BlendAnimFrame,BlendTweenRate,BlendAnimRate,BlendAnimLast
+31.20 dump PaulDenton 100000 BlendAnimSequence,BlendAnimFrame,BlendTweenRate,BlendAnimRate,BlendAnimLast
+31.30 dump PaulDenton 100000 BlendAnimSequence,BlendAnimFrame,BlendTweenRate,BlendAnimRate,BlendAnimLast
+31.40 dump PaulDenton 100000 BlendAnimSequence,BlendAnimFrame,BlendTweenRate,BlendAnimRate,BlendAnimLast
+31.50 dump PaulDenton 100000 BlendAnimSequence,BlendAnimFrame,BlendTweenRate,BlendAnimRate,BlendAnimLast
+31.60 dump PaulDenton 100000 BlendAnimSequence,BlendAnimFrame,BlendTweenRate,BlendAnimRate,BlendAnimLast
+31.70 dump PaulDenton 100000 BlendAnimSequence,BlendAnimFrame,BlendTweenRate,BlendAnimRate,BlendAnimLast
+31.80 dump PaulDenton 100000 BlendAnimSequence,BlendAnimFrame,BlendTweenRate,BlendAnimRate,BlendAnimLast
+31.90 dump PaulDenton 100000 BlendAnimSequence,BlendAnimFrame,BlendTweenRate,BlendAnimRate,BlendAnimLast
+32.00 dump PaulDenton 100000 BlendAnimSequence,BlendAnimFrame,BlendTweenRate,BlendAnimRate,BlendAnimLast
+32.10 dump PaulDenton 100000 BlendAnimSequence,BlendAnimFrame,BlendTweenRate,BlendAnimRate,BlendAnimLast
+32.20 dump PaulDenton 100000 BlendAnimSequence,BlendAnimFrame,BlendTweenRate,BlendAnimRate,BlendAnimLast
+32.30 dump PaulDenton 100000 BlendAnimSequence,BlendAnimFrame,BlendTweenRate,BlendAnimRate,BlendAnimLast
+32.40 dump PaulDenton 100000 BlendAnimSequence,BlendAnimFrame,BlendTweenRate,BlendAnimRate,BlendAnimLast
+32.50 dump PaulDenton 100000 BlendAnimSequence,BlendAnimFrame,BlendTweenRate,BlendAnimRate,BlendAnimLast
+32.60 dump PaulDenton 100000 BlendAnimSequence,BlendAnimFrame,BlendTweenRate,BlendAnimRate,BlendAnimLast
+32.70 dump PaulDenton 100000 BlendAnimSequence,BlendAnimFrame,BlendTweenRate,BlendAnimRate,BlendAnimLast
+32.80 dump PaulDenton 100000 BlendAnimSequence,BlendAnimFrame,BlendTweenRate,BlendAnimRate,BlendAnimLast
+32.90 dump PaulDenton 100000 BlendAnimSequence,BlendAnimFrame,BlendTweenRate,BlendAnimRate,BlendAnimLast

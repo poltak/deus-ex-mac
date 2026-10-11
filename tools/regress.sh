@@ -12,7 +12,8 @@ run() {
   local none; none=$(grep -a -c "Accessed None" "$log")
   local errors; errors=$(grep -a -c -i "script error\|FATAL\|Unknown native function" "$log")
   local perf; perf=$(grep -a "perf totals" "$log" | tail -1 | sed 's/.*perf totals //')
-  echo "$name: $ended, accessed none $none, errors $errors${perf:+, $perf}"
+  local inv; inv=$(grep -a "Harness: inv count" "$log" | tail -1 | sed 's/.*Harness: inv //')
+  echo "$name: $ended, accessed none $none, errors $errors${perf:+, $perf}${inv:+, last inventory: $inv}"
   [ "$ended" = "run ended correctly" ] && [ "$errors" = 0 ] || FAILED=1
 }
 run newgame 34
@@ -25,4 +26,5 @@ run load-cold 20
 run ai-wander 30
 run particles 12 --url=01_NYC_UNATCOIsland
 run perf-m01 26 --url=01_NYC_UNATCOIsland
+run m01-paul-choice 125 --url=01_NYC_UNATCOIsland
 exit $FAILED

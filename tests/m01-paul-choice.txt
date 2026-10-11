@@ -1,4 +1,5 @@
-# Liberty Island: first conversation with Paul, take the GEP gun, then open the inventory
+# Liberty Island (start with --url=01_NYC_UNATCOIsland): first conversation with Paul, take the GEP gun, then open the inventory.
+# The inventory list after the conversation must have the weapon that Paul gives.
 1.0  keydown w
 9.0  keyup w
 80.0 move 0.34 0.853
@@ -9,5 +10,6 @@
 100.0 shot later-2
 110.0 shot later-3
 120.0 shot later-4
+120.5 inv
 121.0 key f1
 123.0 shot inventory
