@@ -1,0 +1,18 @@
+# Liberty Island: open the comm van door with the keypad code 0451, then open a door by hand
+1.0  teleportto Keypad0 50
+1.8  dump DeusExMover 200 KeyNum,bLocked
+2.0  rclick 0.5 0.5
+3.0  shot 1-keypad
+3.2  key 0
+3.7  key 4
+4.2  key 5
+4.7  key 1
+5.5  shot 2-keypad-typed
+7.5  shot 3-after-code
+7.6  dump DeusExMover 200 KeyNum,bLocked
+9.0  teleportto DeusExMover9 110
+9.8  shot 4-door-before
+9.9  dump DeusExMover 250 KeyNum,bLocked
+10.0 rclick 0.5 0.5
+12.5 shot 5-door-after
+12.6 dump DeusExMover 250 KeyNum,bLocked

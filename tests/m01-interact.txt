@@ -1,0 +1,29 @@
+# New game, then try each kind of interaction on Liberty Island: pick up, datacube, keypad, computer, door
+3.0  key esc
+4.5  click 0.511 0.169
+6.5  click 0.50 0.425
+8.5  click 0.742 0.9375
+14.0 key esc
+18.0 teleportto WeaponCrowbar2 60
+18.8 shot 1-crowbar-before
+19.0 rclick 0.5 0.5
+20.0 shot 1-crowbar-after
+21.0 teleportto DataCube0 50
+21.8 shot 2-datacube-before
+22.0 rclick 0.5 0.5
+23.5 shot 2-datacube-after
+24.0 teleportto DataCube5 50
+24.8 shot 2b-datacube-before
+25.0 rclick 0.5 0.5
+26.5 shot 2b-datacube-after
+27.0 teleportto Keypad0 50
+27.8 shot 3-keypad-before
+28.0 rclick 0.5 0.5
+29.5 shot 3-keypad-after
+30.0 key esc
+31.0 teleportto DeusExMover16 100
+31.5 dump DeusExMover 300
+31.8 shot 5-door-before
+32.0 rclick 0.5 0.5
+35.0 shot 5-door-after
+35.1 dump DeusExMover 300

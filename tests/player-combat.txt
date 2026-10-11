@@ -1,0 +1,29 @@
+# New game, skip the intro, then go to an NSF guard and shoot him with the pistol
+3.0  key esc
+4.5  click 0.511 0.169
+6.5  click 0.50 0.425
+8.5  click 0.742 0.9375
+14.0 key esc
+18.0 teleport 700 4900 -60 27853
+18.5 key 1
+19.5 shot weapon-out
+20.0 dump Terrorist 900
+24.0 shot before-fire
+30.0 dump Terrorist 900
+30.1 shot guard-near
+30.5 keydown lmb
+31.0 keyup lmb
+31.5 keydown lmb
+32.0 keyup lmb
+32.5 keydown lmb
+33.0 keyup lmb
+33.5 keydown lmb
+34.0 keyup lmb
+34.5 keydown lmb
+35.0 keyup lmb
+35.5 keydown lmb
+36.0 keyup lmb
+36.2 shot after-fire
+36.3 dump Terrorist 900
+36.4 dump DeusExPlayer
+36.5 dump DeusExWeapon 100

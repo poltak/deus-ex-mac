@@ -3,14 +3,17 @@
 # Starts Deus Ex in the local SurrealEngine build with the test harness, then prints a summary.
 # The game advances 1/FIXED_FPS seconds per frame (default 30) with a fixed random seed, so a run repeats exactly
 # and runs faster than real time. <seconds> and the script times are game time.
-# Environment: FIXED_FPS=<n>, SEED=<n>, WINSIZE=<W>x<H>, FOREGROUND=1 (start in front, default is background), SCRIPT=<input script file>, SHOT_INTERVAL=<seconds, 0 = off>, SHOT_FIRST=<seconds>, LOG_HEAD=<lines>
+# A test run makes no sound. Set MUTE=0 to hear it.
+# Environment: MUTE=0, FIXED_FPS=<n>, SEED=<n>, WINSIZE=<W>x<H>, FOREGROUND=1 (start in front, default is background), SCRIPT=<input script file>, SHOT_INTERVAL=<seconds, 0 = off>, SHOT_FIRST=<seconds>, LOG_HEAD=<lines>
 W="$(cd "$(dirname "$0")/.." && pwd)"
 NAME="$1"; SECS="$2"; shift 2
 R="$W/runs/$NAME"; rm -rf "$R"; mkdir -p "$R"
 B="$W/SurrealEngine/build/SurrealEngine.app/Contents/MacOS/SurrealEngine"
 SCRIPT_ARG=()
 [ -n "$SCRIPT" ] && SCRIPT_ARG=(--script="$SCRIPT")
-ARGS=(--nolauncher --nograb --logfile="$R/log.txt" --shots="$R" --shot-interval="${SHOT_INTERVAL:-5}" --shot-first="${SHOT_FIRST:-3}" --exit-after="$SECS" --winsize="${WINSIZE:-1280x960}" --fixed-fps="${FIXED_FPS:-30}" --seed="${SEED:-1}" "${SCRIPT_ARG[@]}" "$@" "$W/DeusEx")
+MUTE_ARG=(--mute)
+[ "$MUTE" = 0 ] && MUTE_ARG=()
+ARGS=(--nolauncher --nograb "${MUTE_ARG[@]}" --logfile="$R/log.txt" --shots="$R" --shot-interval="${SHOT_INTERVAL:-5}" --shot-first="${SHOT_FIRST:-3}" --exit-after="$SECS" --winsize="${WINSIZE:-1280x960}" --fixed-fps="${FIXED_FPS:-30}" --seed="${SEED:-1}" "${SCRIPT_ARG[@]}" "$@" "$W/DeusEx")
 if [ -n "$FOREGROUND" ]; then
   "$B" "${ARGS[@]}" > "$R/stdout.txt" 2> "$R/stderr.txt" &
   WAITER=$!
