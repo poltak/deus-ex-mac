@@ -1,0 +1,25 @@
+# New game on Liberty Island. The T key must open the talk line of the console (the bindings of the Deus Ex input class).
+# The I key must open the inventory screen. The key menu of the game changes a binding with "SET InputExt <key> <command>".
+3.0  key esc
+4.5  click 0.511 0.169
+6.5  click 0.50 0.425
+8.5  click 0.742 0.9375
+14.0 key esc
+20.0 exec KEYBINDING T
+20.1 exec KEYBINDING I
+20.5 key t
+21.5 shot 1-talk
+22.0 key esc
+23.0 key i
+24.5 shot 2-inventory
+25.0 key esc
+26.0 exec KEYBINDING H
+26.1 exec SET InputExt H ActivateAugmentation 3
+26.2 exec KEYBINDING H
+26.3 exec SET InputExt H ShowGoalsWindow
+26.4 exec KEYBINDING H
+27.0 key h
+28.5 shot 3-goals-with-h
+29.0 key esc
+29.5 exec SET InputExt H
+29.6 exec KEYBINDING H
