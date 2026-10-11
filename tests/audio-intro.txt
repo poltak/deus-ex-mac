@@ -1,0 +1,5 @@
+# Sound test (use it with tools/audio-test.sh): the title screen, then a new game. The intro has music and speech.
+3.0  key esc
+4.5  click 0.511 0.169
+6.5  click 0.50 0.425
+8.5  click 0.742 0.9375

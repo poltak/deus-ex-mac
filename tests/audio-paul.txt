@@ -1,0 +1,3 @@
+# Sound test (use it with tools/audio-test.sh and --url=01_NYC_UNATCOIsland): walk to Paul. The conversation has speech.
+1.0  keydown w
+9.0  keyup w

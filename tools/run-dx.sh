@@ -5,7 +5,7 @@
 # and runs faster than real time. <seconds> and the script times are game time.
 # A test run makes no sound. Set MUTE=0 to hear it.
 # Environment: MUTE=0, FIXED_FPS=<n>, SEED=<n>, WINSIZE=<W>x<H> (or "none": keep the size that the engine selects), FOREGROUND=1 (start in front, default is background), SCRIPT=<input script file>, SHOT_INTERVAL=<seconds, 0 = off>, SHOT_FIRST=<seconds>, LOG_HEAD=<lines>
-# STATS=0: do not show the frame rate and object counts on the screen.
+# STATS=0: do not show the frame rate and object counts on the screen. WATCHDOG=<seconds>: time limit for a run that hangs.
 # GAME=<game folder> (default DeusEx/), APP=<path of a packaged "Deus Ex.app">: test the packaged app and its start script, not the engine build.
 W="$(cd "$(dirname "$0")/.." && pwd)"
 NAME="$1"; SECS="$2"; shift 2
@@ -21,6 +21,9 @@ STATS_ARG=(--stats)
 WINSIZE_ARG=(--winsize="${WINSIZE:-1280x960}")
 [ "$WINSIZE" = none ] && WINSIZE_ARG=()
 ARGS=(--nograb "${MUTE_ARG[@]}" "${STATS_ARG[@]}" --logfile="$R/log.txt" --shots="$R" --shot-interval="${SHOT_INTERVAL:-5}" --shot-first="${SHOT_FIRST:-3}" --exit-after="$SECS" "${WINSIZE_ARG[@]}" --fixed-fps="${FIXED_FPS:-30}" --seed="${SEED:-1}" "${SCRIPT_ARG[@]}" "$@")
+# ENGINE_ENV="NAME=value NAME2=value2": environment variables for the engine process
+ENV_ARG=()
+for pair in $ENGINE_ENV; do ENV_ARG+=(--env "$pair"); done
 if [ -n "$APP" ]; then
   # The start script of the app adds --direct and the game folder. An error opens the error window of the engine, as it does for a player.
   open -g -n -W --stdout "$R/stdout.txt" --stderr "$R/stderr.txt" --env "DEUSEX_GAME_FOLDER=$GAME" "$APP" --args "${ARGS[@]}" &
@@ -30,7 +33,7 @@ elif [ -n "$FOREGROUND" ]; then
   WAITER=$!
 else
   # -g starts the app in the background, so the test window does not take the keyboard focus from the person at the computer.
-  open -g -n -W --stdout "$R/stdout.txt" --stderr "$R/stderr.txt" "$W/SurrealEngine/build/SurrealEngine.app" --args --nolauncher "${ARGS[@]}" "$GAME" &
+  open -g -n -W --stdout "$R/stdout.txt" --stderr "$R/stderr.txt" "${ENV_ARG[@]}" "$W/SurrealEngine/build/SurrealEngine.app" --args --nolauncher "${ARGS[@]}" "$GAME" &
   WAITER=$!
 fi
 PID=""
@@ -47,7 +50,8 @@ if [ -n "$PID" ] && command -v aerospace >/dev/null 2>&1; then
       sleep 0.25
     done ) &
 fi
-( sleep $((SECS + 120)); [ -n "$PID" ] && kill -9 $PID 2>/dev/null ) 2>/dev/null &
+# A run that hangs gets a kill signal after the game time plus WATCHDOG seconds (default 120) of real time
+( sleep $((SECS + ${WATCHDOG:-120})); [ -n "$PID" ] && kill -9 $PID 2>/dev/null ) 2>/dev/null &
 WD=$!
 wait $WAITER; RC=$?
 { kill $WD; wait $WD; } 2>/dev/null

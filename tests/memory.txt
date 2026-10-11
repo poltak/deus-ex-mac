@@ -1,0 +1,27 @@
+# Liberty Island (start with --url=01_NYC_UNATCOIsland): go to UNATCO HQ and back six times, as the door teleporter does it.
+# The "mem" lines in the log show the memory of the process after each travel. It must not grow without limit.
+3.0 mem
+5.0 travel 01_NYC_UNATCOHQ#Inside_UN_HQ
+11.0 mem
+12.0 travel 01_NYC_UNATCOIsland#tunnel_drop_nyc
+18.0 mem
+19.0 travel 01_NYC_UNATCOHQ#Inside_UN_HQ
+25.0 mem
+26.0 travel 01_NYC_UNATCOIsland#tunnel_drop_nyc
+32.0 mem
+33.0 travel 01_NYC_UNATCOHQ#Inside_UN_HQ
+39.0 mem
+40.0 travel 01_NYC_UNATCOIsland#tunnel_drop_nyc
+46.0 mem
+47.0 travel 01_NYC_UNATCOHQ#Inside_UN_HQ
+53.0 mem
+54.0 travel 01_NYC_UNATCOIsland#tunnel_drop_nyc
+60.0 mem
+61.0 travel 01_NYC_UNATCOHQ#Inside_UN_HQ
+67.0 mem
+68.0 travel 01_NYC_UNATCOIsland#tunnel_drop_nyc
+74.0 mem
+75.0 travel 01_NYC_UNATCOHQ#Inside_UN_HQ
+81.0 mem
+82.0 travel 01_NYC_UNATCOIsland#tunnel_drop_nyc
+88.0 mem
