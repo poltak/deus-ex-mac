@@ -1,0 +1,13 @@
+# The log of the test must have a line for each of these patterns (grep -E). A line with "!" at the start is a
+# pattern that the log must not have.
+# The exit dialog is open over the main menu.
+\[6\.00\].* MenuUIMessageBoxWindow 
+# The click on the New Game button of the menu below the dialog opens no screen.
+\[8\.00\].* MenuUIMessageBoxWindow 
+!MenuSelectDifficulty
+# After the answer No, the dialog is gone, and the Exit button of the main menu has the focus again.
+!\[9\.50\].* MenuUIMessageBoxWindow 
+\[9\.50\].* MenuUIMenuButtonWindow x=7 y=359 w=245 h=27 selectable focus
+# The Escape key then closes the main menu.
+\[11\.00\].* DeusExRootWindow 
+!\[11\.00\].* MenuMain 

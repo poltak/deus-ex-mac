@@ -7,6 +7,7 @@
 # The tests of a chain use one folder, because a later test of the chain needs the saved games of the tests before it.
 # The totals of script calls are the same in each run. A difference shows a change of behavior.
 # A test can have a file tests/<test>.expect. Each line of it is a pattern (grep -E) that the log must have.
+# A line that starts with "!" is a pattern that the log must not have.
 # With test names as arguments, the script runs only these tests: tools/regress.sh computer-email keys
 W="$(cd "$(dirname "$0")/.." && pwd)"
 SRC="${GAME:-$W/DeusEx}"
@@ -31,10 +32,18 @@ run_one() {
     while IFS= read -r pattern; do
       case "$pattern" in ""|"#"*) continue ;; esac
       total=$((total + 1))
-      if ! grep -a -q -E -- "$pattern" "$log"; then
-        missing=$((missing + 1))
-        echo "$name: the log has no line for the pattern: $pattern"
-      fi
+      case "$pattern" in
+        "!"*)
+          if grep -a -q -E -- "${pattern#!}" "$log"; then
+            missing=$((missing + 1))
+            echo "$name: the log has a line for a pattern that it must not have: ${pattern#!}"
+          fi ;;
+        *)
+          if ! grep -a -q -E -- "$pattern" "$log"; then
+            missing=$((missing + 1))
+            echo "$name: the log has no line for the pattern: $pattern"
+          fi ;;
+      esac
     done < "$W/tests/$name.expect"
     checks=", checks $((total - missing)) of $total"
   fi
@@ -88,6 +97,7 @@ run player-death 30 --url=01_NYC_UNATCOIsland
 run computer-email 17 --url=01_NYC_UNATCOHQ
 run menu-scroll 23
 run menu-keyboard 11
+run menu-dialog 12 --url=01_NYC_UNATCOIsland
 run computer-login-keys 13 --url=01_NYC_UNATCOHQ
 run computer-security 22 --url=01_NYC_UNATCOIsland
 run computer-atm 16 --url=01_NYC_UNATCOIsland
