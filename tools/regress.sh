@@ -97,6 +97,7 @@ run player-landing 16 --url=01_NYC_UNATCOIsland
 run player-elevator 12 --url=03_NYC_AirfieldHeliBase
 run map-start 8 --url=01_NYC_UNATCOIsland
 run map-attach 3 --url=00_TrainingCombat
+run actor-stasis 12 --url=01_NYC_UNATCOIsland
 run player-fight 19 --url=01_NYC_UNATCOIsland
 run player-lockpick 19 --url=01_NYC_UNATCOIsland
 run player-multitool 16 --url=01_NYC_UNATCOIsland

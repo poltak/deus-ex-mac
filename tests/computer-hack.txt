@@ -3,7 +3,9 @@
 # tests/computer-hack.expect has the lines that the log must have.
 2.0  exec set DeusExPlayer bCheatsEnabled True
 2.2  exec AllSkills
-3.0  teleportto ComputerSecurity1 60
+# The computer is in stasis until the player comes. Then it plays its shut-down animation, which takes 1.4 seconds,
+# and it does not react to the player before the end of it.
+2.4  teleportto ComputerSecurity1 60
 4.0  rclick 0.5 0.5
 5.5  shot 1-login
 6.0  click 0.7313 0.1958

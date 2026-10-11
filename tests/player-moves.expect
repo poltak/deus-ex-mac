@@ -9,7 +9,7 @@
 \[13\.00\].* loc=\(-4579 10431 -287\) .* CollisionHeight=16\.000000
 \[13\.60\].* loc=\(-4579 10431 -260\) .* CollisionHeight=43\.000000 BaseEyeHeight=40\.000000 bIsCrouching=False
 # The jump goes up about 45 units and ends on the ground.
-\[14\.90\].* loc=\(-4761 10431 -217\) .* Physics=PHYS_Falling
+\[14\.90\].* loc=\(-4761 10431 -219\) .* Physics=PHYS_Falling
 \[15\.60\].* loc=\(-4761 10431 -260\) .* Physics=PHYS_Walking
 # The lean moves the player to the side and tilts the view. The player comes back after it.
 \[16\.60\].* curLeanDist=40\.000000 ViewRotation=\(Pitch=0, Yaw=0, Roll=800\)

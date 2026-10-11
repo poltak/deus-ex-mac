@@ -31,12 +31,13 @@ Scripted tests on an M2 Max show that these parts work:
 - Landings: a person pushes off a player who lands on its head, a burning barrel burns, and a long fall hurts the legs.
 - A fight with the pistol: the HUD counts the rounds of the clip, the guard takes damage, flees and dies, and the search of the body gives its knife and the rounds of its pistol.
 - The start of a map: a body that the map has from the start keeps its things hidden until the player searches it, a gun turret that hangs from a ceiling stays there, and a glass plate with an attach tag has its target as base.
+- Stasis: a thing or a person that the player did not see for 5 seconds, and that is far away or in a room that is not in view, stops until the player comes back. The scripts of the game are written for this rule of the original engine.
 - The music: the calm, combat and conversation parts of a song, the fades between them, and the return to the place where the calm part stopped.
 - The vision augmentation shows people as bright shapes.
 - The animated fire textures of the game: flames, static, laser beams, fountains, lightning.
 - All 88 map files of the game start with no error.
 
-Speed: the main thread needs about 9 ms of processor time for each frame on Liberty Island and on the MJ12 lab in Hong Kong, the two heaviest maps. The mean of all maps is 4.5 ms. A display with 120 Hz shows the game at 120 frames per second on most maps.
+Speed: the main thread needs about 8 ms of processor time for each frame on Liberty Island, the heaviest map, and 6 to 7 ms on the two heaviest maps of Hong Kong. The mean of all maps is 1.9 ms. A display with 120 Hz shows the game at 120 frames per second on most maps.
 
 Sound: a test tool records the sound output to a file. The recordings of the intro and of a conversation have music and speech in each second. In the recording of the conversation, 134 of 4.3 million samples are at full scale, in runs of 4 samples at most. The music changes to the combat and the conversation part of a song at the same song position as with the original sound code.
 

@@ -1,0 +1,18 @@
+# The log of the test must have a line for each of these patterns (grep -E).
+# Far from the player, a soldier that wanders is in stasis and does not move.
+\[3\.00\].* dump UNATCOTroop2 state=Wandering loc=\(-6009 1735 -100\) .* inStasis
+\[6\.00\].* dump UNATCOTroop2 state=Wandering loc=\(-6009 1735 -100\) .* inStasis
+# A security computer in stasis did not run its start code, which turns it off.
+\[3\.20\].* dump ComputerSecurity0 state=Off .* inStasis bOn=True
+# Three medical bots are in stasis. They go away when they become transient.
+\[3\.10\].* dump MedicalBot0 .* inStasis .* bTransient=False
+\[3\.10\].* dump MedicalBot1 .* inStasis .* bTransient=False
+\[3\.10\].* dump MedicalBot3 .* inStasis .* bTransient=False
+!\[6\.50\].* dump MedicalBot[013] 
+# The player is near the soldier now. The soldier is out of stasis, and the computer behind the wall ran its start code.
+\[7\.20\].* dump UNATCOTroop2 .* dist=300 
+!\[7\.20\].* dump UNATCOTroop2 .* inStasis
+!\[11\.00\].* dump UNATCOTroop2 .* inStasis
+\[11\.10\].* dump ComputerSecurity0 state=Off .* bOn=False
+# A computer that is far away stays in stasis.
+\[11\.10\].* dump ComputerSecurity1 state=Off .* inStasis bOn=True

@@ -3,6 +3,8 @@
 \[5\.00\].* inv count=3 WeaponPistol Ammo10mm NanoKeyRing
 \[7\.00\].* text x=74 y=429 "6"
 \[7\.10\].* dump Terrorist3 .* health=75 
+# The first shot starts the fight, and the music goes to the combat section, which is order 3.
+Music: LibertyIsland_Music section 3 starts at order 3
 # Three shots take three rounds. The guard has damage or is dead.
 \[11\.00\].* text x=74 y=429 "3"
 !\[11\.10\].* dump Terrorist3 .* health=75 

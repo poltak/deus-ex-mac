@@ -1,0 +1,18 @@
+# Liberty Island (start with --url=01_NYC_UNATCOIsland): actors in stasis.
+# An actor that can go into stasis does not tick while the player did not see it for 5 seconds and it is far away.
+# A soldier that wanders stays at its place, and a security computer does not run its start code.
+# A transient actor in stasis goes away. When the player comes near, the actors run again.
+# tests/actor-stasis.expect has the lines that the log must have.
+2.0  exec set DeusExPlayer bCheatsEnabled True
+2.2  exec God
+3.0  dump UNATCOTroop 999999 bStasis
+3.1  dump MedicalBot 999999 bTransient
+3.2  dump ComputerSecurity 999999 bOn
+6.0  dump UNATCOTroop 999999 bStasis
+6.2  setprop MedicalBot bTransient True
+6.5  dump MedicalBot 999999 bTransient
+7.0  teleportto UNATCOTroop2 300
+7.2  dump UNATCOTroop 600 bStasis
+11.0 dump UNATCOTroop 600 bStasis
+11.1 dump ComputerSecurity 999999 bOn
+11.5 shot 1-soldier

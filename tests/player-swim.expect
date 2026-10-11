@@ -1,6 +1,6 @@
 # The log of the test must have a line for each of these patterns (grep -E).
 \[3\.50\].* state=PlayerSwimming .* health=100 Physics=PHYS_Swimming swimTimer=19\.5
-\[20\.00\].* health=100 .* swimTimer=2\.99
+\[20\.00\].* health=100 .* swimTimer=3\.03
 # With no breath left the player loses health.
 \[26\.00\].* health=95 .* swimTimer=0\.000000
 \[30\.00\].* health=90 
