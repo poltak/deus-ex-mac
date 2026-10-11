@@ -34,4 +34,5 @@ run keys 31
 run console 12 --url=01_NYC_UNATCOIsland
 run perf-m01 26 --url=01_NYC_UNATCOIsland
 run m01-paul-choice 125 --url=01_NYC_UNATCOIsland
+run menu-settings 28
 exit $FAILED

@@ -1,0 +1,2 @@
+# Second part of tests/window-size-test.sh: the window must open with the last size of the first part (1280x960 pixels).
+2.0 exec getcurrentres

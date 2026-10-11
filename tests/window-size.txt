@@ -1,0 +1,11 @@
+# First part of tests/window-size-test.sh. That script starts this run with no fixed window size, because the
+# harness option --winsize puts its own size back each second.
+# "getres" must list the whole multiples of 640x480 and the size of the window now.
+# Each "getcurrentres" after a "setres" must give the size that was set.
+# The last size must be in the ini of the engine after the run (in points), and the next start must open with it.
+2.0 exec getres
+2.2 exec getcurrentres
+3.0 exec setres 640x480
+4.0 exec getcurrentres
+5.0 exec setres 1280x960
+6.0 exec getcurrentres

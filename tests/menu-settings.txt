@@ -1,0 +1,23 @@
+# Title screen: open the main menu, the settings menu, and each settings screen in turn. Take a picture of each.
+# A settings screen that needs a native function the engine does not have stops the game here.
+3.0  key esc
+4.5  click 0.511 0.388
+6.0  click 0.505 0.258
+7.5  shot 1-keyboard
+8.0  key esc
+9.5  click 0.505 0.333
+11.0 shot 2-controls
+11.5 key esc
+13.0 click 0.505 0.408
+14.5 shot 3-game-options
+15.0 key esc
+16.5 click 0.505 0.485
+18.0 shot 4-display
+18.5 key esc
+20.0 click 0.505 0.558
+21.5 shot 5-colors
+22.0 key esc
+23.5 click 0.505 0.633
+25.0 shot 6-sound
+25.5 key esc
+27.0 shot 7-back
