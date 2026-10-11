@@ -1,0 +1,15 @@
+# The log of the test must have a line for each of these patterns (grep -E).
+# The crossbow of the body is hidden and is not a thing that lies on the floor.
+\[2\.50\].* WeaponMiniCrossbow0 state=Idle2 .* bHidden=True Owner=TerroristCarcass'TerroristCarcass0'
+# The turret is at its place below the ceiling and has its gun.
+\[2\.60\].* AutoTurretSmall0 .* loc=\(1967 -1714 37\) .* Base=None Physics=PHYS_None
+\[2\.70\].* AutoTurretGunSmall0 .* loc=\(1967 -1714 23\) .* Base=AutoTurretSmall'AutoTurretSmall0' Physics=PHYS_Rotating
+# The player looks at the body, and the game shows the body as the thing to use.
+\[3\.80\].* text .* "Dead"
+\[3\.80\].* text .* "Body"
+# The first search gives the crossbow and its darts.
+\[5\.00\].* inv count=3 WeaponMiniCrossbow AmmoDartPoison NanoKeyRing
+\[5\.30\].* TerroristCarcass0 .* Inventory=None
+# The second search lifts the body.
+\[7\.00\].* inv count=4 POVCorpse WeaponMiniCrossbow AmmoDartPoison NanoKeyRing
+!^\[[0-9.]+\] ([^D]|D[^a])[^:]*: Accessed None

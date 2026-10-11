@@ -1,11 +1,13 @@
 # The log of the test must have a line for each of these patterns (grep -E).
 # The player drops onto the head of a soldier. The soldier is an ally, so it gets no stomp damage.
 \[4\.70\].* JCDentonMale0 .* Base=None Physics=PHYS_Falling
-# The script of the soldier pushes the player off, and the player comes to the ground next to it.
-\[7\.00\].* JCDentonMale0 .* loc=\(-4804 10435 -260\) .* Base=LevelInfo'LevelInfo0' Physics=PHYS_Walking
-\[7\.10\].* UNATCOTroop0 .* Health=100
+# The script of the soldier pushes the player off in a random direction, and the player comes to the ground next to it.
+\[7\.00\].* JCDentonMale0 .* loc=\(-4[0-9]+ 10[0-9]+ -260\) .* Base=LevelInfo'LevelInfo0' Physics=PHYS_Walking
+# The map has the soldiers 0 to 9, so the new one is number 10.
+\[7\.10\].* UNATCOTroop10 .* Health=100
 # The player drops onto a burning barrel. The barrel is the base, and its fire takes health.
 \[11\.00\].* JCDentonMale0 .* health=99 Base=BarrelFire'BarrelFire0' Physics=PHYS_Walking
 # A fall of 660 units hurts the legs and the torso.
 \[15\.00\].* JCDentonMale0 .* loc=\(-4761 10431 -260\) .* health=70 Base=LevelInfo'LevelInfo0' HealthLegLeft=0 HealthLegRight=61 HealthTorso=50
-!Accessed None
+# The place where the player lands can start an infolink, and an infolink of the GMDX conversation file gives one warning.
+!^\[[0-9.]+\] ([^D]|D[^a])[^:]*: Accessed None

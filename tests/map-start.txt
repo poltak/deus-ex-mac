@@ -1,0 +1,19 @@
+# Liberty Island (start with --url=01_NYC_UNATCOIsland): the state of things that the map has from the start.
+# A dead guard makes its things when the map starts. The things stay hidden, and the player gets them when the
+# player searches the body. The second search lifts the body.
+# A small gun turret hangs from a ceiling. It must stay there when its gun comes into the map.
+# tests/map-start.expect has the lines that the log must have.
+2.0  exec set DeusExPlayer bCheatsEnabled True
+2.2  exec God
+2.5  dump WeaponMiniCrossbow 999999 bHidden,Owner
+2.6  dump AutoTurretSmall 999999 Base,Physics
+2.7  dump AutoTurretGunSmall 999999 Base,Physics
+3.0  teleportto TerroristCarcass0 60
+3.6  shot 1-body
+3.8  texts
+4.0  rclick 0.5 0.5
+5.0  inv
+5.3  dump DeusExCarcass 200 Inventory
+6.0  rclick 0.5 0.5
+7.0  inv
+7.5  shot 2-lifted

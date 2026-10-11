@@ -6,7 +6,7 @@ The game does not get a new binary port. The engine is a fork of [SurrealEngine]
 
 This repository has no game data. You need your own copy of Deus Ex.
 
-## State on 2026-10-11
+## State on 2026-10-12
 
 Scripted tests on an M2 Max show that these parts work:
 
@@ -29,6 +29,8 @@ Scripted tests on an M2 Max show that these parts work:
 - Swimming, the breath timer and drowning. The death of the player, with the camera sequence and the return to the title screen.
 - Ladders: the player climbs up with a level view and down with the view down, holds on with no key down, and gets on a ladder that starts above the floor with a jump.
 - Landings: a person pushes off a player who lands on its head, a burning barrel burns, and a long fall hurts the legs.
+- A fight with the pistol: the HUD counts the rounds of the clip, the guard takes damage, flees and dies, and the search of the body gives its knife and the rounds of its pistol.
+- The start of a map: a body that the map has from the start keeps its things hidden until the player searches it, a gun turret that hangs from a ceiling stays there, and a glass plate with an attach tag has its target as base.
 - The music: the calm, combat and conversation parts of a song, the fades between them, and the return to the place where the calm part stopped.
 - The vision augmentation shows people as bright shapes.
 - The animated fire textures of the game: flames, static, laser beams, fountains, lightning.

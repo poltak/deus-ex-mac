@@ -1,0 +1,4 @@
+# Combat training (start with --url=00_TrainingCombat): the glass plates of the moving targets have an attach tag.
+# Each plate must get the target mover with that tag as its base, so that it moves with the target.
+# tests/map-attach.expect has the lines that the log must have.
+2.0  dump BreakableGlass 999999 AttachTag,Base

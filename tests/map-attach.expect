@@ -1,0 +1,5 @@
+# The log of the test must have a line for each of these patterns (grep -E).
+\[2\.00\].* dump BreakableGlass0 .* AttachTag=guntarget1 Base=DeusExMover'DeusExMover4'
+\[2\.00\].* dump BreakableGlass1 .* AttachTag=guntarget2 Base=DeusExMover'DeusExMover5'
+\[2\.00\].* dump BreakableGlass2 .* AttachTag=rifletarget1 Base=DeusExMover'DeusExMover32'
+\[2\.00\].* dump BreakableGlass3 .* AttachTag=rifletarget2 Base=DeusExMover'DeusExMover33'

@@ -1,0 +1,46 @@
+# Liberty Island (start with --url=01_NYC_UNATCOIsland): a fight with the pistol. The player shoots a guard with
+# the six rounds of the clip, the guard dies, and the player takes the things of the body.
+# The HUD must show the rounds in the clip before the shots, after three shots and after six shots.
+# tests/player-fight.expect has the lines that the log must have.
+2.0  exec set DeusExPlayer bCheatsEnabled True
+2.2  exec God
+3.0  teleport -4761 10431 -250 0
+3.2  exec Summon WeaponPistol
+4.0  teleportto WeaponPistol 50
+4.6  rclick 0.5 0.5
+5.0  inv
+5.3  teleportto Terrorist3 150
+5.5  key 1
+7.0  texts
+7.1  dump Terrorist 400 Health
+7.2  teleportto Terrorist3 120
+7.3  keydown lmb
+7.45 keyup lmb
+8.4  teleportto Terrorist3 120
+8.5  keydown lmb
+8.65 keyup lmb
+9.6  teleportto Terrorist3 120
+9.7  keydown lmb
+9.85 keyup lmb
+11.0 texts
+11.1 dump Terrorist 999999 Health
+11.2 teleportto Terrorist3 120
+11.3 keydown lmb
+11.45 keyup lmb
+12.4 teleportto Terrorist3 120
+12.5 keydown lmb
+12.65 keyup lmb
+13.6 teleportto Terrorist3 120
+13.7 keydown lmb
+13.85 keyup lmb
+14.6 shot 1-after-shots
+15.0 texts
+15.1 dump Terrorist 999999 Health
+15.2 dump TerroristCarcass 999999 Inventory
+15.3 dump Ammo10mm 999999 AmmoAmount,Owner
+15.5 teleportto TerroristCarcass 60
+16.0 rclick 0.5 0.5
+17.0 inv
+17.2 dump TerroristCarcass 200 Inventory
+17.3 dump Ammo10mm 999999 AmmoAmount,Owner
+17.5 shot 2-after-search

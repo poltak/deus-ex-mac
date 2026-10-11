@@ -1,0 +1,19 @@
+# The log of the test must have a line for each of these patterns (grep -E).
+# The pistol comes with a full clip of 6 rounds, and the HUD shows them.
+\[5\.00\].* inv count=3 WeaponPistol Ammo10mm NanoKeyRing
+\[7\.00\].* text x=74 y=429 "6"
+\[7\.10\].* dump Terrorist3 .* health=75 
+# Three shots take three rounds. The guard has damage or is dead.
+\[11\.00\].* text x=74 y=429 "3"
+!\[11\.10\].* dump Terrorist3 .* health=75 
+# After six shots the clip is empty and the guard is dead: the list of all guards has no line for it.
+\[15\.00\].* text x=74 y=429 "0"
+!\[15\.10\].* dump Terrorist3 
+# The map has the body TerroristCarcass0, so the body of the guard gets the next number. It has the pistol of the guard.
+\[15\.20\].* dump TerroristCarcass1 state=Dead .* Inventory=WeaponPistol'WeaponPistol[0-9]+'
+\[15\.30\].* dump Ammo10mm[0-9]+ .* AmmoAmount=0 Owner=JCDentonMale'JCDentonMale0'
+# The search gives the knife of the guard, and the rounds of its pistol go to the player.
+\[17\.00\].* inv count=5 WeaponCombatKnife AmmoNone WeaponPistol Ammo10mm NanoKeyRing
+\[17\.20\].* dump TerroristCarcass1 .* Inventory=None
+\[17\.30\].* dump Ammo10mm[0-9]+ .* AmmoAmount=[1-9][0-9]* Owner=JCDentonMale'JCDentonMale0'
+!^\[[0-9.]+\] ([^D]|D[^a])[^:]*: Accessed None
