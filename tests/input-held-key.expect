@@ -1,0 +1,9 @@
+# The log of the test must have a line for each of these patterns (grep -E).
+# The player walks while the key is down, and the inventory opens.
+\[3\.60\].* JCDentonMale0 .* loc=\(-4660 10431 -260\)
+\[4\.50\].* PersonaScreenInventory 
+# After the inventory closes, the player stops and stays at the same place.
+\[6\.50\].* JCDentonMale0 state=PlayerWalking loc=\(-4592 10431 -260\)
+\[10\.50\].* JCDentonMale0 state=PlayerWalking loc=\(-4592 10431 -260\)
+# A key down event that repeats does not toggle the walk mode a second time.
+\[11\.40\].* JCDentonMale0 .* bToggleWalk=True

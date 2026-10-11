@@ -1,0 +1,12 @@
+# The log of the test must have a line for each of these patterns (grep -E).
+# No cursor while a person speaks.
+\[60\.00\].* Harness: cursor hidden
+# The cursor shows on the answers.
+\[80\.60\].* Harness: cursor DeusExCursor1 .* window=ConChoiceWindow
+# No cursor after the answer.
+\[84\.10\].* Harness: cursor hidden
+# The player has the weapon that Paul gives.
+\[120\.50\].* inv count=4 Image01_LibertyIsland WeaponGEPGun AmmoRocket NanoKeyRing
+# After the conversation, the inventory screen opens and the cursor shows again.
+\[128\.10\].* Harness: cursor DeusExCursor
+\[128\.20\].* PersonaScreenInventory 

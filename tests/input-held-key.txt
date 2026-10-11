@@ -1,0 +1,17 @@
+# Liberty Island (start with --url=01_NYC_UNATCOIsland): the player holds the walk key, opens the inventory, lets go of
+# the key and closes the inventory. The player must then stand still.
+# Then the system repeats a held key (0x14 is Caps Lock, the walk toggle). The command of the key must run one time.
+# tests/input-held-key.expect has the lines that the log must have.
+2.0  teleport -4761 10431 -250 0
+3.1  keydown w
+3.6  dump DeusExPlayer
+3.7  key f1
+4.5  windows
+4.6  keyup w
+5.5  key esc
+6.5  dump DeusExPlayer
+10.5 dump DeusExPlayer
+11.0 keydown 0x14
+11.2 keydown 0x14
+11.4 dump DeusExPlayer 0 bToggleWalk
+11.5 keyup 0x14

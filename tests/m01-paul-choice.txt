@@ -1,15 +1,22 @@
 # Liberty Island (start with --url=01_NYC_UNATCOIsland): first conversation with Paul, take the GEP gun, then open the inventory.
 # The inventory list after the conversation must have the weapon that Paul gives.
+# The mouse cursor shows only while the player selects an answer, and again on the inventory screen.
+# tests/m01-paul-choice.expect has the lines that the log must have.
 1.0  keydown w
 9.0  keyup w
+60.0 cursor
 80.0 move 0.34 0.853
 80.5 shot choice-hover
+80.6 cursor
 81.0 click 0.34 0.853
 84.0 shot after-choice
+84.1 cursor
 92.0 shot later-1
 100.0 shot later-2
 110.0 shot later-3
 120.0 shot later-4
 120.5 inv
-121.0 key f1
-123.0 shot inventory
+126.0 key f1
+128.0 shot inventory
+128.1 cursor
+128.2 windows

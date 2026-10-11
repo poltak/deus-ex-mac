@@ -66,14 +66,16 @@ chain "save-load 40" "travel 60" "menu-save 34" "menu-load 40" "load-cold 20"
 run ai-wander 30
 run particles 12 --url=01_NYC_UNATCOIsland
 run keys 31
+run input-held-key 13 --url=01_NYC_UNATCOIsland
 run console 12 --url=01_NYC_UNATCOIsland
 run perf-m01 26 --url=01_NYC_UNATCOIsland
-run m01-paul-choice 125 --url=01_NYC_UNATCOIsland
+run m01-paul-choice 130 --url=01_NYC_UNATCOIsland
 run menu-settings 28
 run aug-vision 11 --url=01_NYC_UNATCOIsland
 run persona-screens 27 --url=01_NYC_UNATCOIsland
 run player-health 27
 run persona-skill-upgrade 12 --url=01_NYC_UNATCOIsland
+run persona-inventory 16 --url=01_NYC_UNATCOIsland
 run player-medbot 11 --url=01_NYC_UNATCOHQ
 run player-repairbot 11 --url=01_NYC_UNATCOHQ
 run player-aug-install 16 --url=01_NYC_UNATCOHQ

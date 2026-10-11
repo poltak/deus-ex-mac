@@ -1,0 +1,11 @@
+# The log of the test must have a line for each of these patterns (grep -E).
+\[8\.50\].* inv count=6 WeaponCrowbar AmmoNone MedKit WeaponPistol Ammo10mm NanoKeyRing
+# A click selects the medkit: its button is at the second place of the grid, and the info window has its name.
+\[12\.00\].* PersonaInventoryItemButton x=53 y=0 w=54 h=54
+\[12\.00\].* PersonaHeaderTextWindow .* text="Medkit"
+\[12\.10\].* Harness: cursor DeusExCursor2 hot=32,32 .* shadow=DeusExCursor2_Shadow
+# During the drag, the picture of the item is the cursor.
+\[13\.40\].* Harness: cursor LargeIconMedKit .* shadow=none
+# After the drop, the button is two rows lower, and the arrow is the cursor again.
+\[14\.20\].* PersonaInventoryItemButton x=53 y=106 w=54 h=54
+\[14\.30\].* Harness: cursor DeusExCursor2 

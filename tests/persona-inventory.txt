@@ -1,0 +1,31 @@
+# Liberty Island (start with --url=01_NYC_UNATCOIsland): the inventory screen. Select an item, then drag it to a
+# different place of the grid. The item shows as the mouse cursor during the drag.
+# tests/persona-inventory.expect has the lines that the log must have.
+2.0  exec set DeusExPlayer bCheatsEnabled True
+3.0  teleport -4761 10431 -250 0
+3.2  exec Summon WeaponPistol
+4.0  teleportto WeaponPistol 50
+4.6  rclick 0.5 0.5
+5.0  exec Summon MedKit
+5.6  teleportto MedKit 50
+6.2  rclick 0.5 0.5
+6.6  exec Summon WeaponCrowbar
+7.2  teleportto WeaponCrowbar 50
+7.8  rclick 0.5 0.5
+8.5  inv
+9.0  exec ShowInventoryWindow
+10.5 shot 1-inventory
+11.0 click 0.1906 0.1854
+11.8 shot 2-medkit-selected
+12.0 windows
+12.1 cursor
+12.5 mousedown 0.1906 0.1854
+12.7 move 0.1906 0.25
+12.9 move 0.1906 0.33
+13.1 move 0.1906 0.4063
+13.3 shot 3-dragging
+13.4 cursor
+13.5 mouseup 0.1906 0.4063
+14.0 shot 4-dropped-in-grid
+14.2 windows
+14.3 cursor
