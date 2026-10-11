@@ -1,0 +1,7 @@
+# The log of the test must have a line for each of these patterns (grep -E).
+\[2\.60\].* Energy=20\.000000
+\[5\.70\].* HUDRechargeWindow 
+\[5\.70\].* text="20%"
+\[5\.70\].* text="Ready!"
+\[7\.70\].* text="95%"
+\[7\.90\].* Energy=95\.000000

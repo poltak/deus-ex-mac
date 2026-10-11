@@ -1,0 +1,6 @@
+# The log of the test must have a line for each of these patterns (grep -E).
+\[2\.60\].* HealthArmLeft=60 HealthLegLeft=70
+\[5\.70\].* HUDMedBotHealthScreen 
+\[5\.70\].* text="Ready!"
+\[7\.70\].* text="Recharging: 58 seconds"
+\[7\.90\].* HealthArmLeft=100 HealthLegLeft=100
