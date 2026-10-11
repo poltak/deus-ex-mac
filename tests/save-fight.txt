@@ -1,0 +1,57 @@
+# Liberty Island (start with --url=01_NYC_UNATCOIsland): a quick save and a load after a fight.
+# The player kills a guard as in the test player-fight and makes a quick save. Then the player searches the body and
+# loads the saved game. After the load the player has the things from before the search, the guard is dead, its
+# body has its things again, and the body that the map has from the start still has its hidden crossbow.
+# "LoadGame -1" is the confirmed form of QuickLoad. The log times after the load go on from the time of the save.
+# tests/save-fight.expect has the lines that the log must have.
+2.0  exec set DeusExPlayer bCheatsEnabled True
+2.2  exec God
+3.0  teleport -4761 10431 -250 0
+3.2  exec Summon WeaponPistol
+4.0  teleportto WeaponPistol 50
+4.6  rclick 0.5 0.5
+5.0  inv
+5.3  teleportto Terrorist3 150
+5.5  key 1
+7.0  texts
+7.1  dump Terrorist 400 Health
+7.2  teleportto Terrorist3 120
+7.3  keydown lmb
+7.45 keyup lmb
+8.4  teleportto Terrorist3 120
+8.5  keydown lmb
+8.65 keyup lmb
+9.6  teleportto Terrorist3 120
+9.7  keydown lmb
+9.85 keyup lmb
+11.0 texts
+11.1 dump Terrorist 999999 Health
+11.2 teleportto Terrorist3 120
+11.3 keydown lmb
+11.45 keyup lmb
+12.4 teleportto Terrorist3 120
+12.5 keydown lmb
+12.65 keyup lmb
+13.6 teleportto Terrorist3 120
+13.7 keydown lmb
+13.85 keyup lmb
+14.6 shot 1-after-shots
+15.0 texts
+15.1 dump Terrorist 999999 Health
+15.2 dump TerroristCarcass 999999 Inventory
+15.3 dump Ammo10mm 999999 AmmoAmount,Owner
+16.0 exec QuickSave
+18.0 teleportto TerroristCarcass 60
+18.6 rclick 0.5 0.5
+19.5 inv
+19.6 dump TerroristCarcass 999999 Inventory
+20.0 exec LoadGame -1
+26.0 inv
+26.1 dump TerroristCarcass 999999 Inventory
+26.2 dump Terrorist 999999 Health
+26.3 dump WeaponMiniCrossbow 999999 bHidden,Owner
+26.5 teleportto TerroristCarcass 60
+27.1 rclick 0.5 0.5
+28.0 inv
+28.1 dump TerroristCarcass 999999 Inventory
+28.5 shot 1-after-load

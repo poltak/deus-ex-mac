@@ -1,0 +1,18 @@
+# The log of the test must have a line for each of these patterns (grep -E).
+# Before the save: the guard is dead, and its body has the next free name and the pistol of the guard.
+\[15\.20\].* dump TerroristCarcass1 state=Dead .* Inventory=WeaponPistol'WeaponPistol[0-9]+'
+\[16\.00\].* Deus Ex save: saved the game to QuickSave
+# The search after the save gives the knife and empties the body.
+\[19\.50\].* inv count=5 WeaponCombatKnife AmmoNone WeaponPistol Ammo10mm NanoKeyRing
+\[19\.60\].* dump TerroristCarcass1 .* Inventory=None
+# The load gives the state of the save: three things, two bodies with their things, the hidden crossbow, no guard.
+\[20\.00\].* Deus Ex load: QuickSave, map 01_NYC_UNATCOIsland
+\[22\.00\].* inv count=3 WeaponPistol Ammo10mm NanoKeyRing
+\[22\.10\].* dump TerroristCarcass0 state=Dead .* Inventory=WeaponMiniCrossbow'WeaponMiniCrossbow0'
+\[22\.10\].* dump TerroristCarcass1 state=Dead .* Inventory=WeaponPistol'WeaponPistol[0-9]+'
+\[22\.30\].* dump WeaponMiniCrossbow0 state=Idle2 .* bHidden=True Owner=TerroristCarcass'TerroristCarcass0'
+!\[22\.20\].* dump Terrorist3 
+# The body gives its things again.
+\[24\.00\].* inv count=5 WeaponCombatKnife AmmoNone WeaponPistol Ammo10mm NanoKeyRing
+\[24\.10\].* dump TerroristCarcass1 .* Inventory=None
+!^\[[0-9.]+\] ([^D]|D[^a])[^:]*: Accessed None
