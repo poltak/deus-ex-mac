@@ -1,0 +1,19 @@
+# Liberty Island (start with --url=01_NYC_UNATCOIsland): put the player in the water, dive to the bottom and stay
+# there. The breath lasts 20 seconds, then the player loses health. At the surface the breath comes back.
+# tests/player-swim.expect has the lines that the log must have.
+3.0  teleport -2802 6641 -470 0
+3.5  dump DeusExPlayer 100000 Physics,swimTimer,HeadRegion
+4.0  shot 1-under-water
+4.5  keydown x
+20.0 dump DeusExPlayer 100000 Physics,swimTimer,HeadRegion
+26.0 dump DeusExPlayer 100000 Physics,swimTimer,HeadRegion
+26.2 shot 2-drowning
+30.0 dump DeusExPlayer 100000 Physics,swimTimer,HeadRegion
+30.2 keyup x
+30.5 keydown space
+36.0 keyup space
+36.2 dump DeusExPlayer 100000 Physics,swimTimer,HeadRegion
+36.5 shot 3-surface
+37.0 keydown x
+39.0 keyup x
+39.2 dump DeusExPlayer 100000 Physics,swimTimer,HeadRegion
