@@ -1,0 +1,24 @@
+# New game on Liberty Island. Hurt two body parts with a cheat, take the medkit from belt slot 3 in the hand and
+# use it. The second dump must show less health, the third dump more health than the second, and the last
+# inventory list must have no medkit.
+3.0  key esc
+4.5  click 0.511 0.169
+6.5  click 0.50 0.425
+8.5  click 0.742 0.9375
+14.0 key esc
+18.0 exec set DeusExPlayer bCheatsEnabled True
+18.1 dump DeusExPlayer 0 Health,HealthHead,HealthTorso,HealthArmLeft,HealthArmRight,HealthLegLeft,HealthLegRight
+18.2 exec DamagePart 1 60
+18.4 exec DamagePart 4 50
+18.6 dump DeusExPlayer 0 Health,HealthHead,HealthTorso,HealthArmLeft,HealthArmRight,HealthLegLeft,HealthLegRight
+19.0 shot 1-hurt
+19.2 inv
+19.5 key 3
+21.0 shot 2-medkit-in-hand
+21.5 click 0.5 0.5
+23.0 dump DeusExPlayer 0 Health,HealthHead,HealthTorso,HealthArmLeft,HealthArmRight,HealthLegLeft,HealthLegRight
+23.2 inv
+23.5 shot 3-healed
+24.0 exec ShowHealthWindow
+25.5 shot 4-health-screen
+26.0 key esc

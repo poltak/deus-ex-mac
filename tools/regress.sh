@@ -36,4 +36,7 @@ run perf-m01 26 --url=01_NYC_UNATCOIsland
 run m01-paul-choice 125 --url=01_NYC_UNATCOIsland
 run menu-settings 28
 run aug-vision 11 --url=01_NYC_UNATCOIsland
+run persona-screens 27 --url=01_NYC_UNATCOIsland
+run player-health 27
+run fire-textures 9 --url=01_NYC_UNATCOIsland
 exit $FAILED

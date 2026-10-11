@@ -1,0 +1,6 @@
+# Any map (for example --url=01_NYC_UNATCOIsland): show the 40 fire textures of the game in a grid over the picture,
+# eight in a row, in the order of the list below. Each square must show its effect: flames, static, lightning,
+# drops or beams. A square that stays black shows a spark type that does not work.
+2.0 showtex Effects.Nano_SFX Effects.OneFlame_G Effects.BioCell_SFX Effects.flmethrwr_flme Effects.Nano_SFX_A Effects.Wepn_Prod_FX Effects.Wepn_EMPG_SFX Effects.WEPN_NESword_SFX Effects.Flame_J Effects.LaserSpot1 Effects.Wepn_Prifle_SFX Effects.Virus_SFX Effects.flame_b Effects.FireballWhite Effects.LaserBeam1 Effects.proj_Prifle Effects.Fireball1 Effects.SparkFX1 Effects.OnFire_J Effects.SmokePuff1 Effects.LaserSpot2 Effects.LaserBeam2 Effects.WhiteStatic Effects.RadAttack Effects.OneFlame_J Effects.ambrosia_SFX Effects.flmethrwr_fire Effects.AirTaserFX1 Effects.Armor_Adaptive_SFX Effects.Fountain_FX Effects.Toilet_B_FX Effects.Spark_Electric Effects.WaterDrop1 Effects.Auc_Nanofeed Effects.SmokeSpray1 Effects.wepn_nesword BobPage.BP_FX_03 BobPage.BP_FX_02 BobPage.BP_FX_01 OceanLab.Energy 
+4.0 shot 1-after-2s
+8.0 shot 2-after-6s

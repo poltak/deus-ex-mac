@@ -1,0 +1,28 @@
+# Liberty Island (start with --url=01_NYC_UNATCOIsland): open each of the player screens with its console command
+# and take a picture: inventory, health, augmentations, skills, goals, conversations, images, logs.
+# A screen that needs a native function the engine does not have stops the game here.
+2.0  exec ShowInventoryWindow
+3.5  shot 1-inventory
+4.0  key esc
+5.0  exec ShowHealthWindow
+6.5  shot 2-health
+7.0  key esc
+8.0  exec ShowAugmentationsWindow
+9.5  shot 3-augmentations
+10.0 key esc
+11.0 exec ShowSkillsWindow
+12.5 shot 4-skills
+13.0 key esc
+14.0 exec ShowGoalsWindow
+15.5 shot 5-goals
+16.0 key esc
+17.0 exec ShowConversationsWindow
+18.5 shot 6-conversations
+19.0 key esc
+20.0 exec ShowImagesWindow
+21.5 shot 7-images
+22.0 key esc
+23.0 exec ShowLogsWindow
+24.5 shot 8-logs
+25.0 key esc
+26.0 shot 9-back
