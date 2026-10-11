@@ -1,0 +1,11 @@
+# Airfield helicopter base (start with --url=03_NYC_AirfieldHeliBase): ride the elevator from the basement to the
+# ground level. The player stands in the cabin, uses the button, and goes up with the cabin.
+# tests/player-elevator.expect has the lines that the log must have.
+2.0  teleport 2768 -336 40 0
+2.6  teleportto Button2 45
+3.0  dump DeusExPlayer 0 Base,Physics
+3.2  rclick 0.5 0.5
+4.1  dump ElevatorMover 800 KeyNum,bIsMoving
+6.0  dump DeusExPlayer 0 Base,Physics
+10.5 dump DeusExPlayer 0 Base,Physics
+10.6 dump ElevatorMover 800 KeyNum,bIsMoving

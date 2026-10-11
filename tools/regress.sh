@@ -93,6 +93,7 @@ run player-weapons 110 --url=01_NYC_UNATCOIsland
 run player-swim 41 --url=01_NYC_UNATCOIsland
 run player-ladder 17 --url=01_NYC_UNATCOIsland
 run player-landing 16 --url=01_NYC_UNATCOIsland
+run player-elevator 12 --url=03_NYC_AirfieldHeliBase
 run player-lockpick 19 --url=01_NYC_UNATCOIsland
 run player-multitool 16 --url=01_NYC_UNATCOIsland
 run player-death 30 --url=01_NYC_UNATCOIsland
