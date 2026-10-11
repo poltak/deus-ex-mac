@@ -1,0 +1,21 @@
+# Liberty Island (start with --url=01_NYC_UNATCOIsland): turn the cheats on, add the vision augmentation at its
+# highest level, go near the NSF guards and turn the augmentation on with its key.
+# Picture 2 must show the red overlay with a green box in the center and the guard as a bright shape.
+# Picture 4 must show the usual view again. The three dumps must show the same eight skins for each guard: the
+# script of the augmentation changes the skins for each frame and puts them back.
+2.0 exec set DeusExPlayer bCheatsEnabled True
+2.5 exec AugAdd AugVision
+2.6 setprop AugVision CurrentLevel 3
+2.7 exec AllEnergy
+3.0 teleport 700 4900 -60 27853
+4.0 shot 1-before
+4.1 dump Terrorist 900 MultiSkins
+4.5 key f8
+6.0 shot 2-vision
+6.1 dump AugVision 0 HotKeyNum,bIsActive,CurrentLevel
+6.2 dump Terrorist 900 MultiSkins
+8.0 shot 3-vision-later
+8.5 key f8
+9.5 shot 4-off
+9.6 dump AugVision 0 bIsActive
+9.7 dump Terrorist 900 MultiSkins
