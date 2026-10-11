@@ -62,4 +62,7 @@ run computer-email 17 --url=01_NYC_UNATCOHQ
 run menu-scroll 23
 run menu-keyboard 11
 run computer-login-keys 13 --url=01_NYC_UNATCOHQ
+run computer-security 22 --url=01_NYC_UNATCOIsland
+run computer-atm 16 --url=01_NYC_UNATCOIsland
+run computer-hack 16 --url=01_NYC_UNATCOIsland
 exit $FAILED

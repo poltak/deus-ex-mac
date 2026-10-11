@@ -1,0 +1,6 @@
+# The log of the test must have a line for each of these patterns (grep -E).
+\[6\.70\].* ComputerScreenLogin 
+\[6\.70\].* text="Initializing ICE Breaker
+\[10\.20\].* ComputerScreenSecurity 
+\[10\.20\].* text="ICE Breaker Hack
+\[14\.20\].* ComputerScreenSecurity 

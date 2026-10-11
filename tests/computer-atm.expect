@@ -1,0 +1,7 @@
+# The log of the test must have a line for each of these patterns (grep -E).
+\[2\.50\].* Credits=500
+\[9\.20\].* ComputerScreenATMWithdraw 
+\[9\.20\].* MenuUIEditWindow .* text="200"
+\[11\.70\].* text="150 CREDITS WITHDRAWN"
+\[11\.70\].* MenuUIEditWindow .* text="50"
+\[12\.00\].* Credits=650

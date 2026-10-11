@@ -1,0 +1,21 @@
+# Liberty Island (start with --url=01_NYC_UNATCOIsland): log in to the ATM with the account number and the PIN of
+# a datacube of the level, and withdraw 150 of the 200 credits. The player then has 650 credits.
+# tests/computer-atm.expect has the lines that the log must have.
+2.5  dump DeusExPlayer 100000 Credits
+3.0  teleportto ATM0 60
+4.0  rclick 0.5 0.5
+6.0  char 230023
+6.3  key tab
+6.6  char 4558
+7.0  shot 1-login
+7.3  key enter
+9.0  shot 2-withdraw
+9.2  windows
+9.5  char 150
+10.0 key enter
+11.5 shot 3-after
+11.7 windows
+12.0 dump DeusExPlayer 100000 Credits
+12.5 key esc
+13.5 key esc
+14.5 shot 4-closed

@@ -1,0 +1,29 @@
+# Liberty Island (start with --url=01_NYC_UNATCOIsland): log in to a security computer of the NSF, open the door of
+# the camera, change the turret, turn the camera with the pan button, zoom in and turn the camera off.
+# The picture of the camera shows in the screen. tests/computer-security.expect has the lines that the log must have.
+2.0  exec set DeusExPlayer bCheatsEnabled True
+2.2  exec God
+3.0  teleportto ComputerSecurity1 60
+4.0  rclick 0.5 0.5
+6.0  char NSF001
+6.3  key tab
+6.6  char smashthestate
+7.0  key enter
+9.0  shot 1-security
+9.2  windows
+9.5  click 0.1516 0.2729
+10.5 windows
+11.0 click 0.1516 0.3438
+12.0 windows
+12.5 mousedown 0.765 0.253
+14.0 mouseup 0.765 0.253
+14.5 shot 2-panned
+15.0 click 0.727 0.146
+15.5 click 0.727 0.146
+16.0 click 0.727 0.146
+16.5 shot 3-zoomed
+17.0 click 0.1516 0.1313
+18.0 shot 4-camera-off
+18.2 windows
+19.0 key esc
+20.0 shot 5-logout

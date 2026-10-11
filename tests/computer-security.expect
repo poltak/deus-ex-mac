@@ -1,0 +1,9 @@
+# The log of the test must have a line for each of these patterns (grep -E).
+\[9\.20\].* ComputerScreenSecurity 
+\[9\.20\].* text="Camera \|&1 : Temp Holding Cell"
+\[9\.20\].* text="Door: Closed, Locked"
+\[9\.20\].* text="Turret: Attacking Allies"
+# A click on Door Status opens the door, and a click on Turret Status changes the targets of the turret.
+\[10\.50\].* text="Door: Open, Locked"
+\[12\.00\].* text="Turret: Attacking Enemies"
+\[18\.20\].* text="Camera: Off"
