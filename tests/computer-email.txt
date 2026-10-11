@@ -1,0 +1,19 @@
+# UNATCO HQ (start with --url=01_NYC_UNATCOHQ): log in to the computer in the office of JC and read the email.
+# The user name field has the keyboard focus first. A click selects the password field, and the Enter key
+# starts the login. The "windows" command logs the count of emails and the start of the text of each window.
+# tests/computer-email.expect has the lines that the log must have.
+3.0  teleportto ComputerPersonal7 60
+4.0  rclick 0.5 0.5
+6.0  char JCD
+6.5  click 0.515 0.476
+7.0  char bionicman
+7.5  shot 1-login
+8.0  key enter
+10.0 shot 2-first-email
+10.2 windows
+11.0 click 0.3125 0.158
+12.0 shot 3-second-email
+12.2 windows
+13.0 click 0.732 0.955
+14.5 shot 4-logout
+14.7 windows

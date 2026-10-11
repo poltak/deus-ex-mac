@@ -1,0 +1,9 @@
+# The log of the test must have a line for each of these patterns (grep -E).
+# The email list of JC has three emails, and the first one shows.
+MenuUIListWindow .* rows=3
+MenuUISmallLabelWindow .* text="greetings and nanotech briefings"
+MenuUINormalLargeTextWindow .* text="From: JReyes//UNATCO
+# A click on the second row shows the second email.
+MenuUISmallLabelWindow .* text="Nano-Augmentation and You"
+# After the logout the HUD shows again.
+\[14\.70\].* HUDObjectSlot
