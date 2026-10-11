@@ -1,0 +1,21 @@
+# Liberty Island (start with --url=01_NYC_UNATCOIsland): open the talk line with T, remove "Say ", type a console command and send it.
+# This is how a player turns the cheats on in the original game. The second dump must show bCheatsEnabled=True,
+# and the last picture must show the weapons of the "allweapons" cheat on the ground.
+3.0  dump DeusExPlayer 0 bCheatsEnabled
+4.0  key t
+4.5  key backspace
+4.6  key backspace
+4.7  key backspace
+4.8  key backspace
+5.0  char set DeusExPlayer bCheatsEnabled True
+5.5  shot 1-typed
+6.0  key enter
+7.0  dump DeusExPlayer 0 bCheatsEnabled
+7.5  key t
+8.0  key backspace
+8.1  key backspace
+8.2  key backspace
+8.3  key backspace
+8.5  char allweapons
+9.0  key enter
+10.5 shot 2-after

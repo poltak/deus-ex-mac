@@ -26,6 +26,7 @@ run load-cold 20
 run ai-wander 30
 run particles 12 --url=01_NYC_UNATCOIsland
 run keys 31
+run console 12 --url=01_NYC_UNATCOIsland
 run perf-m01 26 --url=01_NYC_UNATCOIsland
 run m01-paul-choice 125 --url=01_NYC_UNATCOIsland
 exit $FAILED
