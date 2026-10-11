@@ -12,6 +12,8 @@
 # After the conversation, the inventory screen opens and the cursor shows again.
 \[128\.10\].* Harness: cursor DeusExCursor
 \[128\.20\].* PersonaScreenInventory 
-# The music goes to the conversation section of the song, which is order 4, and back to the first section.
-\[25\.27\].* Music: LibertyIsland_Music section 4 starts at order 4
-\[121\.90\].* Music: LibertyIsland_Music section 0 starts at order 0
+# The music fades out for one second and then goes to the conversation section of the song, which is order 4.
+\[26\.33\].* Music: LibertyIsland_Music section 4 starts at order 4
+# After the conversation, the calm music goes on at the place where it stopped. The place depends on the real time
+# of the run, because the sound plays in real time.
+\[122\.97\].* Music: LibertyIsland_Music section [0-9]+ starts at order [0-9]+
