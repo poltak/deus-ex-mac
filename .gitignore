@@ -5,3 +5,4 @@
 .DS_Store
 # Raw decompiler output of the original DLLs. Never commit it.
 /re-out/
+/dist/
