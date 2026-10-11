@@ -1,0 +1,32 @@
+# Liberty Island (start with --url=01_NYC_UNATCOIsland): change a key binding in the Keyboard/Mouse Settings screen.
+# The player selects the Jump function, presses Enter and then the J key. The screen hides the mouse cursor while it
+# waits for the key. The new key takes the place of the older one of the two keys. After the OK button, J makes the
+# player jump and Space does not.
+# tests/menu-keys.expect has the lines that the log must have. The test menu-keys-restart runs after this one in
+# the same game folder.
+2.0  teleport -4761 10431 -250 0
+3.0  key esc
+4.5  click 0.511 0.388
+6.0  click 0.505 0.258
+7.5  click 0.3 0.483
+8.0  texts
+8.1  cursor
+8.3  key enter
+8.8  texts
+8.9  cursor
+9.0  shot 1-waiting
+9.2  key j
+9.8  texts
+9.9  cursor
+10.0 shot 2-assigned
+10.5 click 0.565 0.905
+11.5 windows
+12.0 key esc
+13.0 key esc
+14.0 windows
+14.5 dump DeusExPlayer 0 Physics
+15.0 key j
+15.3 dump DeusExPlayer 0 Physics
+16.5 dump DeusExPlayer 0 Physics
+17.0 key space
+17.3 dump DeusExPlayer 0 Physics

@@ -1,0 +1,18 @@
+# The log of the test must have a line for each of these patterns (grep -E).
+# The Jump function has the keys Space and Insert.
+\[8\.00\].* text x=145 y=227 "Jump"
+\[8\.00\].* text x=309 y=227 "Space, Insert"
+\[8\.10\].* Harness: cursor DeusExCursor
+# After the Enter key the screen waits for a key and hides the cursor.
+\[8\.80\].* text .* "Please press the key or button you wish to assign
+\[8\.90\].* Harness: cursor hidden
+# The J key is the new second key, and the cursor shows again.
+\[9\.80\].* text x=309 y=227 "Insert, J"
+\[9\.90\].* Harness: cursor DeusExCursor
+# The OK button goes back to the settings menu.
+\[11\.50\].* window   MenuSettings 
+# In the game, J makes the player jump and Space does not.
+\[14\.50\].* JCDentonMale0 .* Physics=PHYS_Walking
+\[15\.30\].* JCDentonMale0 .* loc=\(-4761 10431 -21[0-9]\) .* Physics=PHYS_Falling
+\[16\.50\].* JCDentonMale0 .* Physics=PHYS_Walking
+\[17\.30\].* JCDentonMale0 .* loc=\(-4761 10431 -260\) .* Physics=PHYS_Walking

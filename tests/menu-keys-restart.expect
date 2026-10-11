@@ -1,0 +1,4 @@
+# The log of the test must have a line for each of these patterns (grep -E).
+\[3\.00\].* JCDentonMale0 .* Physics=PHYS_Walking
+\[3\.50\].* JCDentonMale0 .* loc=\(-4761 10431 -21[0-9]\) .* Physics=PHYS_Falling
+\[5\.30\].* JCDentonMale0 .* loc=\(-4761 10431 -260\) .* Physics=PHYS_Walking

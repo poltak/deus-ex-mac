@@ -1,0 +1,19 @@
+# The log of the test must have a line for each of these patterns (grep -E).
+# The trash can is a thing that the player can lift.
+\[3\.60\].* text .* "Trashcan"
+\[4\.50\].* JCDentonMale0 .* CarriedDecoration=TrashCan1'TrashCan1'
+# In the hands it is translucent, it has the player as base and it does not collide with the level.
+\[4\.60\].* dump TrashCan1 state=Active .* Base=JCDentonMale'JCDentonMale0' Physics=PHYS_None bCollideWorld=False Style=STY_Translucent
+# After the throw it lies on the ground at a new place and looks normal again.
+\[5\.90\].* JCDentonMale0 .* CarriedDecoration=None
+\[8\.50\].* dump TrashCan1 state=Active .* Base=LevelInfo'LevelInfo0' Physics=PHYS_None .* Style=STY_Normal
+!\[8\.50\].* dump TrashCan1 state=Active loc=\(-4836 10636 -271\)
+# The crate has 10 hit points. One hit with the crowbar takes 6, and the second hit breaks the crate.
+\[11\.60\].* inv count=3 WeaponCrowbar AmmoNone NanoKeyRing
+\[13\.00\].* dump CrateBreakableMedGeneral6 .* HitPoints=10
+\[14\.40\].* dump CrateBreakableMedGeneral6 .* HitPoints=4
+!\[15\.80\].* dump CrateBreakableMedGeneral6 
+# The binoculars from the crate lie on the ground, and the player takes them.
+\[15\.90\].* dump Binoculars[0-9]+ state=Pickup .* Physics=PHYS_None
+\[17\.70\].* inv count=4 Binoculars WeaponCrowbar AmmoNone NanoKeyRing
+!^\[[0-9.]+\] ([^D]|D[^a])[^:]*: Accessed None

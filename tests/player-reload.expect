@@ -1,0 +1,19 @@
+# The log of the test must have a line for each of these patterns (grep -E).
+\[7\.20\].* inv count=4 AmmoDart WeaponMiniCrossbow AmmoDartPoison NanoKeyRing
+# The crossbow has a clip of 4 tranquilizer darts.
+\[9\.00\].* text x=74 y=429 "4"
+\[9\.00\].* text x=115 y=449 "TRQ DART"
+# One shot takes one dart.
+\[10\.60\].* text x=74 y=429 "3"
+# The HUD shows no numbers during the reload, and a full clip after it.
+\[11\.20\].* text x=70 y=429 "---"
+\[14\.50\].* text x=74 y=429 "4"
+# The ammo key puts the normal darts in. The HUD shows no numbers while the crossbow loads them.
+\[15\.20\].* text x=70 y=429 "---"
+\[15\.20\].* text x=123 y=449 "DART"
+\[18\.00\].* text x=74 y=429 "4"
+\[18\.10\].* dump WeaponMiniCrossbow[0-9]+ .* AmmoName=Class'DeusEx.AmmoDart' Owner=JCDentonMale'JCDentonMale0'
+# The ammo key again goes back to the tranquilizer darts.
+\[21\.50\].* text x=115 y=449 "TRQ DART"
+\[21\.60\].* dump WeaponMiniCrossbow[0-9]+ .* AmmoName=Class'DeusEx.AmmoDartPoison' Owner=JCDentonMale'JCDentonMale0'
+!^\[[0-9.]+\] ([^D]|D[^a])[^:]*: Accessed None

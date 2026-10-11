@@ -1,0 +1,34 @@
+# Liberty Island (start with --url=01_NYC_UNATCOIsland): reload a weapon and change its ammo type.
+# The player takes a mini crossbow and a box of normal darts, fires one dart, reloads with the reload key, and
+# changes between tranquilizer darts and normal darts with the ammo key. The HUD must show each step.
+# Key 0xBA is the semicolon key (ReloadWeapon), and key 0xDE is the quote key (SwitchAmmo).
+# tests/player-reload.expect has the lines that the log must have.
+2.0  exec set DeusExPlayer bCheatsEnabled True
+2.2  exec God
+3.0  teleport -4761 10431 -250 0
+3.2  exec Summon WeaponMiniCrossbow
+4.0  teleportto WeaponMiniCrossbow 50
+4.6  rclick 0.5 0.5
+5.0  teleport -4761 10431 -250 0
+5.2  exec Summon AmmoDart
+6.0  teleportto AmmoDart 50
+6.6  rclick 0.5 0.5
+7.2  inv
+7.3  exec AllAmmo
+7.5  key 1
+9.0  texts
+9.2  keydown lmb
+9.35 keyup lmb
+10.6 texts
+10.8 key 0xBA
+11.2 texts
+11.3 shot 1-reload
+14.5 texts
+14.8 key 0xDE
+15.2 texts
+18.0 texts
+18.1 dump WeaponMiniCrossbow 999999 AmmoName,Owner
+18.2 shot 2-normal-darts
+18.4 key 0xDE
+21.5 texts
+21.6 dump WeaponMiniCrossbow 999999 AmmoName,Owner

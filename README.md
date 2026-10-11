@@ -18,7 +18,7 @@ Scripted tests on an M2 Max show that these parts work:
 - Travel between maps with inventory, credits and flags. A map keeps its state when you come back.
 - Particle effects, lightmaps with moving and animated lights.
 - Key bindings of the game, the talk line as console, cheats.
-- The six settings screens. The Screen Resolution setting changes the size of the window.
+- The six settings screens. The Screen Resolution setting changes the size of the window. A new key binding from the Keyboard/Mouse Settings screen works at once and after a new start, and a key that lost its binding stays without it.
 - Buttons, checkboxes, sliders and scroll bars of the interface. A list or a text moves with the thumb, the arrow buttons, the mouse wheel and the page keys.
 - The keyboard in menus: the arrow keys and the Tab key move the focus, and the Enter key presses a button. A dialog keeps the keys and the mouse while it is open, and the focus goes back to the screen below when it closes.
 - The mouse cursor of the interface: the arrow, the text cursor on edit fields, and the picture of an inventory item during a drag. The cursor does not show while a person speaks in a conversation, and the answer under the mouse has a highlight.
@@ -30,6 +30,8 @@ Scripted tests on an M2 Max show that these parts work:
 - Ladders: the player climbs up with a level view and down with the view down, holds on with no key down, and gets on a ladder that starts above the floor with a jump.
 - Landings: a person pushes off a player who lands on its head, a burning barrel burns, and a long fall hurts the legs.
 - A fight with the pistol: the HUD counts the rounds of the clip, the guard takes damage, flees and dies, and the search of the body gives its knife and the rounds of its pistol.
+- Weapons: the reload key, with the HUD that shows no numbers during the reload, and the ammo key that changes between the dart types of the mini crossbow.
+- Things in the world: the player lifts a trash can and throws it, breaks a crate with a crowbar and takes what was in it.
 - The start of a map: a body that the map has from the start keeps its things hidden until the player searches it, a gun turret that hangs from a ceiling stays there, and a glass plate with an attach tag has its target as base.
 - Stasis: a thing or a person that the player did not see for 5 seconds, and that is far away or in a room that is not in view, stops until the player comes back. The scripts of the game are written for this rule of the original engine.
 - The music: the calm, combat and conversation parts of a song, the fades between them, and the return to the place where the calm part stopped.
