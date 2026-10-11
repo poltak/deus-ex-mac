@@ -105,6 +105,7 @@ run player-fight 19 --url=01_NYC_UNATCOIsland
 run save-fight 30 --url=01_NYC_UNATCOIsland
 run player-reload 22 --url=01_NYC_UNATCOIsland
 run player-objects 18 --url=01_NYC_UNATCOIsland
+run player-keydoor 12 --url=01_NYC_UNATCOIsland
 run player-lockpick 19 --url=01_NYC_UNATCOIsland
 run player-multitool 16 --url=01_NYC_UNATCOIsland
 run player-death 30 --url=01_NYC_UNATCOIsland

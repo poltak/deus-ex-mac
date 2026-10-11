@@ -1,0 +1,19 @@
+# The log of the test must have a line for each of these patterns (grep -E).
+# The key shows as a thing to take. It goes to the key ring and not to the list of things.
+\[3\.50\].* text .* "NanoKey"
+\[4\.20\].* inv count=1 NanoKeyRing
+!\[4\.30\].* dump NanoKey0 
+\[4\.40\].* text .* "UNATCO Compound Hatch added to Nano Key Ring"
+# The hatch shows its lock, and a use with no key does not open it.
+\[5\.20\].* text .* "Locked "
+\[5\.20\].* text .* "Lock Str: 10% "
+\[5\.20\].* text .* "Door Str: INF"
+\[6\.20\].* dump DeusExMover7 .* bLocked=True KeyNum=0 KeyIDNeeded=UNhatchdoor
+\[6\.30\].* text .* "It's locked"
+# The key ring unlocks the hatch.
+\[9\.00\].* dump DeusExMover7 .* bLocked=False KeyNum=0
+\[9\.10\].* text .* "Your NanoKey Ring unlocked it"
+\[9\.10\].* text .* "Unlocked"
+# The next use opens it.
+\[11\.50\].* dump DeusExMover7 .* bLocked=False KeyNum=1
+!^\[[0-9.]+\] ([^D]|D[^a])[^:]*: Accessed None

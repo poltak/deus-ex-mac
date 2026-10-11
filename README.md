@@ -26,7 +26,7 @@ Scripted tests on an M2 Max show that these parts work:
 - Keys across screens: a movement key that you release while a screen is open does not stay active, and a held key runs its command one time.
 - The eight player screens: inventory, health, augmentations, skills, goals, conversations, images and logs. A medkit heals, and skill points upgrade a skill.
 - Computers: login with user name and password, email, bulletins, the security screen with its camera picture, doors and turrets, the ATM, and the hack of a computer.
-- Lockpicks on locked doors and multitools on keypads.
+- Lockpicks on locked doors and multitools on keypads. A key goes to the key ring, and the key ring unlocks the door of that key.
 - Swimming, the breath timer and drowning. The death of the player, with the camera sequence and the return to the title screen.
 - Ladders: the player climbs up with a level view and down with the view down, holds on with no key down, and gets on a ladder that starts above the floor with a jump.
 - Landings: a person pushes off a player who lands on its head, a burning barrel burns, and a long fall hurts the legs.

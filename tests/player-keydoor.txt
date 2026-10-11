@@ -1,0 +1,27 @@
+# Liberty Island (start with --url=01_NYC_UNATCOIsland): a key and its door.
+# The player takes the key of the hatch of the UNATCO compound, which goes to the key ring. The hatch is locked and
+# does not open. With the key ring in the hand, a left click on the hatch unlocks it, and a right click opens it.
+# tests/player-keydoor.expect has the lines that the log must have.
+2.0  exec set DeusExPlayer bCheatsEnabled True
+2.2  exec God
+3.0  teleportto NanoKey0 50
+3.5  texts
+3.6  rclick 0.5 0.5
+4.2  inv
+4.3  dump NanoKey 200 KeyID
+4.4  texts
+4.6  teleportto DeusExMover7 70
+5.2  texts
+5.3  dump DeusExMover 200 bLocked,KeyNum,KeyIDNeeded
+5.4  rclick 0.5 0.5
+6.2  dump DeusExMover 200 bLocked,KeyNum,KeyIDNeeded
+6.3  texts
+6.5  key 0
+7.5  texts
+7.6  keydown lmb
+7.75 keyup lmb
+9.0  dump DeusExMover 200 bLocked,KeyNum,KeyIDNeeded
+9.1  texts
+9.3  rclick 0.5 0.5
+11.5 dump DeusExMover 200 bLocked,KeyNum,KeyIDNeeded
+11.6 shot 1-hatch
