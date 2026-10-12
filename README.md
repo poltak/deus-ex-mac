@@ -42,6 +42,7 @@ Scripted tests on an M2 Max show that these parts work:
 - The music: the calm, combat and conversation parts of a song, the fades between them, and the return to the place where the calm part stopped.
 - The vision augmentation shows people as bright shapes.
 - The animated fire textures of the game: flames, static, laser beams, fountains, lightning.
+- Mirrors: a mirror shows the player and the room in front of it, and it shows nothing of the room behind its wall. The tests use the two bathroom mirrors of the 'Ton hotel.
 - All 88 map files of the game start with no error.
 - Developer loader: a window that selects a map, a start point, the weapons and the values of the player, and starts the game there. See "Developer loader" below.
 
@@ -83,6 +84,7 @@ Known gaps:
 - A text field with more than one line, such as a note, has no moves of the insertion point by row, and its insertion mark has the height of the field.
 - The program uses about 15 MB more memory after each map change. The engine frees the geometry, the lightmaps and the textures of a map that it left, but it has no garbage collector for the objects of that map.
 - The engine draws a wall that the camera sees from behind. The original does not. So a camera of a cutscene that is outside a room shows a black picture, for example in some camera moves of the dance club ending.
+- A mirror does not show a second mirror. When mirrors with different planes are in view at the same time, the engine makes one mirror picture, with the plane of one of them, for all of them. The original makes a picture for each mirror, and it shows a mirror in a mirror.
 - The Effects Channels setting applies at the next start.
 - Multiplayer is not tested.
 
@@ -260,7 +262,7 @@ tools/regress.sh
 
 This runs the scripted tests and prints one line for each. Each test gets its own new game folder in the state of a first start, so the result of a test does not depend on the tests before it. The save game tests are a chain that uses one folder, because the later tests load the saved games of the earlier tests. The line has the count of script errors, the last inventory list and the total count of script calls. The totals are the same in each run of a test, so a difference shows a change of behavior.
 
-A test can have a file `tests/<name>.expect`. Each line of that file is a pattern that the log of the test must have. The test fails when a line is missing. A line that starts with `!` is a pattern that the log must not have. The harness command `windows` writes the visible interface windows to the log, with the text of text windows, the row count of lists, the state of checkboxes and the position of scroll bars. The command `dump` writes properties of actors. With these two commands a test can check what a screen shows and what the game state is.
+A test can have a file `tests/<name>.expect`. Each line of that file is a pattern that the log of the test must have. The test fails when a line is missing. A line that starts with `!` is a pattern that the log must not have. The harness command `windows` writes the visible interface windows to the log, with the text of text windows, the row count of lists, the state of checkboxes and the position of scroll bars. The command `dump` writes properties of actors. With these two commands a test can check what a screen shows and what the game state is. The command `visible` writes how many level surfaces and actors the last frame showed, so a test can also check the picture of the level.
 
 A test with a file `tests/<name>.loadout.json` starts through the developer loader with the selections of that file. With a file `tests/<name>.loader.txt`, the loader window opens first and gets the commands of that file.
 

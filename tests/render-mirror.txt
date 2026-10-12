@@ -1,0 +1,18 @@
+# The 'Ton hotel (start with --url=02_NYC_Hotel): the two bathroom mirrors show the player and the room.
+# A mirror frame shows the level from the mirror image of the camera place, and the plane of the mirror is its clip
+# plane, as the child frame that URender::OccludeBsp of Render.dll makes for a mirror.
+# The first mirror faces the y direction and is on a thin wall with a kitchen behind it. Before the fix it showed
+# the wall behind the mirror. The second mirror faces the x direction. Before the fix its picture was sheared,
+# and the player was not in it.
+# tests/render-mirror.expect has the lines that the log must have.
+1.0  exec set DeusExPlayer bCheatsEnabled True
+1.2  exec God
+2.0  teleport -95 -3110 110 16384
+3.5  dump DeusExPlayer 0 ViewRotation
+3.5  dump Faucet 450 bHidden
+3.5  visible
+3.6  shot 1-mirror-y
+4.0  teleport 1830 -1150 110 32768
+5.5  dump DeusExPlayer 0 ViewRotation
+5.5  visible
+5.6  shot 2-mirror-x
