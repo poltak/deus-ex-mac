@@ -285,7 +285,14 @@ The decompiler drops x87 float math and stack arguments. For a formula, read the
 
 ## Rules
 
-- SurrealEngine does not accept AI-written code. All changes stay in the `deus-ex-mac` branch of the `SurrealEngine` submodule. Do not open a pull request upstream with them.
-- The commits of the fork are only in this working copy. The URL of the submodule is the upstream repository, which does not have them. To give the project to other people, push the `deus-ex-mac` branch to a repository of your own and put its URL in `.gitmodules`.
+- The original SurrealEngine project asks that changes made with AI tools stay in a fork. All engine changes are in the fork, [poltak/SurrealEngine](https://github.com/poltak/SurrealEngine). Do not open a pull request to the original project with them.
 - Game data comes from your own copy of Deus Ex. Do not commit it.
 - Do not commit raw decompiler output of the original DLLs. Commit only your own code and notes.
+
+## License
+
+The tools, the tests and the documents of this repository have the zlib license. See [LICENSE](LICENSE).
+
+The engine fork in `SurrealEngine/` is a changed version of SurrealEngine. It has the license of SurrealEngine, which is also the zlib license, and the licenses of the libraries that it uses. See `SurrealEngine/LICENSE.md`.
+
+Deus Ex and its files belong to their owners. This repository has no game files.
