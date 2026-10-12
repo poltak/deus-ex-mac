@@ -68,10 +68,11 @@ done
 # AeroSpace (tiling window manager) resizes new windows. Make this one window float. This changes no configuration.
 # The size of the window changes what the game does, so the engine waits for the file window-ready before it starts
 # the game. Then each run of a test gives the same result.
-# AeroSpace does not take the window of an app that is not the active app (a run in the background), so the wait for
-# the window is short. With FOREGROUND=1 it takes the window, and the wait is longer.
+# AeroSpace does not take the small window of an app that is not the active app (a run in the background), so the
+# wait for the window is short. With FOREGROUND=1, and with the large window of WINSIZE=none, it takes the window, and
+# the wait is longer.
 AERO_TRIES=8
-[ -n "$FOREGROUND" ] && AERO_TRIES=40
+if [ -n "$FOREGROUND" ] || [ "$WINSIZE" = none ]; then AERO_TRIES=40; fi
 if [ -n "$PID" ] && command -v aerospace >/dev/null 2>&1 && aerospace list-windows --all >/dev/null 2>&1; then
   ( for i in $(seq 1 $AERO_TRIES); do
       ID=$(aerospace list-windows --all --format '%{window-id}|%{app-pid}' 2>/dev/null | grep "|$PID\$" | cut -d'|' -f1 | head -1)

@@ -185,6 +185,7 @@ tests/app-start-test.sh
 ```
 
 This starts the packaged app as a player does, with no setting that tells it where the game is. The test uses a copy of the layout of this working copy and a temporary home folder. The app must find the game folder, start the game and store the folder.
+A second case is a new player: the game folder is at `~/Games/Deus Ex` of the temporary home folder, with the settings file of a Steam copy that asks for fullscreen. The app must find the folder, and the first start must open a window.
 
 ```bash
 tests/window-size-test.sh
