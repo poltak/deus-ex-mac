@@ -1,0 +1,27 @@
+# The log of the test must have a line for each of these patterns (grep -E). A line with "!" at the start is a
+# pattern that the log must not have.
+# The start is in the map of the file, and the player has only the key ring before the loader gives the things.
+Developer loader: start in 01_NYC_UNATCOIsland
+\[0\.50\].* inv count=1 NanoKeyRing
+# The player took each selected thing: 5 weapons, 3 medkits and 2 lockpicks.
+Developer loader: the player has 10 of 10 selected things
+# The weapons with their ammunition, and the special ammunition types of the assault rifle and the GEP gun.
+\[3\.00\].* inv count=15 Ammo20mm AmmoRocketWP Lockpick MedKit WeaponLAM AmmoLAM WeaponGEPGun AmmoRocket WeaponRifle Ammo3006 WeaponAssaultGun Ammo762mm WeaponPistol Ammo10mm NanoKeyRing
+# Credits, the damage factor of the difficulty Hard, god mode, and the cheat commands stay on.
+\[3\.10\].* dump JCDentonMale0 .* Credits=1234 CombatDifficulty=2\.000000 ReducedDamageType=All bCheatsEnabled=True
+# Each skill has the level 2.
+\[3\.20\].* dump SkillWeaponPistol0 .*CurrentLevel=2
+\[3\.20\].* dump SkillComputer0 .*CurrentLevel=2
+!\[3\.20\].* dump Skill[A-Za-z]+[0-9]+ .*CurrentLevel=[013]
+# The augmentations that have a slot are there, at their top level.
+\[3\.30\].* dump AugSpeed0 .*bHasIt=True CurrentLevel=3
+\[3\.30\].* dump AugCloak0 .*bHasIt=True CurrentLevel=3
+# Each ammunition type is full.
+\[3\.40\].* dump Ammo10mm[0-9]+ .* AmmoAmount=150 MaxAmmo=150
+\[3\.40\].* dump Ammo20mm[0-9]+ .* AmmoAmount=32 MaxAmmo=32
+\[3\.40\].* dump AmmoRocketWP[0-9]+ .* AmmoAmount=20 MaxAmmo=20
+# The things are on the belt in the order of the file, and the medkits are one stack.
+\[3\.50\].* dump WeaponPistol[0-9]+ .* beltPos=1
+\[3\.50\].* dump WeaponGEPGun[0-9]+ .* beltPos=4
+\[3\.50\].* dump MedKit[0-9]+ .* NumCopies=3 beltPos=6
+\[3\.50\].* dump Lockpick[0-9]+ .* NumCopies=2 beltPos=7

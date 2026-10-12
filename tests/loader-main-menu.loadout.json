@@ -1,0 +1,5 @@
+{
+  "Map": "01_NYC_UNATCOIsland",
+  "Items": [ { "Class": "WeaponPistol", "Count": 1 } ],
+  "GodMode": true
+}

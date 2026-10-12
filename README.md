@@ -43,6 +43,7 @@ Scripted tests on an M2 Max show that these parts work:
 - The vision augmentation shows people as bright shapes.
 - The animated fire textures of the game: flames, static, laser beams, fountains, lightning.
 - All 88 map files of the game start with no error.
+- Developer loader: a window that selects a map, a start point, the weapons and the values of the player, and starts the game there. See "Developer loader" below.
 
 Speed: the main thread needs 6 to 7 ms of processor time for each frame on the three heaviest maps, which are Liberty Island and two maps of Hong Kong. The mean of all maps is about 2 ms. A display with 120 Hz shows the game at 120 frames per second on most maps.
 
@@ -162,6 +163,31 @@ When the game folder is in your Documents, Desktop or Downloads folder, macOS as
 - T opens the talk line, which is also the console. To turn the cheats on, press T, delete `Say`, and type `set DeusExPlayer bCheatsEnabled True`.
 - The console command `timedemo 1` shows the frame rate.
 
+### Developer loader
+
+The developer loader starts the game in a map that you select, with the weapons and the player values that you select. It shows no menu and no intro.
+
+To open the loader, hold the Option key while the app starts. You can also start the app with the `--loader` option:
+
+```bash
+open "dist/Deus Ex.app" --args --loader
+```
+
+The loader window has these controls:
+
+- Map: the maps of your game folder with their mission. A double click on a map, or the Enter key, starts the game.
+- Start point: the default start of the map, or one of the places where a map exit of the game puts the player.
+- Weapons: a checkbox for each of the 24 weapons, and a list with weapon sets (No weapons, New game, Quiet, Heavy, All weapons).
+- Full ammunition: each selected weapon gets all of its ammunition types, and each type is full.
+- Other things: the count of medkits, bioelectric cells, lockpicks and multitools.
+- Player: one level for all skills, the difficulty, the credits, all augmentations at their top level, god mode, and the cheat commands of the console.
+
+The Start button starts the game. The loader keeps your selections in `~/.config/SurrealEngine/DeusExLoader.json` and shows them the next time. The Main menu button starts the game as it starts with no loader, and the Quit button starts no game.
+
+The player gets the selected things one second after the map starts, by the pickup rules of the game. The game shows its pickup messages for them. A thing that has no room in the inventory lies at the feet of the player.
+
+A start through the loader is a new game. It removes the map states of the game in progress (`Save/Current` in the game folder), and your saved games stay as they are. The story flags of the missions before the selected map are not set, so some conversations can be different from a full play.
+
 ### Game files with mods
 
 The engine uses `System/DeusEx.u` of the game folder, so the folder must have the original script packages.
@@ -176,7 +202,7 @@ GMDX installs its conversation files over the original ones. A game folder with 
 - `DeusEx/` is the place for your game folder, or for a link to it. Git ignores it. The tests read the game data from it and write nothing into it, and the app in `dist/` plays from it.
 - `packaging/` has the start script and the `Info.plist` of the app.
 - `tests/` has input scripts for the test harness of the fork.
-- `tools/` has the scripts to run tests, to measure speed and to read the original DLLs.
+- `tools/` has the scripts to run tests, to open the developer loader, to measure speed and to read the original DLLs.
 - `analysis/exports/` has the export table of each original DLL.
 - `runs/` gets the log and the pictures of each test run. Git ignores it.
 - `re-out/` gets the raw decompiler output. Git ignores it.
@@ -199,6 +225,22 @@ A run gets a new game folder in the state of a first start, `runs/<name>/game/`.
 
 `APP="dist/Deus Ex.app"` runs the packaged app and its start script.
 
+### Developer loader in a test
+
+```bash
+tools/loader.sh
+```
+
+This opens the loader window with the engine build of this working copy and plays in `DeusEx/`. `GAME=<game folder>` selects a different game folder.
+
+The engine option `--loadout=<file>` starts the game with the selections of a JSON file and with no window. The file has the format of `DeusExLoader.json`. Its `Items` list can have each inventory class of the game, also a class that the window has no control for. A map of the `--url` option comes before the map of the file, so one file can serve for many maps. `LOADOUT=<file>` gives a test run that option:
+
+```bash
+LOADOUT=tests/loader-loadout.loadout.json SCRIPT=tests/loader-loadout.txt tools/run-dx.sh loadout 6
+```
+
+`LOADER_SCRIPT=<file>` opens the loader window in a test run and uses it with the commands of the file: a click at a place of the window, a key, a picture of the window, and a log line with the selections. A click goes through macOS into the window, as a click of the real mouse does. `tests/loader-window.loader.txt` is such a file.
+
 ### Regression tests
 
 ```bash
@@ -208,6 +250,8 @@ tools/regress.sh
 This runs the scripted tests and prints one line for each. Each test gets its own new game folder in the state of a first start, so the result of a test does not depend on the tests before it. The save game tests are a chain that uses one folder, because the later tests load the saved games of the earlier tests. The line has the count of script errors, the last inventory list and the total count of script calls. The totals are the same in each run of a test, so a difference shows a change of behavior.
 
 A test can have a file `tests/<name>.expect`. Each line of that file is a pattern that the log of the test must have. The test fails when a line is missing. A line that starts with `!` is a pattern that the log must not have. The harness command `windows` writes the visible interface windows to the log, with the text of text windows, the row count of lists, the state of checkboxes and the position of scroll bars. The command `dump` writes properties of actors. With these two commands a test can check what a screen shows and what the game state is.
+
+A test with a file `tests/<name>.loadout.json` starts through the developer loader with the selections of that file. With a file `tests/<name>.loader.txt`, the loader window opens first and gets the commands of that file.
 
 To run only some tests, give their names. A test of a chain also runs the tests before it in the chain:
 

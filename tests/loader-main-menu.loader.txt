@@ -1,0 +1,6 @@
+# Developer loader: commands for the loader window. The places are in points from the top left corner of the window
+# content, from the picture runs/reg-loader-main-menu/window.png.
+wait
+shot window
+# The Main menu button
+click 887 668

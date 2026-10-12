@@ -1,0 +1,21 @@
+# The log of the test must have a line for each of these patterns (grep -E).
+# The window lists the maps of the game folder: 88 map files, without the entry map.
+Developer loader: the window has 87 maps
+# It opens with the selections of the file. Liberty Island has one start point from a map exit.
+Developer loader: selections url=01_NYC_UNATCOIsland items= WeaponPistol\*1 WeaponAssaultGun\*1 MedKit\*3 fullAmmo=0 skills=-1 augmentations=0 credits=800 difficulty=1 god=0 cheats=1 startPoints=1
+# The click on a row of the map list selects that map, and the list of start points gets the 12 start points of it.
+Developer loader: selections url=02_NYC_Street items= WeaponPistol\*1 WeaponAssaultGun\*1 MedKit\*3 .* startPoints=12
+# The click on an entry of the start point list selects that start point.
+Developer loader: selections url=02_NYC_Street#FromNYCUndergroundSewer2 items= WeaponPistol\*1 WeaponAssaultGun\*1 MedKit\*3 
+# The weapon set Quiet replaces the selected weapons. The count of the medkits stays.
+Developer loader: selections url=02_NYC_Street#FromNYCUndergroundSewer2 items= WeaponStealthPistol\*1 WeaponMiniCrossbow\*1 WeaponPepperGun\*1 WeaponProd\*1 WeaponBaton\*1 WeaponGasGrenade\*1 MedKit\*3 .* god=0 
+# The pistol checkbox, the typed count of the medkits and the god mode checkbox.
+Developer loader: selections url=02_NYC_Street#FromNYCUndergroundSewer2 items= WeaponPistol\*1 WeaponStealthPistol\*1 WeaponMiniCrossbow\*1 WeaponPepperGun\*1 WeaponProd\*1 WeaponBaton\*1 WeaponGasGrenade\*1 MedKit\*7 fullAmmo=0 skills=-1 augmentations=0 credits=800 difficulty=1 god=1 cheats=1 
+# The Start button starts the game with these selections.
+Developer loader: the window starts 02_NYC_Street#FromNYCUndergroundSewer2 with 8 kinds of things
+Developer loader: start in 02_NYC_Street#FromNYCUndergroundSewer2
+Developer loader: the player has 14 of 14 selected things
+# The player is at the selected start point of the map, with the selected things. No ammunition type is added.
+\[3\.00\].* inv count=15 MedKit WeaponGasGrenade AmmoGasGrenade WeaponBaton AmmoNone WeaponProd AmmoBattery WeaponPepperGun AmmoPepper WeaponMiniCrossbow AmmoDartPoison WeaponStealthPistol WeaponPistol Ammo10mm NanoKeyRing
+\[3\.10\].* dump JCDentonMale0 state=PlayerWalking loc=\(966 -2046 -612\) .* Credits=800 CombatDifficulty=1\.500000 ReducedDamageType=All bCheatsEnabled=True
+\[3\.20\].* dump MedKit[0-9]+ .* NumCopies=7

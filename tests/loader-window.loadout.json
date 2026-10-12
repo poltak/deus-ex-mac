@@ -1,0 +1,16 @@
+{
+  "Map": "01_NYC_UNATCOIsland",
+  "StartTag": "",
+  "Items": [
+    { "Class": "WeaponPistol", "Count": 1 },
+    { "Class": "WeaponAssaultGun", "Count": 1 },
+    { "Class": "MedKit", "Count": 3 }
+  ],
+  "FullAmmo": false,
+  "SkillLevel": -1,
+  "AllAugmentations": false,
+  "Credits": 800,
+  "Difficulty": 1,
+  "GodMode": false,
+  "Cheats": true
+}

@@ -1,0 +1,7 @@
+# Developer loader: the Main menu button of the loader window (tests/loader-main-menu.loader.txt has the click).
+# The game then starts as it starts with no loader: the Escape key opens the main menu, and the selections of the
+# loader have no effect.
+# tests/loader-main-menu.expect has the lines that the log must have.
+3.0  key esc
+4.5  windows
+4.6  inv

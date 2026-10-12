@@ -1,0 +1,14 @@
+# Developer loader: a start with the selections of a file, with no loader window.
+# tests/loader-loadout.loadout.json has the selections: Liberty Island, five weapons, medkits and lockpicks, full
+# ammunition, each skill at the level Advanced, all augmentations, 1234 credits, the difficulty Hard and god mode.
+# The player gets the things 1.1 seconds after the map starts, after the start code of the mission script.
+# tests/loader-loadout.expect has the lines that the log must have.
+0.5  inv
+3.0  inv
+3.1  dump DeusExPlayer 0 Credits,CombatDifficulty,ReducedDamageType,bCheatsEnabled
+3.2  dump Skill 99999 CurrentLevel
+3.3  dump Augmentation 99999 bHasIt,CurrentLevel
+3.4  dump Ammo 5 AmmoAmount,MaxAmmo
+3.5  dump Inventory 5 NumCopies,beltPos
+4.0  key f1
+5.5  shot 1-inventory

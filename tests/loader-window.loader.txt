@@ -1,0 +1,31 @@
+# Developer loader: commands for the loader window (DevLoaderWindow::RunScriptLine of the engine fork).
+# The window opens with the selections of tests/loader-window.loadout.json. Each click goes through macOS into the
+# window, as a click of the real mouse. The places are in points from the top left corner of the window content.
+# They come from the picture runs/reg-loader-window/window-open.png, which has one pixel for each point.
+wait
+log
+shot window-open
+# The row of the map 02_NYC_Street in the map list
+click 330 338
+log
+# Open the list of start points, then select the entry FromNYCUndergroundSewer2
+click 300 618
+shot window-start-points
+click 300 500
+log
+# Open the list of weapon sets, then select the set Quiet
+click 1020 115
+click 1020 200
+log
+# The checkbox of the pistol
+click 580 149
+# The number field of the medkits: the click selects its text, Backspace removes it, the key 7 types the new count
+click 633 430
+key 51
+key 26 7
+# The checkbox of god mode
+click 572 571
+log
+shot window-end
+# The Start button
+click 80 668

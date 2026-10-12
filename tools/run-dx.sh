@@ -10,6 +10,8 @@
 # GAME=<game folder>: use this folder for the settings and the saved games of the run. Without it, the run gets a new
 # game folder in the state of a first start (runs/<run-name>/game, see tools/fresh-game.sh). The run reads the game data
 # from DeusEx/ and writes nothing into it, so the tests do not change the settings and the saved games of the player.
+# LOADOUT=<file>: start through the developer loader with the selections of this JSON file (--loadout).
+# LOADER_SCRIPT=<file>: open the loader window and use it with the commands of this file (--loader --loader-script).
 # APP=<path of a packaged "Deus Ex.app">: test the packaged app and its start script, not the engine build.
 # APP_HOME=<folder> (with APP): give the app this folder as home folder, and do not tell it where the game is. The start
 # script of the app must then find the game folder as it does for a player (tests/app-start-test.sh).
@@ -25,6 +27,18 @@ case "$SCRIPT" in
   /*) SCRIPT_ARG=(--script="$SCRIPT") ;;
   *) SCRIPT_ARG=(--script="$PWD/$SCRIPT") ;;
 esac
+# The developer loader (DevLoader.h of the engine fork). The engine needs full paths here also.
+LOADER_ARG=()
+case "$LOADOUT" in
+  "") ;;
+  /*) LOADER_ARG+=(--loadout="$LOADOUT") ;;
+  *) LOADER_ARG+=(--loadout="$PWD/$LOADOUT") ;;
+esac
+case "$LOADER_SCRIPT" in
+  "") ;;
+  /*) LOADER_ARG+=(--loader --loader-script="$LOADER_SCRIPT") ;;
+  *) LOADER_ARG+=(--loader --loader-script="$PWD/$LOADER_SCRIPT") ;;
+esac
 MUTE_ARG=(--mute)
 [ "$MUTE" = 0 ] && MUTE_ARG=()
 STATS_ARG=(--stats)
@@ -36,7 +50,7 @@ VSYNC_ARG=(--novsync)
 # The engine does not start the game before the file $R/window-ready is there. See the window manager step below.
 WINSIZE_ARG=(--winsize="${WINSIZE:-1280x960}" --wait-file="$R/window-ready")
 [ "$WINSIZE" = none ] && WINSIZE_ARG=()
-ARGS=(--nograb "${MUTE_ARG[@]}" "${STATS_ARG[@]}" "${VSYNC_ARG[@]}" --logfile="$R/log.txt" --shots="$R" --shot-interval="${SHOT_INTERVAL:-5}" --shot-first="${SHOT_FIRST:-3}" --exit-after="$SECS" "${WINSIZE_ARG[@]}" --fixed-fps="${FIXED_FPS:-30}" --seed="${SEED:-1}" "${SCRIPT_ARG[@]}" "$@")
+ARGS=(--nograb "${MUTE_ARG[@]}" "${STATS_ARG[@]}" "${VSYNC_ARG[@]}" --logfile="$R/log.txt" --shots="$R" --shot-interval="${SHOT_INTERVAL:-5}" --shot-first="${SHOT_FIRST:-3}" --exit-after="$SECS" "${WINSIZE_ARG[@]}" --fixed-fps="${FIXED_FPS:-30}" --seed="${SEED:-1}" "${SCRIPT_ARG[@]}" "${LOADER_ARG[@]}" "$@")
 # ENGINE_ENV="NAME=value NAME2=value2": environment variables for the engine process
 ENV_ARG=()
 for pair in $ENGINE_ENV; do ENV_ARG+=("$pair"); done

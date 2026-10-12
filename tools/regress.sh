@@ -8,6 +8,8 @@
 # The totals of script calls are the same in each run. A difference shows a change of behavior.
 # A test can have a file tests/<test>.expect. Each line of it is a pattern (grep -E) that the log must have.
 # A line that starts with "!" is a pattern that the log must not have.
+# A test can have a file tests/<test>.loadout.json. The game then starts through the developer loader with the
+# selections of that file. With a file tests/<test>.loader.txt, the loader window opens and gets the commands of that file.
 # With test names as arguments, the script runs only these tests: tools/regress.sh computer-email keys
 W="$(cd "$(dirname "$0")/.." && pwd)"
 SRC="${GAME:-$W/DeusEx}"
@@ -20,7 +22,10 @@ selected() {
 }
 run_one() {
   local name="$1" secs="$2"; shift 2
-  SCRIPT="$W/tests/$name.txt" SHOT_INTERVAL=0 "$W/tools/run-dx.sh" "reg-$name" "$secs" "$@" > "$W/runs/reg-$name.out" 2>&1
+  local loadout="" loader_script=""
+  [ -f "$W/tests/$name.loadout.json" ] && loadout="$W/tests/$name.loadout.json"
+  [ -f "$W/tests/$name.loader.txt" ] && loader_script="$W/tests/$name.loader.txt"
+  SCRIPT="$W/tests/$name.txt" LOADOUT="$loadout" LOADER_SCRIPT="$loader_script" SHOT_INTERVAL=0 "$W/tools/run-dx.sh" "reg-$name" "$secs" "$@" > "$W/runs/reg-$name.out" 2>&1
   local log="$W/runs/reg-$name/log.txt"
   local ended; ended=$(head -1 "$W/runs/reg-$name.out")
   local none; none=$(grep -a -c "Accessed None" "$log")
@@ -126,4 +131,7 @@ run computer-login-keys 13 --url=01_NYC_UNATCOHQ
 run computer-security 22 --url=01_NYC_UNATCOIsland
 run computer-atm 16 --url=01_NYC_UNATCOIsland
 run computer-hack 16 --url=01_NYC_UNATCOIsland
+run loader-loadout 6
+run loader-window 6
+run loader-main-menu 6
 exit $FAILED

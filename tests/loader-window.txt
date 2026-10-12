@@ -1,0 +1,8 @@
+# Developer loader: a start through the loader window. tests/loader-window.loader.txt has the clicks in the window:
+# they select the map 02_NYC_Street, a start point, the weapon set Quiet, the pistol, 7 medkits and god mode, and
+# they press the Start button. This script then looks at the game.
+# tests/loader-window.expect has the lines that the log must have.
+3.0  inv
+3.1  dump DeusExPlayer 0 Credits,CombatDifficulty,ReducedDamageType,bCheatsEnabled
+3.2  dump MedKit 5 NumCopies
+3.5  shot 1-game
