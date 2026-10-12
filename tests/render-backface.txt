@@ -1,0 +1,14 @@
+# The dance club ending (start with --url=99_Endgame4): a camera above the ceiling shows the dancers.
+# The engine does not draw a level surface that the camera sees from behind, and such a surface hides nothing.
+# The original has this rule in URender::OccludeBsp of Render.dll. One camera move of this map pushes the camera
+# back through the ceiling. Before the fix the ceiling filled the picture, and the picture was black.
+# The camera moves of the map come in a random order. So the test puts all camera points at one place above the
+# ceiling, with the view down. The next move of the map then puts the camera there, and it stays there.
+# tests/render-backface.expect has the lines that the log must have.
+1.0  setprop CameraPoint cmd CAMCMD_MOVE
+1.0  setprop CameraPoint Location (X=-667,Y=-176,Z=249)
+1.0  setprop CameraPoint Rotation (Pitch=52424,Yaw=71552,Roll=0)
+4.0  dump DeusExPlayer 0 ViewRotation
+4.0  dump ScriptedPawn 999999 bHidden
+4.0  visible
+4.5  shot 1-above-ceiling

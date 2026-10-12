@@ -42,6 +42,7 @@ Scripted tests on an M2 Max show that these parts work:
 - The music: the calm, combat and conversation parts of a song, the fades between them, and the return to the place where the calm part stopped.
 - The vision augmentation shows people as bright shapes.
 - The animated fire textures of the game: flames, static, laser beams, fountains, lightning.
+- Walls from behind: the engine does not draw a wall that the camera sees from behind, and such a wall hides nothing, as in the original. A cutscene camera that is outside a room shows the room. An example is the dance club ending, where the camera moves up through the ceiling and shows the dancers from above.
 - Mirrors: a mirror shows the player and the room in front of it, and it shows nothing of the room behind its wall. The tests use the two bathroom mirrors of the 'Ton hotel.
 - All 88 map files of the game start with no error.
 - Developer loader: a window that selects a map, a start point, the weapons and the values of the player, and starts the game there. See "Developer loader" below.
@@ -83,7 +84,6 @@ Known gaps:
 - A saved game from a build before the second play of 2026-10-12 does not have the goals, the notes and the keys of the player in it. The engine loads such a saved game without them and writes a line to the log.
 - A text field with more than one line, such as a note, has no moves of the insertion point by row, and its insertion mark has the height of the field.
 - The program uses about 15 MB more memory after each map change. The engine frees the geometry, the lightmaps and the textures of a map that it left, but it has no garbage collector for the objects of that map.
-- The engine draws a wall that the camera sees from behind. The original does not. So a camera of a cutscene that is outside a room shows a black picture, for example in some camera moves of the dance club ending.
 - A mirror does not show a second mirror. When mirrors with different planes are in view at the same time, the engine makes one mirror picture, with the plane of one of them, for all of them. The original makes a picture for each mirror, and it shows a mirror in a mirror.
 - The Effects Channels setting applies at the next start.
 - Multiplayer is not tested.

@@ -1,0 +1,11 @@
+# The log of the test must have a line for each of these patterns (grep -E). A line with "!" at the start is a
+# pattern that the log must not have.
+# The camera is above the ceiling of the club and looks down. The ceiling is at about z = 166.
+\[4\.00\].* dump JCDentonMale0 .* loc=\(-667 -176 249\) .* ViewRotation=\(Pitch=52424, Yaw=71552, Roll=0\)
+# The ceiling is not cover, so each of the 14 dancers counts as drawn.
+\[4\.00\].* dump Hooker0 state=Dancing .* lastRendered=0\.0 
+\[4\.00\].* dump MaggieChow0 state=Dancing .* lastRendered=0\.0 
+\[4\.00\].* dump Sailor1 state=Dancing .* lastRendered=0\.0 
+!\[4\.00\].* dump [A-Za-z]+[0-9]+ state=Dancing .* lastRendered=([1-9]|0\.[1-9])
+# The ceiling is not in the picture. The frame shows the 14 surfaces of the room that face the camera.
+\[4\.00\].* visible frames=1 surfaces=14 actors=[1-9][0-9]
