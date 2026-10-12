@@ -1,7 +1,8 @@
 # The log of the test must have a line for each of these patterns (grep -E). A line with "!" at the start is a
 # pattern that the log must not have.
-# The command changed the desired rotation of the persons.
-\[3\.00\].* setprop changed 59 actors
+# The command changed the desired rotation of the persons: the 58 persons of the map, and the first seagull when
+# its generator made it before this time. The generator makes a seagull after a random time.
+\[3\.00\].* setprop changed 5[89] actors
 # A person that stands turns to the yaw of the desired rotation and stays upright.
 \[3\.10\].* dump PaulDenton0 state=Standing .* lastRendered=0\.0 .* Rotation=\(Pitch=0, Yaw=23349, Roll=0\) DesiredRotation=\(Pitch=9000, Yaw=38000, Roll=0\) Physics=PHYS_Walking
 \[3\.60\].* dump PaulDenton0 state=Standing .* Rotation=\(Pitch=0, Yaw=38000, Roll=0\) DesiredRotation=\(Pitch=9000, Yaw=38000, Roll=0\) Physics=PHYS_Walking

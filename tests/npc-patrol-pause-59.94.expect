@@ -1,0 +1,8 @@
+# The lines for tests/npc-patrol-pause.txt with 59.94 frames per second (grep -E). The sleep of the guard ends
+# 0.005 seconds after the start of a new loop of the idle animation, so the guard waits for the last frame of that loop.
+\[12\.0[0-9]\].* dump Terrorist7 state=Patrolling .* AnimSequence=BreatheLight bAnimLoop=True destPoint=PatrolPoint'PatrolPoint27' sleepTime=5\.500000
+\[15\.0[0-9]\].* dump Terrorist7 state=Patrolling .* AnimSequence=BreatheLight bAnimLoop=True destPoint=PatrolPoint'PatrolPoint27'
+# After the sleep the animation plays to its last frame with no loop, and the guard stays.
+\[16\.8[0-9]\].* dump Terrorist7 state=Patrolling .* AnimSequence=BreatheLight bAnimLoop=False destPoint=PatrolPoint'PatrolPoint27'
+# The guard walks to the next patrol point after 7.5 seconds, at 17.9.
+\[19\.0[0-9]\].* dump Terrorist7 state=Patrolling .* AnimSequence=Walk bAnimLoop=True destPoint=PatrolPoint'PatrolPoint26'

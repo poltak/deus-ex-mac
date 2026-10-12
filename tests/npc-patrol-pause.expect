@@ -1,0 +1,9 @@
+# The log of the test must have a line for each of these patterns (grep -E). The time of a log line can be one
+# tick after the time of its command, so each pattern takes a range of times.
+# The guard is in its pause, and its sleep is 5.5 seconds long.
+\[12\.0[0-9]\].* dump Terrorist7 state=Patrolling .* AnimSequence=BreatheLight bAnimLoop=True destPoint=PatrolPoint'PatrolPoint27' sleepTime=5\.500000
+# 4.6 seconds after the start of the pause, the guard is in the loop of its idle animation.
+\[15\.0[0-9]\].* dump Terrorist7 state=Patrolling .* AnimSequence=BreatheLight bAnimLoop=True destPoint=PatrolPoint'PatrolPoint27'
+# The guard walks to the next patrol point after 5.5 seconds, at 15.9. Before the fix it stayed 7.5 seconds at 30
+# frames per second, and at the time of this line it waited for the last frame of the idle animation.
+\[16\.8[0-9]\].* dump Terrorist7 state=Patrolling .* AnimSequence=Walk bAnimLoop=True destPoint=PatrolPoint'PatrolPoint26'

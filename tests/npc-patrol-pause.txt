@@ -1,0 +1,35 @@
+# Liberty Island (start with --url=01_NYC_UNATCOIsland): the pause of a guard at a patrol point.
+# A guard that comes to a patrol point with a pause time turns, starts its idle animation and sleeps for the pause
+# time (state Patrolling of ScriptedPawn). Then it waits until the idle animation is at its last frame (FinishAnim)
+# and walks to the next point.
+# The idle animation is a loop of 2.5 seconds that starts 0.5 seconds after the sleep. So a new loop starts 3.0 and
+# 5.5 seconds after the start of the sleep. The sleep of this test is 5.5 seconds long, as it is at PatrolPoint41 of
+# the map. The tick in which the sleep ends then tells how long the guard stays:
+# - When the sleep ends before the new loop, the animation is after its last frame. The guard does not wait and
+#   walks on after 5.5 seconds.
+# - When the sleep ends after the start of the new loop, the guard waits 2.0 seconds for the last frame and walks on
+#   after 7.5 seconds.
+# The Engine.dll ends a sleep at the tick that is nearest to the end time (AActor::execPollSleep). In real play the
+# frame time is not exact, so the original game has the two results also.
+# With exactly 30 or 60 frames per second, the end of the sleep and the end of the loop are in the same tick. The
+# frame number of the animation is then a small amount below 1.0, because a float has only some digits. The loop
+# does not start again in that tick, and the guard walks on after 5.5 seconds.
+# Before the fix, the engine ended a sleep at the first tick after its end time. FinishAnim, WaitForLanding and
+# TurnTo each took one tick more than in the original. The guard then stayed 7.5 seconds at 30 frames per second and
+# 5.5 seconds at 60 frames per second.
+# The test gives each patrol point the pause time 5.5 and each guard the restlessness 0, because the restlessness
+# makes a pause shorter. Terrorist7 comes to its first patrol point 10.4 seconds after the start. A guard starts
+# its patrol after a random time of 0.2 to 1.2 seconds, so the times of the dump commands leave 0.8 seconds or more
+# before and after each change that the test looks for.
+# tools/regress.sh runs this script with four frame rates:
+# - 30 and 60: the guard stays 5.5 seconds.
+# - 60.06: the sleep ends 0.005 seconds before the new loop. The guard stays 5.5 seconds. Before the fix it stayed 7.5.
+# - 59.94: the sleep ends 0.005 seconds after the start of the new loop. The guard stays 7.5 seconds.
+# tests/npc-patrol-pause.expect has the lines for the first three frame rates, and
+# tests/npc-patrol-pause-59.94.expect has the lines for 59.94.
+0.1  setprop PatrolPoint pausetime 5.5
+0.1  setprop Terrorist restlessness 0
+12.0 dump Terrorist 999999 AnimSequence,bAnimLoop,destPoint,sleepTime
+15.0 dump Terrorist 999999 AnimSequence,bAnimLoop,destPoint
+16.8 dump Terrorist 999999 AnimSequence,bAnimLoop,destPoint
+19.0 dump Terrorist 999999 AnimSequence,bAnimLoop,destPoint

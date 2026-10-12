@@ -10,6 +10,10 @@
 # A line that starts with "!" is a pattern that the log must not have.
 # A test can have a file tests/<test>.loadout.json. The game then starts through the developer loader with the
 # selections of that file. With a file tests/<test>.loader.txt, the loader window opens and gets the commands of that file.
+# A line of this script can give a run a frame rate and the input script of a different test:
+#   FIXED_FPS=60 SCRIPT_NAME=npc-patrol-pause run npc-patrol-pause-60 20
+# That run uses tests/npc-patrol-pause.txt. It uses tests/npc-patrol-pause-60.expect when that file is there, and
+# tests/npc-patrol-pause.expect when it is not. So one script can run with more than one frame rate.
 # With test names as arguments, the script runs only these tests: tools/regress.sh computer-email keys
 W="$(cd "$(dirname "$0")/.." && pwd)"
 SRC="${GAME:-$W/DeusEx}"
@@ -22,10 +26,12 @@ selected() {
 }
 run_one() {
   local name="$1" secs="$2"; shift 2
+  local script="${SCRIPT_NAME:-$name}" expect="$W/tests/$name.expect"
+  [ -f "$expect" ] || expect="$W/tests/$script.expect"
   local loadout="" loader_script=""
   [ -f "$W/tests/$name.loadout.json" ] && loadout="$W/tests/$name.loadout.json"
   [ -f "$W/tests/$name.loader.txt" ] && loader_script="$W/tests/$name.loader.txt"
-  SCRIPT="$W/tests/$name.txt" LOADOUT="$loadout" LOADER_SCRIPT="$loader_script" SHOT_INTERVAL=0 "$W/tools/run-dx.sh" "reg-$name" "$secs" "$@" > "$W/runs/reg-$name.out" 2>&1
+  SCRIPT="$W/tests/$script.txt" LOADOUT="$loadout" LOADER_SCRIPT="$loader_script" SHOT_INTERVAL=0 "$W/tools/run-dx.sh" "reg-$name" "$secs" "$@" > "$W/runs/reg-$name.out" 2>&1
   local log="$W/runs/reg-$name/log.txt"
   local ended; ended=$(head -1 "$W/runs/reg-$name.out")
   local none; none=$(grep -a -c "Accessed None" "$log")
@@ -33,7 +39,7 @@ run_one() {
   local perf; perf=$(grep -a "perf totals" "$log" | tail -1 | sed 's/.*perf totals //')
   local inv; inv=$(grep -a "Harness: inv count" "$log" | tail -1 | sed 's/.*Harness: inv //')
   local checks="" missing=0 total=0 pattern
-  if [ -f "$W/tests/$name.expect" ]; then
+  if [ -f "$expect" ]; then
     while IFS= read -r pattern; do
       case "$pattern" in ""|"#"*) continue ;; esac
       total=$((total + 1))
@@ -49,7 +55,7 @@ run_one() {
             echo "$name: the log has no line for the pattern: $pattern"
           fi ;;
       esac
-    done < "$W/tests/$name.expect"
+    done < "$expect"
     checks=", checks $((total - missing)) of $total"
   fi
   echo "$name: $ended, accessed none $none, errors $errors$checks${perf:+, $perf}${inv:+, last inventory: $inv}"
@@ -111,6 +117,11 @@ run player-fight 19 --url=01_NYC_UNATCOIsland
 run enemy-run 21 --url=01_NYC_UNATCOIsland
 run npc-upright 6 --url=01_NYC_UNATCOIsland
 run npc-hidden 123 --url=01_NYC_UNATCOIsland
+# The pause of a guard at a patrol point, with four frame rates. See tests/npc-patrol-pause.txt.
+run npc-patrol-pause 20 --url=01_NYC_UNATCOIsland
+FIXED_FPS=60 SCRIPT_NAME=npc-patrol-pause run npc-patrol-pause-60 20 --url=01_NYC_UNATCOIsland
+FIXED_FPS=60.06 SCRIPT_NAME=npc-patrol-pause run npc-patrol-pause-60.06 20 --url=01_NYC_UNATCOIsland
+FIXED_FPS=59.94 SCRIPT_NAME=npc-patrol-pause run npc-patrol-pause-59.94 20 --url=01_NYC_UNATCOIsland
 run save-fight 30 --url=01_NYC_UNATCOIsland
 run save-goals 17 --url=01_NYC_UNATCOIsland
 run travel-goals 30 --url=01_NYC_UNATCOIsland

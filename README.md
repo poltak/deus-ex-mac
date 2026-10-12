@@ -58,6 +58,17 @@ A second play on the same day found four more faults, and the four are fixed:
 - Guards leaned back and looked at the sky when the person that they went to was above them.
 - The guards near the first dock of Liberty Island were at a different place in each new game, and in one game the security robot of the dock killed them before the player came. The engine counted persons behind walls as seen, so hidden guards and robots fought each other, and the result changed with the frame rate. Now a hidden person counts as not seen, as in the original. The two guards of that place walk a patrol with loops of about 130 and 180 seconds, so the place where the player meets them still changes with the time. The original game does the same.
 
+A test on the same day found one more fault, and it is fixed. The time that a guard stays at a patrol point changed with the frame rate. One guard of the first dock stayed 7.5 seconds with 30 frames per second, which is the frame rate of the tests, and 5.5 seconds with 60 and with 120. These script functions did not work as in the original:
+
+- `Sleep` ended at the first tick after the sleep time. The original ends it at the tick that is nearest to the sleep time.
+- `FinishAnim` waited one tick when there was no animation to wait for. The original then goes on in the same tick.
+- `WaitForLanding` waited one tick when the person did not fall.
+- `TurnTo` and `TurnToward` started the turn one tick late.
+
+The animation step of an actor now follows the original also. A saved game now keeps the remaining time of a sleep.
+
+At some patrol points the pause time is the same as the time at which the idle animation of the guard starts a new loop. The point of that guard is such a point, with 5.5 seconds. There the guard walks on at once when the pause ends before the new loop. When the pause ends after the start of the new loop, the guard waits 2 seconds more for the end of the animation. In real play the frame time is not exact, so the guard stays 5.5 or 7.5 seconds there. The rule of the original gives the same two results. With exactly 30, 60 or 120 frames per second the guard stays 5.5 seconds.
+
 No person has reported on these parts yet:
 
 - Sound by ear. The test runs are muted or go to a file.
@@ -252,6 +263,14 @@ This runs the scripted tests and prints one line for each. Each test gets its ow
 A test can have a file `tests/<name>.expect`. Each line of that file is a pattern that the log of the test must have. The test fails when a line is missing. A line that starts with `!` is a pattern that the log must not have. The harness command `windows` writes the visible interface windows to the log, with the text of text windows, the row count of lists, the state of checkboxes and the position of scroll bars. The command `dump` writes properties of actors. With these two commands a test can check what a screen shows and what the game state is.
 
 A test with a file `tests/<name>.loadout.json` starts through the developer loader with the selections of that file. With a file `tests/<name>.loader.txt`, the loader window opens first and gets the commands of that file.
+
+A test runs with 30 frames per second. A line of `tools/regress.sh` can give a run a different frame rate and the input script of a different test, so one script can run with more than one frame rate. `tests/npc-patrol-pause.txt` runs with 30, 60, 60.06 and 59.94 frames per second:
+
+```bash
+FIXED_FPS=60 SCRIPT_NAME=npc-patrol-pause run npc-patrol-pause-60 20 --url=01_NYC_UNATCOIsland
+```
+
+Such a run uses `tests/<name>.expect` when that file is there, and the `.expect` file of the script when it is not.
 
 To run only some tests, give their names. A test of a chain also runs the tests before it in the chain:
 
