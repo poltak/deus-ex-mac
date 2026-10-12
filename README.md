@@ -65,28 +65,46 @@ Known gaps:
 
 ### What you need
 
-- A Mac with Apple Silicon and macOS 15 or later.
-- The Xcode command line tools, CMake and Ninja to build the app (`brew install cmake ninja`).
-- The files of Deus Ex: the `System`, `Maps`, `Textures`, `Sounds` and `Music` folders.
+- A Mac with Apple Silicon and macOS 15 or later. This is the only platform with tests: one machine, an M2 Max with macOS 15. Intel Macs, Windows and Linux are not tested. The app builder and the test tools are for macOS only.
+- Your own copy of Deus Ex, Game of the Year Edition (version 1112fm). The Steam edition and the GOG edition have the files. This repository has no game files.
+- The Xcode command line tools, CMake and Ninja to build the app (`brew install cmake ninja`). There is no ready app to download at this time.
 
-### Get the game files
+### Step 1: get the game files
 
-The game folder is the folder that has `System` and `Maps` in it. There are three usual ways to get it. Only the first one was used in this project.
+Deus Ex is a Windows game, so Steam on a Mac does not install it. You need the folder of the Windows version. It is the folder that has `System`, `Maps`, `Textures`, `Sounds` and `Music` in it.
 
-1. Copy the folder from a computer where the game is installed. On Windows and Linux, Steam keeps it in `steamapps/common/Deus Ex`.
-2. Download the Windows files with SteamCMD (not tested here). App 6910 is the Game of the Year Edition:
+Only the first of these ways was used in this project:
+
+1. Copy the folder from a Windows or Linux computer where Steam installed the game. Steam keeps it in `steamapps/common/Deus Ex`.
+2. Use the console of Steam on your Mac (not tested here). Open the address `steam://open/console` in a browser, and type this command in the console of Steam. App 6910 is the Game of the Year Edition and 6911 is its file depot. Steam prints the folder of the download when it is complete.
+
+   ```
+   download_depot 6910 6911
+   ```
+
+3. Download the Windows files with SteamCMD (not tested here):
 
    ```bash
    steamcmd +@sSteamCmdForcePlatformType windows +force_install_dir "$HOME/Games/Deus Ex" +login YOUR_STEAM_NAME +app_update 6910 validate +quit
    ```
 
-3. Extract the GOG offline installer with `innoextract` (not tested here).
+4. Extract the GOG offline installer with `innoextract` (not tested here).
 
-Put the folder in a place where you can write. The engine keeps its settings and the save games in the game folder. In a working copy of this project, name the folder `DeusEx` and put it at the top of the working copy. The app in `dist/` and the test tools find it there, and git ignores it. A different place is `~/Games/Deus Ex`.
+Put the folder at `~/Games/Deus Ex`. The app finds it there with no question. A different place is also possible, and the app then asks for it. The folder must be in a place where you can write, because the engine keeps its settings and the save games in the game folder.
 
-### Build the app
+The tests of this project used one copy of the game: the Steam edition with the conversation files of the GMDX mod. A copy with no mod has the original files, but it was not tested here.
 
-The engine fork is the `SurrealEngine` folder of this working copy.
+### Step 2: build the app
+
+```bash
+git clone --recurse-submodules https://github.com/poltak/deus-ex-mac.git
+```
+
+```bash
+cd deus-ex-mac
+```
+
+The engine fork is the `SurrealEngine` folder. The first command downloads MoltenVK, the library that gives Vulkan on a Mac.
 
 ```bash
 cmake -S SurrealEngine -B SurrealEngine/build -G Ninja -DCMAKE_BUILD_TYPE=RelWithDebInfo
@@ -102,9 +120,19 @@ tools/make-app.sh
 
 The result is `dist/Deus Ex.app`. It has the engine and its libraries in it, and no game data.
 
-### Start the game
+### Step 3: start the game
 
-Open `dist/Deus Ex.app`. The first start looks for the game folder in these places, in this order: a `DeusEx` or `Deus Ex` folder next to the app, the `DeusEx` folder of this working copy (the folder next to `dist`), `~/Library/Application Support/Steam/steamapps/common/Deus Ex`, `~/Games/Deus Ex`, `~/Documents/Deus Ex` and `/Applications/Deus Ex`. If the game is not there, a dialog asks for the folder. The app stores the folder in `~/Library/Application Support/DeusExMac/gamefolder.txt`. Delete that file to select a different folder. The environment variable `DEUSEX_GAME_FOLDER` selects a folder for one start.
+Open `dist/Deus Ex.app`.
+
+At the first start the app looks for the game folder. If it does not find one, a dialog asks you to select it. Select the folder that has `System` and `Maps` in it. The app stores your selection in `~/Library/Application Support/DeusExMac/gamefolder.txt`. Delete that file to select a different folder.
+
+The app looks in these places, in this order:
+
+1. The folder in the environment variable `DEUSEX_GAME_FOLDER`. This is for one start.
+2. The folder from the last start.
+3. A `DeusEx` or `Deus Ex` folder next to the app.
+4. The `DeusEx` folder at the top of this working copy. A developer can put the game folder there, and git ignores it.
+5. `~/Library/Application Support/Steam/steamapps/common/Deus Ex`, `~/Games/Deus Ex`, `~/Documents/Deus Ex` and `/Applications/Deus Ex`.
 
 The game folder does not need the original `DeusEx.exe`. A folder where a mod launcher replaced that file also works.
 
@@ -132,7 +160,7 @@ GMDX installs its conversation files over the original ones. A game folder with 
 ### Layout
 
 - `SurrealEngine/` is the engine fork (git submodule, branch `deus-ex-mac`).
-- `DeusEx/` is your game folder. The app in `dist/` plays from it, and the tests read the game data from it. A test writes nothing into it. Git ignores it.
+- `DeusEx/` is the place for your game folder, or for a link to it. Git ignores it. The tests read the game data from it and write nothing into it, and the app in `dist/` plays from it.
 - `packaging/` has the start script and the `Info.plist` of the app.
 - `tests/` has input scripts for the test harness of the fork.
 - `tools/` has the scripts to run tests, to measure speed and to read the original DLLs.
