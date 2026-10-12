@@ -7,12 +7,15 @@
 # Environment: MUTE=0, FIXED_FPS=<n>, SEED=<n>, WINSIZE=<W>x<H> (or "none": keep the size that the engine selects), FOREGROUND=1 (start in front, default is background), SCRIPT=<input script file>, SHOT_INTERVAL=<seconds, 0 = off>, SHOT_FIRST=<seconds>, LOG_HEAD=<lines>
 # STATS=0: do not show the frame rate and object counts on the screen. WATCHDOG=<seconds>: time limit for a run that hangs.
 # VSYNC=1: wait for the display after each frame, as a normal start does.
-# GAME=<game folder> (default DeusEx/), APP=<path of a packaged "Deus Ex.app">: test the packaged app and its start script, not the engine build.
+# GAME=<game folder>: use this folder for the settings and the saved games of the run. Without it, the run gets a new
+# game folder in the state of a first start (runs/<run-name>/game, see tools/fresh-game.sh). The run reads the game data
+# from DeusEx/ and writes nothing into it, so the tests do not change the settings and the saved games of the player.
+# APP=<path of a packaged "Deus Ex.app">: test the packaged app and its start script, not the engine build.
 W="$(cd "$(dirname "$0")/.." && pwd)"
 NAME="$1"; SECS="$2"; shift 2
 R="$W/runs/$NAME"; rm -rf "$R"; mkdir -p "$R"
 B="$W/SurrealEngine/build/SurrealEngine.app/Contents/MacOS/SurrealEngine"
-GAME="${GAME:-$W/DeusEx}"
+if [ -z "$GAME" ]; then GAME="$("$W/tools/fresh-game.sh" "$R/game")" || exit 2; fi
 SCRIPT_ARG=()
 # The engine starts in a different folder, so give it the full path of the input script.
 case "$SCRIPT" in

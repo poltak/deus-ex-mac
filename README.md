@@ -127,7 +127,7 @@ GMDX installs its conversation files over the original ones. A game folder with 
 ### Layout
 
 - `SurrealEngine/` is the engine fork (git submodule, branch `deus-ex-mac`).
-- `DeusEx/` is your game data for tests. Git ignores it.
+- `DeusEx/` is your game folder. The app in `dist/` plays from it, and the tests read the game data from it. A test writes nothing into it. Git ignores it.
 - `packaging/` has the start script and the `Info.plist` of the app.
 - `tests/` has input scripts for the test harness of the fork.
 - `tools/` has the scripts to run tests, to measure speed and to read the original DLLs.
@@ -147,7 +147,9 @@ A run repeats exactly. The game advances a fixed time for each frame with a fixe
 
 `SCRIPT=tests/<name>.txt` gives the run an input script. Each line has a time and a command: keys, mouse clicks, console commands, pictures, commands that list actors, flags, goals, interface windows and the inventory, and commands that set a flag or send a trigger event to actors. The file `SurrealEngine/SurrealEngine/Harness.h` has the full list. `SurrealEngine/SurrealEngine/Harness.cpp` has the full list.
 
-`APP="dist/Deus Ex.app"` runs the packaged app and its start script. `GAME=<folder>` selects a different game folder. `tools/fresh-game.sh <new folder>` makes a game folder in the state of a first start: links to the data in `DeusEx/`, copies of the ini files of the game, no saved games.
+A run gets a new game folder in the state of a first start, `runs/<name>/game/`. It has links to the data in `DeusEx/`, copies of the ini files of the game and no saved games. So a run does not change your settings and your saved games in `DeusEx/`. `tools/fresh-game.sh <new folder>` makes such a folder, and `GAME=<folder>` gives a run a folder to use, for example when a second run must load the saved game of the first.
+
+`APP="dist/Deus Ex.app"` runs the packaged app and its start script.
 
 ### Regression tests
 
