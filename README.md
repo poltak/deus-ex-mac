@@ -108,6 +108,8 @@ Open `dist/Deus Ex.app`. The first start looks for the game folder in these plac
 
 The game folder does not need the original `DeusEx.exe`. A folder where a mod launcher replaced that file also works.
 
+When the game folder is in your Documents, Desktop or Downloads folder, macOS asks at the first start if the app can open files there. It asks again after each new build of the app, because a new build has a new signature.
+
 ### Controls and settings
 
 - The first start opens a window that is the largest whole multiple of 640x480 pixels that fits on your screen. The game scales its screens by whole numbers, as the original does.

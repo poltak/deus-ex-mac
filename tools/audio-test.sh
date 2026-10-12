@@ -17,9 +17,10 @@ case "$SCRIPT" in
   /*) SCRIPT_ARG=(--script="$SCRIPT") ;;
   *) SCRIPT_ARG=(--script="$PWD/$SCRIPT") ;;
 esac
-open -g -n -W --stdout "$R/stdout.txt" --stderr "$R/stderr.txt" --env "ALSOFT_DRIVERS=wave" --env "ALSOFT_CONF=$R/alsoft.conf" \
-  "$W/SurrealEngine/build/SurrealEngine.app" --args --nolauncher --nograb --logfile="$R/log.txt" --shots="$R" --shot-interval=0 \
-  --exit-after="$SECS" --winsize=1280x960 --seed=1 "${SCRIPT_ARG[@]}" "$@" "$GAME" &
+# The engine starts as a child of this script and does not make itself the active app. See tools/run-dx.sh.
+env ALSOFT_DRIVERS=wave "ALSOFT_CONF=$R/alsoft.conf" SURREAL_NO_ACTIVATE=1 \
+  "$W/SurrealEngine/build/SurrealEngine.app/Contents/MacOS/SurrealEngine" --nolauncher --nograb --logfile="$R/log.txt" --shots="$R" --shot-interval=0 \
+  --exit-after="$SECS" --winsize=1280x960 --seed=1 "${SCRIPT_ARG[@]}" "$@" "$GAME" > "$R/stdout.txt" 2> "$R/stderr.txt" &
 WAITER=$!
 ( sleep $((SECS + 60)); pkill -9 -f "MacOS/SurrealEngine.*--logfile=$R/log.txt" ) 2>/dev/null &
 WD=$!

@@ -39,19 +39,24 @@ WINSIZE_ARG=(--winsize="${WINSIZE:-1280x960}" --wait-file="$R/window-ready")
 ARGS=(--nograb "${MUTE_ARG[@]}" "${STATS_ARG[@]}" "${VSYNC_ARG[@]}" --logfile="$R/log.txt" --shots="$R" --shot-interval="${SHOT_INTERVAL:-5}" --shot-first="${SHOT_FIRST:-3}" --exit-after="$SECS" "${WINSIZE_ARG[@]}" --fixed-fps="${FIXED_FPS:-30}" --seed="${SEED:-1}" "${SCRIPT_ARG[@]}" "$@")
 # ENGINE_ENV="NAME=value NAME2=value2": environment variables for the engine process
 ENV_ARG=()
-for pair in $ENGINE_ENV; do ENV_ARG+=(--env "$pair"); done
+for pair in $ENGINE_ENV; do ENV_ARG+=("$pair"); done
+# The engine starts as a child of this script, not through LaunchServices (the "open" command). A program that
+# LaunchServices starts is responsible for its own file access. macOS then asks the person at the computer for
+# permission when the program opens a file in the Documents, Desktop or Downloads folder, and it asks again for each
+# new build, because a new build has a new signature. A child of this script uses the permission of the program that
+# runs the script, so a test opens no permission dialog.
+# SURREAL_NO_ACTIVATE keeps the engine from making itself the active app: the test window opens behind the windows of
+# the active app and does not take the keyboard focus. FOREGROUND=1 starts the window in front.
+[ -z "$FOREGROUND" ] && ENV_ARG+=("SURREAL_NO_ACTIVATE=1")
 if [ -n "$APP" ]; then
-  # The start script of the app adds --direct and the game folder. An error opens the error window of the engine, as it does for a player.
-  APP_ENV=(--env "DEUSEX_GAME_FOLDER=$GAME")
-  [ -n "$APP_HOME" ] && APP_ENV=(--env "HOME=$APP_HOME")
-  open -g -n -W --stdout "$R/stdout.txt" --stderr "$R/stderr.txt" "${APP_ENV[@]}" "$APP" --args "${ARGS[@]}" &
-  WAITER=$!
-elif [ -n "$FOREGROUND" ]; then
-  "$B" --nolauncher "${ARGS[@]}" "$GAME" > "$R/stdout.txt" 2> "$R/stderr.txt" &
+  # The program of the app is its start script. It adds --direct and the game folder. An error opens the error window
+  # of the engine, as it does for a player.
+  if [ -n "$APP_HOME" ]; then ENV_ARG+=("HOME=$APP_HOME"); else ENV_ARG+=("DEUSEX_GAME_FOLDER=$GAME"); fi
+  EXE="$APP/Contents/MacOS/$(/usr/libexec/PlistBuddy -c 'Print :CFBundleExecutable' "$APP/Contents/Info.plist")"
+  env "${ENV_ARG[@]}" "$EXE" "${ARGS[@]}" > "$R/stdout.txt" 2> "$R/stderr.txt" &
   WAITER=$!
 else
-  # -g starts the app in the background, so the test window does not take the keyboard focus from the person at the computer.
-  open -g -n -W --stdout "$R/stdout.txt" --stderr "$R/stderr.txt" "${ENV_ARG[@]}" "$W/SurrealEngine/build/SurrealEngine.app" --args --nolauncher "${ARGS[@]}" "$GAME" &
+  env "${ENV_ARG[@]}" "$B" --nolauncher "${ARGS[@]}" "$GAME" > "$R/stdout.txt" 2> "$R/stderr.txt" &
   WAITER=$!
 fi
 PID=""
@@ -63,8 +68,12 @@ done
 # AeroSpace (tiling window manager) resizes new windows. Make this one window float. This changes no configuration.
 # The size of the window changes what the game does, so the engine waits for the file window-ready before it starts
 # the game. Then each run of a test gives the same result.
+# AeroSpace does not take the window of an app that is not the active app (a run in the background), so the wait for
+# the window is short. With FOREGROUND=1 it takes the window, and the wait is longer.
+AERO_TRIES=8
+[ -n "$FOREGROUND" ] && AERO_TRIES=40
 if [ -n "$PID" ] && command -v aerospace >/dev/null 2>&1 && aerospace list-windows --all >/dev/null 2>&1; then
-  ( for i in $(seq 1 40); do
+  ( for i in $(seq 1 $AERO_TRIES); do
       ID=$(aerospace list-windows --all --format '%{window-id}|%{app-pid}' 2>/dev/null | grep "|$PID\$" | cut -d'|' -f1 | head -1)
       if [ -n "$ID" ]; then aerospace layout --window-id "$ID" floating >/dev/null 2>&1; break; fi
       sleep 0.25
