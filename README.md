@@ -4,6 +4,8 @@ Run the original Deus Ex (2000, Game of the Year Edition, build 1112fm) as a nat
 
 The game does not get a new binary port. The engine is a fork of [SurrealEngine](https://github.com/dpjudas/SurrealEngine), an open-source reimplementation of Unreal Engine 1 that runs on macOS. It loads the original maps, scripts, textures and sounds of your own copy of the game. Where SurrealEngine has missing or incorrect Deus Ex behavior, [REA](https://github.com/morluto/rea) with Ghidra shows what the original Windows DLLs do, and the fork implements that behavior again.
 
+The fork is at [poltak/SurrealEngine](https://github.com/poltak/SurrealEngine), and it is the `SurrealEngine` submodule of this repository. Claude Opus 5.5, an AI model of Anthropic, wrote the changes of the fork and the tools and tests of this repository.
+
 This repository has no game data. You need your own copy of Deus Ex.
 
 ## State on 2026-10-12
