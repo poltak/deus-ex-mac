@@ -79,7 +79,7 @@ The game folder is the folder that has `System` and `Maps` in it. There are thre
 
 3. Extract the GOG offline installer with `innoextract` (not tested here).
 
-Put the folder in a place where you can write, for example `~/Games/Deus Ex`. The engine keeps its settings and the save games in the game folder.
+Put the folder in a place where you can write. The engine keeps its settings and the save games in the game folder. In a working copy of this project, name the folder `DeusEx` and put it at the top of the working copy. The app in `dist/` and the test tools find it there, and git ignores it. A different place is `~/Games/Deus Ex`.
 
 ### Build the app
 
@@ -101,7 +101,7 @@ The result is `dist/Deus Ex.app`. It has the engine and its libraries in it, and
 
 ### Start the game
 
-Open `dist/Deus Ex.app`. The first start looks for the game in `~/Library/Application Support/Steam/steamapps/common/Deus Ex`, `~/Games/Deus Ex`, `~/Documents/Deus Ex` and `/Applications/Deus Ex`. If the game is not there, a dialog asks for the folder. The app stores the folder in `~/Library/Application Support/DeusExMac/gamefolder.txt`. Delete that file to select a different folder. The environment variable `DEUSEX_GAME_FOLDER` selects a folder for one start.
+Open `dist/Deus Ex.app`. The first start looks for the game folder in these places, in this order: a `DeusEx` or `Deus Ex` folder next to the app, the `DeusEx` folder of this working copy (the folder next to `dist`), `~/Library/Application Support/Steam/steamapps/common/Deus Ex`, `~/Games/Deus Ex`, `~/Documents/Deus Ex` and `/Applications/Deus Ex`. If the game is not there, a dialog asks for the folder. The app stores the folder in `~/Library/Application Support/DeusExMac/gamefolder.txt`. Delete that file to select a different folder. The environment variable `DEUSEX_GAME_FOLDER` selects a folder for one start.
 
 The game folder does not need the original `DeusEx.exe`. A folder where a mod launcher replaced that file also works.
 

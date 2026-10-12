@@ -6,12 +6,21 @@
 # Order of the search:
 #   1. the environment variable DEUSEX_GAME_FOLDER
 #   2. the folder from the last start (~/Library/Application Support/DeusExMac/gamefolder.txt)
-#   3. some usual places
-#   4. a folder dialog
+#   3. a "DeusEx" or "Deus Ex" folder next to the app
+#   4. the DeusEx folder of a working copy of this project, where the app is in dist/ and the game folder is next to dist/
+#   5. some usual places
+#   6. a folder dialog
 
 HERE="$(cd "$(dirname "$0")" && pwd)"
 CONFIG_DIR="$HOME/Library/Application Support/DeusExMac"
 CONFIG_FILE="$CONFIG_DIR/gamefolder.txt"
+# The folder that has the app in it. The script is in <app>/Contents/MacOS.
+APP_PARENT="$(cd "$HERE/../../.." 2>/dev/null && pwd)"
+NEAR_APP=()
+if [ -n "$APP_PARENT" ]; then
+  NEAR_APP=("$APP_PARENT/DeusEx" "$APP_PARENT/Deus Ex")
+  if [ "$(basename "$APP_PARENT")" = dist ]; then NEAR_APP+=("$(dirname "$APP_PARENT")/DeusEx"); fi
+fi
 
 is_game_folder() {
   [ -n "$1" ] && [ -f "$1/System/DeusEx.u" ] && [ -d "$1/Maps" ]
@@ -31,6 +40,7 @@ elif [ -f "$CONFIG_FILE" ] && is_game_folder "$(cat "$CONFIG_FILE")"; then
   SAVE_CHOICE=0
 else
   for candidate in \
+    "${NEAR_APP[@]}" \
     "$HOME/Library/Application Support/Steam/steamapps/common/Deus Ex" \
     "$HOME/Games/Deus Ex" \
     "$HOME/Games/DeusEx" \

@@ -4,12 +4,17 @@
 # Usage: tests/start-script-test.sh
 W="$(cd "$(dirname "$0")/.." && pwd)"
 T="$(mktemp -d "${TMPDIR:-/tmp}/dx-start-test.XXXXXX")"
+# The start script finds its own folder with pwd. Use the same form of the path here.
+T="$(cd "$T" && pwd)"
 trap 'chmod -R u+w "$T" 2>/dev/null; rm -rf "$T"' EXIT
 
-mkdir -p "$T/app" "$T/bin" "$T/home"
-cp "$W/packaging/DeusEx.sh" "$T/app/DeusEx"
+# The app is in the dist folder of a fake working copy, as tools/make-app.sh makes it
+PROJECT="$T/project"
+APP="$PROJECT/dist/Deus Ex.app/Contents/MacOS"
+mkdir -p "$APP" "$T/bin" "$T/home"
+cp "$W/packaging/DeusEx.sh" "$APP/DeusEx"
 # The fake engine writes its arguments, one for each line
-printf '#!/bin/bash\nprintf "%%s\\n" "$@" > "%s/engine-args.txt"\n' "$T" > "$T/app/SurrealEngine"
+printf '#!/bin/bash\nprintf "%%s\\n" "$@" > "%s/engine-args.txt"\n' "$T" > "$APP/SurrealEngine"
 # The fake osascript records the call. For a folder dialog it prints $FAKE_CHOICE, or fails if that is empty.
 cat > "$T/bin/osascript" <<'EOS'
 #!/bin/bash
@@ -18,7 +23,7 @@ case "$2" in
   *"choose folder"*) [ -n "$FAKE_CHOICE" ] || exit 1; printf '%s\n' "$FAKE_CHOICE" ;;
 esac
 EOS
-chmod +x "$T/app/DeusEx" "$T/app/SurrealEngine" "$T/bin/osascript"
+chmod +x "$APP/DeusEx" "$APP/SurrealEngine" "$T/bin/osascript"
 
 make_game() { mkdir -p "$1/System" "$1/Maps"; : > "$1/System/DeusEx.u"; }
 
@@ -27,7 +32,7 @@ FAILED=0
 run() {
   local name="$1" want_rc="$2" want_game="$3" want_dialogs="$4"; shift 4
   rm -f "$T/engine-args.txt" "$T/osascript.log"
-  env -i PATH="$T/bin:/usr/bin:/bin" HOME="$T/home" FAKE_LOG="$T/osascript.log" "$@" "$T/app/DeusEx" --mute
+  env -i PATH="$T/bin:/usr/bin:/bin" HOME="$T/home" FAKE_LOG="$T/osascript.log" "$@" "$APP/DeusEx" --mute
   local rc=$? game="" dialogs="none"
   [ -f "$T/engine-args.txt" ] && game="$(tail -1 "$T/engine-args.txt")"
   if [ -f "$T/osascript.log" ]; then
@@ -52,6 +57,21 @@ mkdir -p "$T/games/not a game"
 
 run "the environment variable selects the folder" 0 "$T/games/env game" none DEUSEX_GAME_FOLDER="$T/games/env game"
 check_stored "the environment variable does not change the stored folder" ""
+make_game "$PROJECT/DeusEx"
+run "the game folder of the working copy is found with no dialog" 0 "$PROJECT/DeusEx" none
+check_stored "the folder of the working copy is stored" "$PROJECT/DeusEx"
+make_game "$PROJECT/dist/Deus Ex"
+run "the stored folder comes before a game folder next to the app" 0 "$PROJECT/DeusEx" none
+rm -rf "$T/home/Library"
+run "a game folder next to the app comes before the one of the working copy" 0 "$PROJECT/dist/Deus Ex" none
+rm -rf "$PROJECT/dist/Deus Ex" "$T/home/Library"
+# The folder above the app is only a place of the search when the app is in a folder with the name dist
+mv "$PROJECT/dist" "$PROJECT/build"
+APP="$PROJECT/build/Deus Ex.app/Contents/MacOS"
+run "an app that is not in dist does not use the folder above it" 0 "" choose
+mv "$PROJECT/build" "$PROJECT/dist"
+APP="$PROJECT/dist/Deus Ex.app/Contents/MacOS"
+rm -rf "$PROJECT/DeusEx"
 run "a cancelled dialog stops with no error" 0 "" choose
 run "a folder that is not a game shows an alert" 1 "" choose+alert FAKE_CHOICE="$T/games/not a game/"
 check_stored "a bad folder is not stored" ""
