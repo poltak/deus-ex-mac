@@ -161,7 +161,7 @@ GMDX installs its conversation files over the original ones. A game folder with 
 
 ### Layout
 
-- `SurrealEngine/` is the engine fork (git submodule, branch `deus-ex-mac`).
+- `SurrealEngine/` is the engine fork (git submodule, branch `master` of [poltak/SurrealEngine](https://github.com/poltak/SurrealEngine)).
 - `DeusEx/` is the place for your game folder, or for a link to it. Git ignores it. The tests read the game data from it and write nothing into it, and the app in `dist/` plays from it.
 - `packaging/` has the start script and the `Info.plist` of the app.
 - `tests/` has input scripts for the test harness of the fork.
