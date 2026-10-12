@@ -1,4 +1,4 @@
 [submodule "SurrealEngine"]
 	path = SurrealEngine
-	url = https://github.com/dpjudas/SurrealEngine.git
-	branch = deus-ex-mac
+	url = https://github.com/poltak/SurrealEngine.git
+	branch = master
