@@ -76,6 +76,7 @@ run ai-wander 30
 run particles 12 --url=01_NYC_UNATCOIsland
 run keys 31
 run input-held-key 13 --url=01_NYC_UNATCOIsland
+run input-mac-keys 16 --url=01_NYC_UNATCOIsland
 run console 12 --url=01_NYC_UNATCOIsland
 run perf-m01 26 --url=01_NYC_UNATCOIsland
 run m01-paul-choice 130 --url=01_NYC_UNATCOIsland
@@ -102,6 +103,7 @@ run map-start 8 --url=01_NYC_UNATCOIsland
 run map-attach 3 --url=00_TrainingCombat
 run actor-stasis 12 --url=01_NYC_UNATCOIsland
 run player-fight 19 --url=01_NYC_UNATCOIsland
+run enemy-run 14 --url=01_NYC_UNATCOIsland
 run save-fight 30 --url=01_NYC_UNATCOIsland
 run player-reload 22 --url=01_NYC_UNATCOIsland
 run player-objects 18 --url=01_NYC_UNATCOIsland

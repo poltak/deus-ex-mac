@@ -12,7 +12,7 @@ Scripted tests on an M2 Max show that these parts work:
 
 - Start screen, main menu, new game, intro.
 - Conversations and infolinks: text, choices, the transfer of objects, mouth shapes.
-- Enemies and allies: patrol, see and hear the player, attack, flee. Animals wander.
+- Enemies and allies: patrol, see and hear the player, attack, flee. Animals wander. A guard that comes after the player with the "run and fire" move has its full speed.
 - Pickups, datacubes, keypads, doors, the inventory and goals screens.
 - Quick save and quick load, the Save Game and Load Game screens, a load directly after the start of the program. A load after a fight gives the dead guard, its body and the things of the body back as they were.
 - Travel between maps with inventory, credits and flags. A map keeps its state when you come back.
@@ -24,6 +24,7 @@ Scripted tests on an M2 Max show that these parts work:
 - The keyboard in menus: the arrow keys and the Tab key move the focus, and the Enter key presses a button. A dialog keeps the keys and the mouse while it is open, and the focus goes back to the screen below when it closes.
 - The mouse cursor of the interface: the arrow, the text cursor on edit fields, and the picture of an inventory item during a drag. The cursor does not show while a person speaks in a conversation, and the answer under the mouse has a highlight.
 - Keys across screens: a movement key that you release while a screen is open does not stay active, and a held key runs its command one time.
+- The keyboard of a Mac: the letters, the number row, the punctuation keys, the keypad, Shift, Ctrl, Option and Caps Lock reach the game. The number keys select the items of the belt.
 - The eight player screens: inventory, health, augmentations, skills, goals, conversations, images and logs. A medkit heals, and skill points upgrade a skill.
 - Computers: login with user name and password, email, bulletins, the security screen with its camera picture, doors and turrets, the ATM, and the hack of a computer.
 - Lockpicks on locked doors and multitools on keypads. A key goes to the key ring, and the key ring unlocks the door of that key.
@@ -44,7 +45,9 @@ Speed: the main thread needs about 8 ms of processor time for each frame on Libe
 
 Sound: a test tool records the sound output to a file. The recordings of the intro and of a conversation have music and speech in each second. In the recording of the conversation, 134 of 4.3 million samples are at full scale, in runs of 4 samples at most. The music changes to the combat and the conversation part of a song at the same song position as with the original sound code.
 
-No person has checked these parts yet:
+A person played the first part of Liberty Island on 2026-10-12. That play found two faults, and the two are fixed: the number keys did not select belt items, and a guard that ran and fired moved with its walking speed.
+
+No person has reported on these parts yet:
 
 - Sound by ear. The test runs are muted or go to a file.
 - Mouse look in real play. The tests send input without the mouse capture.
@@ -143,9 +146,11 @@ tools/run-dx.sh m01 60 --url=01_NYC_UNATCOIsland
 
 The first argument is the name of the run and the second is the time in seconds of game time. The log and the pictures go to `runs/m01/`. A test run makes no sound and does not take the keyboard or the mouse.
 
+The engine of a test starts as a child process of the test script, and its window opens behind the windows of the active app. A test does not use the `open` command: macOS gives a program that `open` starts its own permissions, and it then asks the person at the computer for the Documents folder after each new build.
+
 A run repeats exactly. The game advances a fixed time for each frame with a fixed random seed, and it starts only when the window has its size, because the size of the view changes which actors the player sees. A run is also faster than real time, and it does not wait for the display after each frame (`VSYNC=1` turns that wait on).
 
-`SCRIPT=tests/<name>.txt` gives the run an input script. Each line has a time and a command: keys, mouse clicks, console commands, pictures, commands that list actors, flags, goals, interface windows and the inventory, and commands that set a flag or send a trigger event to actors. The file `SurrealEngine/SurrealEngine/Harness.h` has the full list. `SurrealEngine/SurrealEngine/Harness.cpp` has the full list.
+`SCRIPT=tests/<name>.txt` gives the run an input script. Each line has a time and a command: keys, mouse clicks, console commands, pictures, commands that list actors, flags, goals, interface windows and the inventory, and commands that set a flag or send a trigger event to actors. The file `SurrealEngine/SurrealEngine/Harness.h` has the full list. The `key` command gives a key to the engine. The `oskey` command sends a key with its macOS key code through the window, as the real keyboard does, so a test with it also covers the key table of the macOS window code.
 
 A run gets a new game folder in the state of a first start, `runs/<name>/game/`. It has links to the data in `DeusEx/`, copies of the ini files of the game and no saved games. So a run does not change your settings and your saved games in `DeusEx/`. `tools/fresh-game.sh <new folder>` makes such a folder, and `GAME=<folder>` gives a run a folder to use, for example when a second run must load the saved game of the first.
 

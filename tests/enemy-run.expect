@@ -1,0 +1,10 @@
+# The log of the test must have a line for each of these patterns (grep -E).
+# The guard has the walking speed of its patrol before the fight
+\[2\.20\].* dump Terrorist12 state=Patrolling .* DesiredSpeed=0\.296000
+# It comes after the player with the "run and fire" animation and with its full speed
+\[10\.60\].* dump Terrorist12 state=Attacking .* AnimSequence=RunShoot DesiredSpeed=1\.000000 GroundSpeed=200\.000000
+\[12\.60\].* dump Terrorist12 state=Attacking .* AnimSequence=RunShoot DesiredSpeed=1\.000000
+# It starts at X = 9. With the full speed its X position is above 500 at 12.6 seconds. With the walking speed it was
+# below 250 at that time.
+\[12\.60\].* dump Terrorist12 state=Attacking loc=\(([5-9][0-9][0-9]|1[0-9][0-9][0-9]) 
+!dump Terrorist12 .* AnimSequence=RunShoot DesiredSpeed=0\.

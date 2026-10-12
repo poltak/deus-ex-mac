@@ -1,0 +1,34 @@
+# Liberty Island (start with --url=01_NYC_UNATCOIsland): keys with the key codes of macOS. The harness command oskey
+# sends each key through the window, as the real keyboard does, so the key table of the macOS window code is in the
+# test. The "key" command of the other tests starts behind that table.
+# Key codes: 18 = 1, 29 = 0, 34 = I, 53 = Escape, 13 = W, 43 = comma, 56 = Shift, 57 = Caps Lock.
+# tests/input-mac-keys.expect has the lines that the log must have.
+2.0  exec set DeusExPlayer bCheatsEnabled True
+2.2  exec Summon WeaponPistol
+3.0  teleportto WeaponPistol 50
+3.6  rclick 0.5 0.5
+4.2  inv
+4.4  oskey tap 29 0
+5.6  dump JCDentonMale 99999 inHand
+5.8  oskey tap 18 1
+7.0  dump JCDentonMale 99999 inHand
+7.4  oskey tap 34 i
+8.2  windows
+8.4  oskey tap 53
+9.2  windows
+9.4  oskey flags 0x20000 56
+9.8  dump JCDentonMale 99999 bRun
+10.0 oskey flags 0 56
+10.4 dump JCDentonMale 99999 bRun
+10.6 oskey flags 0x10000 57
+11.0 dump JCDentonMale 99999 bToggleWalk
+11.2 oskey flags 0 57
+11.6 dump JCDentonMale 99999 bToggleWalk
+11.8 dump JCDentonMale 99999 Velocity
+12.0 oskey down 13 w
+12.6 dump JCDentonMale 99999 Velocity
+13.0 oskey up 13 w
+14.0 dump JCDentonMale 99999 Velocity
+14.2 oskey down 43 ,
+14.8 dump JCDentonMale 99999 Velocity
+15.2 oskey up 43 ,

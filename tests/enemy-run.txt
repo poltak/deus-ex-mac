@@ -1,0 +1,12 @@
+# Liberty Island (start with --url=01_NYC_UNATCOIsland): a guard that fights the player and then loses the line of
+# fire comes after the player with the "run and fire" move. It must run with its full speed, not with the speed of
+# its patrol. The player stands 700 units from the guard, the fight starts, and at 7.5 seconds the test puts the
+# player 1900 units from the first place of the guard.
+# tests/enemy-run.expect has the lines that the log must have.
+1.0  exec set DeusExPlayer bCheatsEnabled True
+1.2  exec God
+2.0  teleportto Terrorist12 700
+2.2  dump Terrorist 800 DesiredSpeed,AnimSequence
+7.5  teleport 1913 5254 -98 32768
+10.6 dump Terrorist 99999 AnimSequence,DesiredSpeed,GroundSpeed,Velocity
+12.6 dump Terrorist 99999 AnimSequence,DesiredSpeed,GroundSpeed,Velocity

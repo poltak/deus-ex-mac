@@ -1,0 +1,23 @@
+# The log of the test must have a line for each of these patterns (grep -E).
+# The pistol is in the inventory. It is at place 1 of the belt, and the key ring is at place 0.
+\[4\.20\].* inv count=3 WeaponPistol Ammo10mm NanoKeyRing
+# The 0 key takes the key ring in the hand, and the 1 key takes the pistol
+\[5\.60\].* dump JCDentonMale0 .* inHand=NanoKeyRing'NanoKeyRing[0-9]+'
+\[7\.00\].* dump JCDentonMale0 .* inHand=WeaponPistol'WeaponPistol[0-9]+'
+# The I key opens the inventory screen and the Escape key closes it
+\[8\.20\].* window +PersonaScreenInventory 
+!\[9\.20\].* window +PersonaScreenInventory 
+# Shift is the walk key while it is down
+\[9\.80\].* dump JCDentonMale0 .* bRun=1
+\[10\.40\].* dump JCDentonMale0 .* bRun=0
+# Each press of the Caps Lock key changes the walk mode
+\[11\.00\].* dump JCDentonMale0 .* bToggleWalk=True
+\[11\.60\].* dump JCDentonMale0 .* bToggleWalk=False
+# The player stands. Then the W key moves the player, and after that the comma key (strafe left) does.
+\[11\.80\].* dump JCDentonMale0 .* Velocity=\(X=0\.000000, Y=0\.000000,
+\[12\.60\].* dump JCDentonMale0 .* Velocity=
+!\[12\.60\].* dump JCDentonMale0 .* Velocity=\(X=-?0\.0+, Y=-?0\.0+,
+\[14\.00\].* dump JCDentonMale0 .* Velocity=\(X=0\.000000, Y=0\.000000,
+\[14\.80\].* dump JCDentonMale0 .* Velocity=
+!\[14\.80\].* dump JCDentonMale0 .* Velocity=\(X=-?0\.0+, Y=-?0\.0+,
+!^\[[0-9.]+\] ([^D]|D[^a])[^:]*: Accessed None
