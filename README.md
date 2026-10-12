@@ -174,6 +174,12 @@ tests/start-script-test.sh
 This tests the start script of the app with a fake engine and fake dialogs.
 
 ```bash
+tests/app-start-test.sh
+```
+
+This starts the packaged app as a player does, with no setting that tells it where the game is. The test uses a copy of the layout of this working copy and a temporary home folder. The app must find the game folder, start the game and store the folder.
+
+```bash
 tests/window-size-test.sh
 ```
 

@@ -11,11 +11,13 @@
 # game folder in the state of a first start (runs/<run-name>/game, see tools/fresh-game.sh). The run reads the game data
 # from DeusEx/ and writes nothing into it, so the tests do not change the settings and the saved games of the player.
 # APP=<path of a packaged "Deus Ex.app">: test the packaged app and its start script, not the engine build.
+# APP_HOME=<folder> (with APP): give the app this folder as home folder, and do not tell it where the game is. The start
+# script of the app must then find the game folder as it does for a player (tests/app-start-test.sh).
 W="$(cd "$(dirname "$0")/.." && pwd)"
 NAME="$1"; SECS="$2"; shift 2
 R="$W/runs/$NAME"; rm -rf "$R"; mkdir -p "$R"
 B="$W/SurrealEngine/build/SurrealEngine.app/Contents/MacOS/SurrealEngine"
-if [ -z "$GAME" ]; then GAME="$("$W/tools/fresh-game.sh" "$R/game")" || exit 2; fi
+if [ -z "$GAME" ] && [ -z "$APP_HOME" ]; then GAME="$("$W/tools/fresh-game.sh" "$R/game")" || exit 2; fi
 SCRIPT_ARG=()
 # The engine starts in a different folder, so give it the full path of the input script.
 case "$SCRIPT" in
@@ -40,7 +42,9 @@ ENV_ARG=()
 for pair in $ENGINE_ENV; do ENV_ARG+=(--env "$pair"); done
 if [ -n "$APP" ]; then
   # The start script of the app adds --direct and the game folder. An error opens the error window of the engine, as it does for a player.
-  open -g -n -W --stdout "$R/stdout.txt" --stderr "$R/stderr.txt" --env "DEUSEX_GAME_FOLDER=$GAME" "$APP" --args "${ARGS[@]}" &
+  APP_ENV=(--env "DEUSEX_GAME_FOLDER=$GAME")
+  [ -n "$APP_HOME" ] && APP_ENV=(--env "HOME=$APP_HOME")
+  open -g -n -W --stdout "$R/stdout.txt" --stderr "$R/stderr.txt" "${APP_ENV[@]}" "$APP" --args "${ARGS[@]}" &
   WAITER=$!
 elif [ -n "$FOREGROUND" ]; then
   "$B" --nolauncher "${ARGS[@]}" "$GAME" > "$R/stdout.txt" 2> "$R/stderr.txt" &
