@@ -74,11 +74,13 @@ else
   touch "$R/window-ready"
 fi
 # A run that hangs gets a kill signal after the game time plus WATCHDOG seconds (default 120) of real time
-( sleep $((SECS + ${WATCHDOG:-120})); [ -n "$PID" ] && kill -9 $PID 2>/dev/null ) 2>/dev/null &
+# The sleep is a child of the watchdog. The trap stops it with the watchdog, or it would hold the output of this
+# script open until its time is over.
+( trap 'kill $SP 2>/dev/null; exit 0' TERM; sleep $((SECS + ${WATCHDOG:-120})) & SP=$!; wait $SP; [ -n "$PID" ] && kill -9 $PID 2>/dev/null ) 2>/dev/null &
 WD=$!
 wait $WAITER; RC=$?
 { kill $WD; wait $WD; } 2>/dev/null
-# "open" does not pass the exit code of the app on. A run that ended correctly logs "Shutting down".
+# A run that ended correctly logs "Shutting down"
 if grep -a -q "Shutting down" "$R/log.txt" 2>/dev/null; then
   echo "run ended correctly"
 else
