@@ -1,0 +1,15 @@
+# The log of the test must have a line for each of these patterns (grep -E). A line with "!" at the start is a
+# pattern that the log must not have.
+# The command changed the desired rotation of the persons.
+\[3\.00\].* setprop changed 59 actors
+# A person that stands turns to the yaw of the desired rotation and stays upright.
+\[3\.10\].* dump PaulDenton0 state=Standing .* lastRendered=0\.0 .* Rotation=\(Pitch=0, Yaw=23349, Roll=0\) DesiredRotation=\(Pitch=9000, Yaw=38000, Roll=0\) Physics=PHYS_Walking
+\[3\.60\].* dump PaulDenton0 state=Standing .* Rotation=\(Pitch=0, Yaw=38000, Roll=0\) DesiredRotation=\(Pitch=9000, Yaw=38000, Roll=0\) Physics=PHYS_Walking
+\[5\.00\].* dump PaulDenton0 state=Standing .* Rotation=\(Pitch=0, Yaw=38000, Roll=0\) DesiredRotation=\(Pitch=9000, Yaw=38000, Roll=0\) Physics=PHYS_Walking
+# A guard on patrol that the player does not see stays active. It turns also and stays upright.
+\[3\.60\].* dump ThugMale9 state=Patrolling .* Rotation=\(Pitch=0, Yaw=38000, Roll=0\) DesiredRotation=\(Pitch=9000, Yaw=38000, Roll=0\) Physics=PHYS_Walking
+# A guard that stands where the player does not see it is in stasis. It does not turn.
+\[5\.00\].* dump Terrorist0 state=Standing .* inStasis .* Rotation=\(Pitch=0, Yaw=8623, Roll=0\) DesiredRotation=\(Pitch=9000, Yaw=38000, Roll=0\)
+# No person that walks has a pitch or a roll at a time of the test.
+! dump [A-Za-z]+[0-9]+ .* Rotation=\(Pitch=[1-9-][^)]*\) DesiredRotation=.* Physics=PHYS_Walking
+! dump [A-Za-z]+[0-9]+ .* Rotation=\(Pitch=[^)]*Roll=[1-9-][^)]*\) DesiredRotation=.* Physics=PHYS_Walking

@@ -1,0 +1,15 @@
+# The log of the test must have a line for each of these patterns (grep -E). A line with "!" at the start is a
+# pattern that the log must not have.
+# The name field has the focus when the screen opens, and it shows the name of the place.
+\[6\.50\].* MenuUILoadSaveEditWindow .* selectable focus text="NYC - Liberty Island"
+# The Backspace key deletes the selected name. The field stays empty after more presses.
+\[7\.20\].* MenuUILoadSaveEditWindow x=0 y=0 w=235 h=11 selectable focus$
+# Typed text goes into the field after these presses.
+\[7\.80\].* MenuUILoadSaveEditWindow .* focus text="Dock"
+# Home, Delete, text, End, text, Left, Left and Backspace change the text at the insertion point.
+\[9\.60\].* MenuUILoadSaveEditWindow .* focus text="My dok2"
+# The Enter key saves the game, and the Load Game screen shows the typed name.
+\[10\.[0-9]+\].* Deus Ex save: saved the game to Save0001
+\[15\.50\].* text .* "Load Game"
+\[15\.50\].* text x=[0-9]+ y=[0-9]+ "My dok2"
+!FATAL

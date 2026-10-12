@@ -104,7 +104,11 @@ run map-attach 3 --url=00_TrainingCombat
 run actor-stasis 12 --url=01_NYC_UNATCOIsland
 run player-fight 19 --url=01_NYC_UNATCOIsland
 run enemy-run 21 --url=01_NYC_UNATCOIsland
+run npc-upright 6 --url=01_NYC_UNATCOIsland
+run npc-hidden 123 --url=01_NYC_UNATCOIsland
 run save-fight 30 --url=01_NYC_UNATCOIsland
+run save-goals 17 --url=01_NYC_UNATCOIsland
+run travel-goals 30 --url=01_NYC_UNATCOIsland
 run player-reload 22 --url=01_NYC_UNATCOIsland
 run player-objects 18 --url=01_NYC_UNATCOIsland
 run player-keydoor 12 --url=01_NYC_UNATCOIsland
@@ -115,6 +119,7 @@ run computer-email 17 --url=01_NYC_UNATCOHQ
 run menu-scroll 23
 run menu-keyboard 11
 run menu-dialog 12 --url=01_NYC_UNATCOIsland
+run menu-save-name 17 --url=01_NYC_UNATCOIsland
 # menu-keys-restart reads the key bindings that menu-keys saved
 chain "menu-keys 18 --url=01_NYC_UNATCOIsland" "menu-keys-restart 6 --url=01_NYC_UNATCOIsland"
 run computer-login-keys 13 --url=01_NYC_UNATCOHQ

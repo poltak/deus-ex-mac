@@ -1,0 +1,24 @@
+# The log of the test must have a line for each of these patterns (grep -E). A line with "!" at the start is a
+# pattern that the log must not have.
+# At the start the player can see the bot of the dock, Paul and one trooper. These three count as drawn.
+\[0\.50\].* dump SecurityBot0 .* lastRendered=0\.0 
+\[0\.50\].* dump PaulDenton0 .* lastRendered=0\.0 
+\[0\.50\].* dump UNATCOTroop1 .* lastRendered=0\.0 
+# Persons behind the statue, in the statue and at the north dock do not count as drawn.
+\[0\.50\].* dump Terrorist7 .* lastRendered=10\.5 
+\[0\.50\].* dump Terrorist8 .* lastRendered=10\.5 
+\[0\.50\].* dump Terrorist12 .* lastRendered=10\.5 
+\[0\.50\].* dump Terrorist35 .* lastRendered=10\.5 
+\[0\.50\].* dump HarleyFilben0 .* lastRendered=10\.5 
+\[0\.50\].* dump GuntherHermann0 .* lastRendered=10\.5 
+# The guard at the north dock does not fight the bot there.
+\[30\.00\].* dump Terrorist7 state=Patrolling .* health=75 Enemy=None
+\[120\.00\].* dump Terrorist7 state=Patrolling .* health=75 Enemy=None
+# The guards of the patrol near the start dock do not fight the bot of that dock while the player cannot see them.
+\[105\.00\].* dump Terrorist35 state=Patrolling .* health=75 Enemy=None
+\[120\.00\].* dump Terrorist35 state=Patrolling .* health=75 Enemy=None
+\[120\.00\].* dump Terrorist34 state=Patrolling .* health=75 Enemy=None
+\[120\.20\].* dump SecurityBot0 state=Patrolling .* lastRendered=0\.0 health=250 Enemy=None
+!dump TerroristCarcass[1-9]
+# The player goes to a guard and looks at it. The guard counts as drawn.
+\[121\.50\].* dump Terrorist34 .* dist=528 lastRendered=0\.0 

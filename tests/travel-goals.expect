@@ -1,0 +1,22 @@
+# The log of the test must have a line for each of these patterns (grep -E). A line with "!" at the start is a
+# pattern that the log must not have.
+# The player has the goal, the note and the key before the first travel.
+\[3\.00\].* goals count=1
+\[3\.10\].* dump JCDentonMale0 .* FirstNote=DeusExNote'None' KeyList=NanoKeyInfo'None'
+# The player has them in UNATCO HQ.
+\[4\.50\].* goal HarnessGoalA primary=True completed=False text="Find the first test goal"
+\[4\.60\].* dump JCDentonMale1 .* FirstNote=DeusExNote'None' KeyList=NanoKeyInfo'None'
+# The return to Liberty Island loads the saved state of the map, and the player has them there.
+\[5\.00\].* Client travel to 01_NYC_UNATCOIsland.*\(saved map state\)
+\[8\.00\].* goal HarnessGoalA primary=True completed=False text="Find the first test goal"
+\[8\.10\].* dump JCDentonMale0 .* FirstNote=DeusExNote'None' KeyList=NanoKeyInfo'None'
+# A quick save on Liberty Island, a travel to the HQ, and the load of the quick save from there.
+\[8\.50\].* Deus Ex save: saved the game to QuickSave
+\[10\.00\].* Deus Ex load: QuickSave, map 01_NYC_UNATCOIsland
+\[14\.50\].* goal HarnessGoalA primary=True completed=False text="Find the first test goal"
+\[14\.60\].* dump JCDentonMale0 .* FirstNote=DeusExNote'None' KeyList=NanoKeyInfo'None'
+\[16\.50\].* PersonaNotesEditWindow .* text="The code of the test door is 1234"
+\[16\.50\].* PersonaGoalTextWindow .* text="Find the first test goal"
+# No saved map has a reference that the load cannot follow.
+!an import has an object of this package as its outer object
+!FATAL

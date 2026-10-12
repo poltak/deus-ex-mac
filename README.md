@@ -14,16 +14,17 @@ Scripted tests on an M2 Max show that these parts work:
 
 - Start screen, main menu, new game, intro.
 - Conversations and infolinks: text, choices, the transfer of objects, mouth shapes.
-- Enemies and allies: patrol, see and hear the player, attack, flee. Animals wander. A guard that comes after the player with the "run and fire" move has its full speed.
+- Enemies and allies: patrol, see and hear the player, attack, flee. Animals wander. A guard that comes after the player with the "run and fire" move has its full speed. A person that walks stays upright when its target is above or below it. A person that the player did not see for 5 seconds, and that is more than 600 units away, does not look for enemies other than the player. So guards and robots do not fight in places that the player cannot see.
 - Pickups, datacubes, keypads, doors, the inventory and goals screens.
-- Quick save and quick load, the Save Game and Load Game screens, a load directly after the start of the program. A load after a fight gives the dead guard, its body and the things of the body back as they were.
-- Travel between maps with inventory, credits and flags. A map keeps its state when you come back.
+- Quick save and quick load, the Save Game and Load Game screens, a load directly after the start of the program. A load after a fight gives the dead guard, its body and the things of the body back as they were. A saved game keeps the goals, the notes and the keys of the player.
+- Travel between maps with inventory, credits, flags, goals, notes and keys. A map keeps its state when you come back.
 - The mission script of Liberty Island: when the statue mission is complete, the terrorists die, the UNATCO soldiers come into the map, Paul goes to the HQ and its doors open. The boat ride to mission 2 plays as a camera path, the game goes to Battery Park, and the talk with Anna Navarre starts there.
 - Particle effects, lightmaps with moving and animated lights.
 - Key bindings of the game, the talk line as console, cheats.
 - The six settings screens. The Screen Resolution setting changes the size of the window. A new key binding from the Keyboard/Mouse Settings screen works at once and after a new start, and a key that lost its binding stays without it.
 - Buttons, checkboxes, sliders and scroll bars of the interface. A list or a text moves with the thumb, the arrow buttons, the mouse wheel and the page keys.
-- The keyboard in menus: the arrow keys and the Tab key move the focus, and the Enter key presses a button. A dialog keeps the keys and the mouse while it is open, and the focus goes back to the screen below when it closes.
+- The keyboard in menus: the first button of a menu has the focus when the menu opens. The arrow keys and the Tab key move the focus, and the Enter key presses a button. A dialog keeps the keys and the mouse while it is open, and the focus goes back to the screen below when it closes.
+- Text fields: the name field of the Save Game screen has the focus when the screen opens, and the first typed character replaces the selected name. The Backspace and Delete keys, the arrow keys, Home and End work at the insertion point, and a click puts the insertion point at a character. A name that is longer than the field moves in the field.
 - The mouse cursor of the interface: the arrow, the text cursor on edit fields, and the picture of an inventory item during a drag. The cursor does not show while a person speaks in a conversation, and the answer under the mouse has a highlight.
 - Keys across screens: a movement key that you release while a screen is open does not stay active, and a held key runs its command one time.
 - The keyboard of a Mac: the letters, the number row, the punctuation keys, the keypad, Shift, Ctrl, Option and Caps Lock reach the game. The number keys select the items of the belt.
@@ -37,17 +38,24 @@ Scripted tests on an M2 Max show that these parts work:
 - Weapons: the reload key, with the HUD that shows no numbers during the reload, and the ammo key that changes between the dart types of the mini crossbow.
 - Things in the world: the player lifts a trash can and throws it, breaks a crate with a crowbar and takes what was in it.
 - The start of a map: a body that the map has from the start keeps its things hidden until the player searches it, a gun turret that hangs from a ceiling stays there, and a glass plate with an attach tag has its target as base.
-- Stasis: a thing or a person that the player did not see for 5 seconds, and that is far away or in a room that is not in view, stops until the player comes back. The scripts of the game are written for this rule of the original engine.
+- Stasis: a thing or a person that the player did not see for 5 seconds, and that is far away or in a room that is not in view, stops until the player comes back. The scripts of the game are written for this rule of the original engine. The engine counts a thing as seen when a part of its rectangle on the screen is free of the level geometry in front of it, as the original renderer does.
 - The music: the calm, combat and conversation parts of a song, the fades between them, and the return to the place where the calm part stopped.
 - The vision augmentation shows people as bright shapes.
 - The animated fire textures of the game: flames, static, laser beams, fountains, lightning.
 - All 88 map files of the game start with no error.
 
-Speed: the main thread needs about 8 ms of processor time for each frame on Liberty Island, the heaviest map, and 6 to 7 ms on the two heaviest maps of Hong Kong. The mean of all maps is 1.9 ms. A display with 120 Hz shows the game at 120 frames per second on most maps.
+Speed: the main thread needs 6 to 7 ms of processor time for each frame on the three heaviest maps, which are Liberty Island and two maps of Hong Kong. The mean of all maps is about 2 ms. A display with 120 Hz shows the game at 120 frames per second on most maps.
 
 Sound: a test tool records the sound output to a file. The recordings of the intro and of a conversation have music and speech in each second. In the recording of the conversation, 134 of 4.3 million samples are at full scale, in runs of 4 samples at most. The music changes to the combat and the conversation part of a song at the same song position as with the original sound code.
 
 A person played the first part of Liberty Island on 2026-10-12. That play found two faults, and the two are fixed: the number keys did not select belt items, and a guard that ran and fired moved with its walking speed.
+
+A second play on the same day found four more faults, and the four are fixed:
+
+- A press of the Backspace key in the empty name field of the Save Game screen, and then a typed character, stopped the engine.
+- The engine could not load a saved game of a player who had a goal, a note or a key. For the same cause, the return to a map of the same mission stopped the engine.
+- Guards leaned back and looked at the sky when the person that they went to was above them.
+- The guards near the first dock of Liberty Island were at a different place in each new game, and in one game the security robot of the dock killed them before the player came. The engine counted persons behind walls as seen, so hidden guards and robots fought each other, and the result changed with the frame rate. Now a hidden person counts as not seen, as in the original. The two guards of that place walk a patrol with loops of about 130 and 180 seconds, so the place where the player meets them still changes with the time. The original game does the same.
 
 No person has reported on these parts yet:
 
@@ -59,7 +67,10 @@ No person has reported on these parts yet:
 Known gaps:
 
 - A save game has no picture. The original also makes no picture with its OpenGL renderer.
+- A saved game from a build before the second play of 2026-10-12 does not have the goals, the notes and the keys of the player in it. The engine loads such a saved game without them and writes a line to the log.
+- A text field with more than one line, such as a note, has no moves of the insertion point by row, and its insertion mark has the height of the field.
 - The program uses about 15 MB more memory after each map change. The engine frees the geometry, the lightmaps and the textures of a map that it left, but it has no garbage collector for the objects of that map.
+- The engine draws a wall that the camera sees from behind. The original does not. So a camera of a cutscene that is outside a room shows a black picture, for example in some camera moves of the dance club ending.
 - The Effects Channels setting applies at the next start.
 - Multiplayer is not tested.
 

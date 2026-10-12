@@ -10,5 +10,7 @@
 !dump Terrorist12 .* AnimSequence=RunShoot DesiredSpeed=0\.
 # The guard went over the path point at X = 1221 and on to the player. Before the fix it stood on that point and
 # played its run animation with no movement.
-\[19\.60\].* dump Terrorist12 state=Attacking loc=\(1[4-9][0-9][0-9] 
-!\[19\.60\].* dump Terrorist12 .* AnimSequence=Run 
+# The fight has random parts. With some random sequences the guard stops 310 units before the player (X = 1602) and
+# fires from there. With other sequences it runs on to the player and around the player (X to 2300).
+\[19\.60\].* dump Terrorist12 state=Attacking loc=\((1[4-9][0-9][0-9]|2[0-4][0-9][0-9]) 
+!\[19\.60\].* dump Terrorist12 .* AnimSequence=Run.* Velocity=\(X=-?[0-9]\.[0-9]+, Y=-?[0-9]\.[0-9]+,

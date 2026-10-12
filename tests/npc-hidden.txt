@@ -1,0 +1,18 @@
+# Liberty Island (start with --url=01_NYC_UNATCOIsland): a person behind level geometry does not count as drawn.
+# The scripts read the render time of a pawn. A pawn that the player did not see for 5 seconds, and that is more
+# than 600 units away, does not look for other enemies. The original engine sets the render time only for an
+# actor that it draws, and it draws only an actor with a part that the walls in front of it leave free
+# (URender::DrawActorSprite and FDynamicFinalChunk::PreRender in Render.dll).
+# Before the fix, 19 pawns counted as drawn at the start of the map, and the player could see 3 of them. A guard at
+# the north dock then attacked the UNATCO bot there after 2 seconds and died. A guard of the patrol near the start
+# dock attacked the bot of that dock after 100 seconds and died also.
+# The player stands at the start for 120 seconds. Then the player goes to a guard, and that guard counts as drawn.
+# tests/npc-hidden.expect has the lines that the log must have.
+0.5   dump Pawn 999999 Enemy
+30.0  dump Terrorist 999999 Enemy
+105.0 dump Terrorist 999999 Enemy
+120.0 dump Terrorist 999999 Enemy
+120.2 dump SecurityBot2 999999 Enemy
+120.3 dump TerroristCarcass 999999
+121.0 teleportto Terrorist34 500
+121.5 dump Terrorist 600 Enemy

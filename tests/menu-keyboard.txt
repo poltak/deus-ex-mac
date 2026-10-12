@@ -1,4 +1,6 @@
 # Title screen: move the keyboard focus in the main menu with the arrow keys and open a menu with the Enter key.
+# The first button, New Game, has the focus when the menu opens: with no focus window, the root window gives the
+# focus to the first window of the menu that can have it (XRootWindow::Tick).
 # The Save Game button is not sensitive on the title screen, so the focus goes from New Game to Load Game.
 # tests/menu-keyboard.expect has the lines that the log must have.
 3.0  key esc
@@ -7,12 +9,11 @@
 5.3  windows
 5.6  key down
 5.9  windows
-6.2  key down
+6.2  key up
 6.5  windows
-6.8  key up
+6.8  key down
 7.1  windows
 7.4  shot 1-menu
-7.7  key down
 8.0  key enter
 9.5  shot 2-settings
 9.7  windows

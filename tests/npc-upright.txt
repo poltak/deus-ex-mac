@@ -1,0 +1,14 @@
+# Liberty Island (start with --url=01_NYC_UNATCOIsland): a person that walks stays upright.
+# A pawn gets a desired rotation with a pitch when the thing that it goes to or looks at is above it, for example
+# when a guard comes after a player who stands higher. The original engine then turns the pawn only around its
+# vertical axis (APawn::physicsRotation: the pitch of a pawn that walks or falls goes to zero). Before the fix the
+# pawn took the pitch, and guards leaned back and looked at the sky.
+# The test gives each person a desired rotation that points 49 degrees up. A person that stands must turn to the new
+# yaw and keep the pitch 0. Paul Denton stands on the dock, and the player sees him from the start. A person that
+# the player does not see, and that does not move, is in stasis and does not turn.
+# tests/npc-upright.expect has the lines that the log must have.
+2.0  dump ScriptedPawn 99999 Rotation,DesiredRotation,Physics
+3.0  setprop ScriptedPawn DesiredRotation (Pitch=9000,Yaw=38000,Roll=0)
+3.1  dump ScriptedPawn 99999 Rotation,DesiredRotation,Physics
+3.6  dump ScriptedPawn 99999 Rotation,DesiredRotation,Physics
+5.0  dump ScriptedPawn 99999 Rotation,DesiredRotation,Physics

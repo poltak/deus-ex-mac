@@ -1,0 +1,20 @@
+# The log of the test must have a line for each of these patterns (grep -E). A line with "!" at the start is a
+# pattern that the log must not have.
+# Before the save: two goals, a note and a key.
+\[3\.00\].* goals count=2
+\[3\.10\].* dump JCDentonMale0 .* FirstNote=DeusExNote'None' KeyList=NanoKeyInfo'None'
+\[4\.00\].* Deus Ex save: saved the game to QuickSave
+\[6\.50\].* goals count=3
+# The load gives the state of the save: the two goals with their text, the note and the key.
+\[7\.00\].* Deus Ex load: QuickSave, map 01_NYC_UNATCOIsland
+\[10\.00\].* goal HarnessGoalB primary=False completed=False text="Find the second test goal"
+\[10\.00\].* goal HarnessGoalA primary=True completed=False text="Find the first test goal"
+\[10\.00\].* goals count=2
+\[10\.10\].* dump JCDentonMale0 .* FirstNote=DeusExNote'None' KeyList=NanoKeyInfo'None'
+# The Goals/Notes screen shows them.
+\[12\.00\].* PersonaGoalTextWindow .* text="Find the first test goal"
+\[12\.00\].* PersonaGoalTextWindow .* text="Find the second test goal"
+\[12\.00\].* PersonaNotesEditWindow .* text="The code of the test door is 1234"
+# The saved map has no reference that the load cannot follow.
+!an import has an object of this package as its outer object
+!^\[[0-9.]+\] ([^D]|D[^a])[^:]*: Accessed None

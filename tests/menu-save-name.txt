@@ -1,0 +1,37 @@
+# Liberty Island (start with --url=01_NYC_UNATCOIsland): type a name for a new saved game on the Save Game screen.
+# The name field has the keyboard focus when the screen opens, and the usual name is selected. So the Backspace key
+# deletes all of that name. More presses of the Backspace key in the empty field must do nothing: before the fix
+# they moved the insertion point to before the start of the text, and the next typed character stopped the engine
+# with "basic_string".
+# Then the test types a name, moves the insertion point, and saves with the Enter key. The Load Game screen must
+# show the typed name.
+# The Backspace key and the first word go through the window as keys of the real keyboard (oskey, macOS key codes:
+# 51 = Backspace, 2 = D, 31 = O, 8 = C, 40 = K).
+# tests/menu-save-name.expect has the lines that the log must have.
+3.0  key esc
+4.5  click 0.511 0.241
+6.5  windows
+6.6  oskey tap 51
+6.8  oskey tap 51
+7.0  oskey tap 51
+7.2  windows
+7.3  oskey tap 2 D
+7.4  oskey tap 31 o
+7.5  oskey tap 8 c
+7.6  oskey tap 40 k
+7.8  windows
+8.0  key home
+8.2  key delete
+8.4  char My d
+8.6  key end
+8.8  char 2
+9.0  key left
+9.2  key left
+9.4  key backspace
+9.6  windows
+9.8  shot 1-name
+10.0 key enter
+12.0 key esc
+13.5 click 0.511 0.315
+15.5 texts
+15.7 shot 2-load-screen

@@ -1,0 +1,30 @@
+# Liberty Island (start with --url=01_NYC_UNATCOIsland): the player goes into UNATCO HQ and comes back with a goal,
+# a note and a key.
+# The map that the player leaves keeps its state in Save/Current, with the player pawn of that map and the goal,
+# note and key objects of that pawn. Before the fix of the new operator, the engine wrote these objects as
+# references to a different package, and the return to the map stopped the engine with "Expected an import table
+# entry". The test also makes a quick save after the return and loads it from the other map.
+# GoalAdd and GiveNanoKey are cheat commands. "LoadGame -1" is the confirmed form of QuickLoad.
+# The log time of a map goes on from the time at which the player left the map.
+# tests/travel-goals.expect has the lines that the log must have.
+2.0  exec set DeusExPlayer bCheatsEnabled True
+2.5  exec GoalAdd HarnessGoalA "Find the first test goal" True
+2.7  exec NoteAdd "The code of the test door is 1234" True
+2.8  exec GiveNanoKey HarnessKey "The key of the test door"
+3.0  goals
+3.1  dump DeusExPlayer 0 FirstNote,KeyList
+3.5  travel 01_NYC_UNATCOHQ#Inside_UN_HQ
+8.0  goals
+8.1  dump DeusExPlayer 0 FirstNote,KeyList
+8.5  travel 01_NYC_UNATCOIsland#tunnel_drop_nyc
+13.0 goals
+13.1 dump DeusExPlayer 0 FirstNote,KeyList
+13.5 exec QuickSave
+15.0 travel 01_NYC_UNATCOHQ#Inside_UN_HQ
+19.5 goals
+20.0 exec LoadGame -1
+26.0 goals
+26.1 dump DeusExPlayer 0 FirstNote,KeyList
+26.5 key f2
+28.0 windows
+28.5 key esc

@@ -1,0 +1,25 @@
+# Liberty Island (start with --url=01_NYC_UNATCOIsland): a save and a load keep the goals, the notes and the keys
+# of the player.
+# The script makes a goal, a note and a key with the new operator, with the player as outer object. These objects
+# must be part of the saved map. Before the fix they were part of the Engine package, the save had only a reference
+# to them, and a load of that save stopped the engine with "Expected an import table entry".
+# GoalAdd and GiveNanoKey are cheat commands. "LoadGame -1" is the confirmed form of QuickLoad.
+# The log times after the load go on from the time of the save.
+# tests/save-goals.expect has the lines that the log must have.
+2.0  exec set DeusExPlayer bCheatsEnabled True
+2.5  exec GoalAdd HarnessGoalA "Find the first test goal" True
+2.6  exec GoalAdd HarnessGoalB "Find the second test goal" False
+2.7  exec NoteAdd "The code of the test door is 1234" True
+2.8  exec GiveNanoKey HarnessKey "The key of the test door"
+3.0  goals
+3.1  dump DeusExPlayer 0 FirstNote,KeyList
+4.0  exec QuickSave
+6.0  exec GoalAdd HarnessGoalC "A goal from after the save" True
+6.5  goals
+7.0  exec LoadGame -1
+13.0 goals
+13.1 dump DeusExPlayer 0 FirstNote,KeyList
+13.5 key f2
+15.0 windows
+15.2 shot 1-goals-after-load
+15.5 key esc
