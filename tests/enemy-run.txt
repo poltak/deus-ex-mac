@@ -2,6 +2,8 @@
 # fire comes after the player with the "run and fire" move. It must run with its full speed, not with the speed of
 # its patrol. The player stands 700 units from the guard, the fight starts, and at 7.5 seconds the test puts the
 # player 1900 units from the first place of the guard.
+# The way of the guard goes over a path point at X = 1221. The guard must not stop there: it goes on to a place
+# from where it can fire at the player.
 # tests/enemy-run.expect has the lines that the log must have.
 1.0  exec set DeusExPlayer bCheatsEnabled True
 1.2  exec God
@@ -10,3 +12,4 @@
 7.5  teleport 1913 5254 -98 32768
 10.6 dump Terrorist 99999 AnimSequence,DesiredSpeed,GroundSpeed,Velocity
 12.6 dump Terrorist 99999 AnimSequence,DesiredSpeed,GroundSpeed,Velocity
+19.6 dump Terrorist 99999 AnimSequence,DesiredSpeed,GroundSpeed,Velocity
