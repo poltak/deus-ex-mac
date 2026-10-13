@@ -3,8 +3,8 @@
 # Starts Deus Ex in the local SurrealEngine build with the test harness, then prints a summary.
 # The game advances 1/FIXED_FPS seconds per frame (default 30) with a fixed random seed, so a run repeats exactly
 # and runs faster than real time. <seconds> and the script times are game time.
-# A test run makes no sound. Set MUTE=0 to hear it.
-# Environment: MUTE=0, FIXED_FPS=<n>, SEED=<n>, WINSIZE=<W>x<H> (or "none": keep the size that the engine selects), FOREGROUND=1 (start in front, default is background), SCRIPT=<input script file>, SHOT_INTERVAL=<seconds, 0 = off>, SHOT_FIRST=<seconds>, LOG_HEAD=<lines>
+# A test run makes no sound and shows no window. Set MUTE=0 to hear it and VISIBLE=1 to see it.
+# Environment: MUTE=0, FIXED_FPS=<n>, SEED=<n>, WINSIZE=<W>x<H> (or "none": keep the size that the engine selects), VISIBLE=1 (show the window behind the windows of the active app, default is a hidden window), FOREGROUND=1 (show the window in front), SCRIPT=<input script file>, SHOT_INTERVAL=<seconds, 0 = off>, SHOT_FIRST=<seconds>, LOG_HEAD=<lines>
 # STATS=0: do not show the frame rate and object counts on the screen. WATCHDOG=<seconds>: time limit for a run that hangs.
 # VSYNC=1: wait for the display after each frame, as a normal start does.
 # GAME=<game folder>: use this folder for the settings and the saved games of the run. Without it, the run gets a new
@@ -59,9 +59,16 @@ for pair in $ENGINE_ENV; do ENV_ARG+=("$pair"); done
 # permission when the program opens a file in the Documents, Desktop or Downloads folder, and it asks again for each
 # new build, because a new build has a new signature. A child of this script uses the permission of the program that
 # runs the script, so a test opens no permission dialog.
-# SURREAL_NO_ACTIVATE keeps the engine from making itself the active app: the test window opens behind the windows of
-# the active app and does not take the keyboard focus. FOREGROUND=1 starts the window in front.
-[ -z "$FOREGROUND" ] && ENV_ARG+=("SURREAL_NO_ACTIVATE=1")
+# SURREAL_NO_ACTIVATE keeps the engine from making itself the active app, so a test does not take the keyboard focus.
+# SURREAL_HIDDEN_WINDOW hides the windows of the engine from the person at the computer: a window is fully
+# transparent, the mouse goes through it, the engine has no icon in the Dock, and a window manager does not take the
+# window. The engine draws into the window as usual, so the pictures and the results of a test are the same.
+# VISIBLE=1 shows the window behind the windows of the active app. FOREGROUND=1 shows it in front.
+HIDDEN=""
+if [ -z "$FOREGROUND" ]; then
+  ENV_ARG+=("SURREAL_NO_ACTIVATE=1")
+  if [ "$VISIBLE" != 1 ]; then HIDDEN=1; ENV_ARG+=("SURREAL_HIDDEN_WINDOW=1"); fi
+fi
 if [ -n "$APP" ]; then
   # The program of the app is its start script. It adds --direct and the game folder. An error opens the error window
   # of the engine, as it does for a player.
@@ -85,9 +92,12 @@ done
 # AeroSpace does not take the small window of an app that is not the active app (a run in the background), so the
 # wait for the window is short. With FOREGROUND=1, and with the large window of WINSIZE=none, it takes the window, and
 # the wait is longer.
+# AeroSpace does not take a hidden window, so a hidden run does not wait for it.
 AERO_TRIES=8
 if [ -n "$FOREGROUND" ] || [ "$WINSIZE" = none ]; then AERO_TRIES=40; fi
-if [ -n "$PID" ] && command -v aerospace >/dev/null 2>&1 && aerospace list-windows --all >/dev/null 2>&1; then
+if [ -n "$HIDDEN" ]; then
+  touch "$R/window-ready"
+elif [ -n "$PID" ] && command -v aerospace >/dev/null 2>&1 && aerospace list-windows --all >/dev/null 2>&1; then
   ( for i in $(seq 1 $AERO_TRIES); do
       ID=$(aerospace list-windows --all --format '%{window-id}|%{app-pid}' 2>/dev/null | grep "|$PID\$" | cut -d'|' -f1 | head -1)
       if [ -n "$ID" ]; then aerospace layout --window-id "$ID" floating >/dev/null 2>&1; break; fi
