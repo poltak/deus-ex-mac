@@ -1,0 +1,35 @@
+# Liberty Island (start with --url=01_NYC_UNATCOIsland --tracepath=Terrorist34): the way of a guard on patrol.
+# A guard on patrol asks the engine for the next navigation point on its way to a patrol point (FindPathToward in
+# the state Patrolling of ScriptedPawn). Terrorist34 goes from PatrolPoint37 to PatrolPoint38 along the reach specs:
+# PathNode194, then PathNode864, then PatrolPoint38.
+# Before the fix, the engine took the navigation points that the guard could go to in a straight line, 8 at most,
+# and sent the guard to the one with the shortest way from there to the goal. At PathNode1005 the test for a
+# straight walk to PathNode864, which is 689 units away, gave "no" with 30 frames per second and "yes" with 60,
+# because the guard stood 0.08 units away from its place in the other run. With 30 frames per second the guard
+# then took the south way through PathNode431, and with 60 the north way.
+# The Engine.dll starts the search at the navigation point that the pawn stands on (APawn::findPathToward and
+# FSortedPathList::FindVisiblePaths). Then the result comes from the reach specs only, and a small difference of the
+# place of the pawn does not change it.
+# The engine option --tracepath=Terrorist34 writes one log line for each search of the guard: the place, the goal,
+# the point that the guard stands on ("on"), and the next point ("next").
+# tools/regress.sh runs this script with 30 and with 60 frames per second. The lines of tests/npc-patrol-path.expect
+# have no times, so they are the same for the two frame rates.
+40.0 dump Terrorist34 99999 MoveTarget,destPoint
+45.0 dump Terrorist34 99999 MoveTarget,destPoint
+50.0 dump Terrorist34 99999 MoveTarget,destPoint
+54.0 dump Terrorist34 99999 MoveTarget,destPoint
+56.0 dump Terrorist34 99999 MoveTarget,destPoint
+58.0 dump Terrorist34 99999 MoveTarget,destPoint
+60.0 dump Terrorist34 99999 MoveTarget,destPoint
+62.0 dump Terrorist34 99999 MoveTarget,destPoint
+64.0 dump Terrorist34 99999 MoveTarget,destPoint
+66.0 dump Terrorist34 99999 MoveTarget,destPoint
+68.0 dump Terrorist34 99999 MoveTarget,destPoint
+70.0 dump Terrorist34 99999 MoveTarget,destPoint
+72.0 dump Terrorist34 99999 MoveTarget,destPoint
+74.0 dump Terrorist34 99999 MoveTarget,destPoint
+76.0 dump Terrorist34 99999 MoveTarget,destPoint
+78.0 dump Terrorist34 99999 MoveTarget,destPoint
+80.0 dump Terrorist34 99999 MoveTarget,destPoint
+82.0 dump Terrorist34 99999 MoveTarget,destPoint
+84.0 dump Terrorist34 99999 MoveTarget,destPoint

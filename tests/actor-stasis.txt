@@ -1,6 +1,7 @@
 # Liberty Island (start with --url=01_NYC_UNATCOIsland): actors in stasis.
 # An actor that can go into stasis does not tick while the player did not see it for 5 seconds and it is far away.
-# A soldier that wanders stays at its place, and a security computer does not run its start code.
+# A soldier that wanders stays at its place, and a security computer does not run its start code. The soldier makes
+# one step in the first frames of the map, before it goes into stasis.
 # A transient actor in stasis goes away. When the player comes near, the actors run again.
 # tests/actor-stasis.expect has the lines that the log must have.
 2.0  exec set DeusExPlayer bCheatsEnabled True

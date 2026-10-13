@@ -8,13 +8,13 @@ The fork is at [poltak/SurrealEngine](https://github.com/poltak/SurrealEngine), 
 
 This repository has no game data. You need your own copy of Deus Ex.
 
-## State on 2026-10-12
+## State on 2026-10-13
 
 Scripted tests on an M2 Max show that these parts work:
 
 - Start screen, main menu, new game, intro.
 - Conversations and infolinks: text, choices, the transfer of objects, mouth shapes.
-- Enemies and allies: patrol, see and hear the player, attack, flee. Animals wander. A guard that comes after the player with the "run and fire" move has its full speed. A person that walks stays upright when its target is above or below it. A person that the player did not see for 5 seconds, and that is more than 600 units away, does not look for enemies other than the player. So guards and robots do not fight in places that the player cannot see.
+- Enemies and allies: patrol, see and hear the player, attack, flee. Animals wander, and so do persons and robots that have the order to wander. A guard on patrol takes the same way at each frame rate. A guard that comes after the player with the "run and fire" move has its full speed. A guard with a pistol goes to a place from which the player is in the range of its weapon, and it fires from there. A person that walks stays upright when its target is above or below it. A person that the player did not see for 5 seconds, and that is more than 600 units away, does not look for enemies other than the player. So guards and robots do not fight in places that the player cannot see.
 - Pickups, datacubes, keypads, doors, the inventory and goals screens.
 - Quick save and quick load, the Save Game and Load Game screens, a load directly after the start of the program. A load after a fight gives the dead guard, its body and the things of the body back as they were. A saved game keeps the goals, the notes and the keys of the player.
 - Travel between maps with inventory, credits, flags, goals, notes and keys. A map keeps its state when you come back.
@@ -71,6 +71,12 @@ The animation step of an actor now follows the original also. A saved game now k
 
 At some patrol points the pause time is the same as the time at which the idle animation of the guard starts a new loop. The point of that guard is such a point, with 5.5 seconds. There the guard walks on at once when the pause ends before the new loop. When the pause ends after the start of the new loop, the guard waits 2 seconds more for the end of the animation. In real play the frame time is not exact, so the guard stays 5.5 or 7.5 seconds there. The rule of the original gives the same two results. With exactly 30, 60 or 120 frames per second the guard stays 5.5 seconds.
 
+A test on 2026-10-13 found that a guard on patrol took a different way at a different frame rate. The second guard of the first dock went from one patrol point to the next on a south way with 30 frames per second, and on a north way, which takes 1.7 seconds longer, with 60 and with 120. The engine sent a person in a straight line to a navigation point that was far away, and its test for that straight line gave a different result when the person stood 0.08 units away. Now the engine has the path search of the original (`findPathToward`, `findPathTo` and `breadthPathFrom` of `Engine.dll`). A person that stands on a navigation point takes the next point on the shortest way along the reach specs of the map, so its way does not change with the frame rate. The guard makes the same path searches with 30, 60 and 120 frames per second.
+
+The engine has the reach tests of the original also (`actorReachable`, `pointReachable`, `walkReachable`, and the tests for a person that flies, swims or jumps). A reach test tells if a person can go to a place in a straight line. As in the original, the test goes through other persons and through objects such as crates, and a person as the goal counts as reached from some distance. A person that stands on a navigation point and asks for a second point gets the answer from the reach specs.
+
+The same work found an older fault, and it is fixed. A person looks for a new place with a direction test of the engine (`AIDirectionReachable`). The test moves the person in one direction and gives the last place in a range of distances. Before the fix it never found a place. So a guard in a fight found no firing place and ran from navigation point to navigation point until it stood next to the player, and a robot or a person with the order to wander did not move. Now a guard with a pistol stops where the player is in the range of its weapon and fires from there, it strafes, and it runs to the player when it changes to its knife. The medical robot of the UNATCO HQ moves around its room.
+
 No person has reported on these parts yet:
 
 - Sound by ear. The test runs are muted or go to a file.
@@ -85,6 +91,9 @@ Known gaps:
 - A text field with more than one line, such as a note, has no moves of the insertion point by row, and its insertion mark has the height of the field.
 - The program uses about 15 MB more memory after each map change. The engine frees the geometry, the lightmaps and the textures of a map that it left, but it has no garbage collector for the objects of that map.
 - A mirror does not show a second mirror. When mirrors with different planes are in view at the same time, the engine makes one mirror picture, with the plane of one of them, for all of them. The original makes a picture for each mirror, and it shows a mirror in a mirror.
+- The second guard of the first dock of Liberty Island stands at the corner of a container for 12 seconds on its first way after the start of the map, then it goes back one navigation point and passes. The reach spec of that place is for a radius of 21 units, and the guard has a radius of 20. It is not known if the guard of the original stops there also.
+- The engine calls the script event `HitWall` for each wall contact of an actor. The original has a filter before that event (`processHitWall` of `Engine.dll`). For example, a contact with a person gives no event there.
+- The reach tests and the direction test use the collision code of this engine for their test steps. A place that is very narrow can give a different answer than in the original.
 - The Effects Channels setting applies at the next start.
 - Multiplayer is not tested.
 
@@ -233,6 +242,8 @@ The engine of a test starts as a child process of the test script, with a hidden
 A run repeats exactly. The game advances a fixed time for each frame with a fixed random seed, and it starts only when the window has its size, because the size of the view changes which actors the player sees. A run is also faster than real time, and it does not wait for the display after each frame (`VSYNC=1` turns that wait on).
 
 `SCRIPT=tests/<name>.txt` gives the run an input script. Each line has a time and a command: keys, mouse clicks, console commands, pictures, commands that list actors, flags, goals, interface windows and the inventory, and commands that set a flag or send a trigger event to actors. The file `SurrealEngine/SurrealEngine/Harness.h` has the full list. The `key` command gives a key to the engine. The `oskey` command sends a key with its macOS key code through the window, as the real keyboard does, so a test with it also covers the key table of the macOS window code.
+
+The engine option `--tracepath=<name>` writes log lines for the person with that name. A `path` line for each path search has the place of the person, the goal, the navigation point that the person stands on (`on`) or the nearest point that it can go to (`from`), and the next point of the way (`next`). A `reach` line for each reach test of the script has the goal and the answer. A `direction` line for each direction test has the direction, the range of distances and the place that the test found. `tests/npc-patrol-path.txt` and `tests/enemy-run.txt` use the option.
 
 A run gets a new game folder in the state of a first start, `runs/<name>/game/`. It has links to the data in `DeusEx/`, copies of the ini files of the game and no saved games. So a run does not change your settings and your saved games in `DeusEx/`. `tools/fresh-game.sh <new folder>` makes such a folder, and `GAME=<folder>` gives a run a folder to use, for example when a second run must load the saved game of the first.
 

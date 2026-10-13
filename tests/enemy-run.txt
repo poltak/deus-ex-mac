@@ -1,9 +1,13 @@
-# Liberty Island (start with --url=01_NYC_UNATCOIsland): a guard that fights the player and then loses the line of
-# fire comes after the player with the "run and fire" move. It must run with its full speed, not with the speed of
-# its patrol. The player stands 700 units from the guard, the fight starts, and at 7.5 seconds the test puts the
-# player 1900 units from the first place of the guard.
-# The way of the guard goes over a path point at X = 1221. The guard must not stop there: it goes on to a place
-# from where it can fire at the player.
+# Liberty Island (start with --url=01_NYC_UNATCOIsland --tracepath=Terrorist12): a guard that fights the player and
+# then loses the line of fire comes after the player with the "run and fire" move. It must run with its full speed,
+# not with the speed of its patrol. The player stands 700 units from the guard, the fight starts, and at 7.5 seconds
+# the test puts the player 1900 units from the first place of the guard.
+# The guard has a pistol. Its script (ComputeBestFiringPosition of ScriptedPawn) looks for a place from which the
+# player is in the range of the weapon. For that search the range is 1000 units. The guard runs or strafes to such
+# a place and fires from there. It must not stand on a path point and play its run animation.
+# The script finds the place with the direction test of the engine (AIDirectionReachable). The engine option
+# --tracepath=Terrorist12 writes a log line for each direction test of the guard. Before a fix, no direction test
+# found a place.
 # tests/enemy-run.expect has the lines that the log must have.
 1.0  exec set DeusExPlayer bCheatsEnabled True
 1.2  exec God

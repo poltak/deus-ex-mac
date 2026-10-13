@@ -116,7 +116,7 @@ run map-start 8 --url=01_NYC_UNATCOIsland
 run map-attach 3 --url=00_TrainingCombat
 run actor-stasis 12 --url=01_NYC_UNATCOIsland
 run player-fight 19 --url=01_NYC_UNATCOIsland
-run enemy-run 21 --url=01_NYC_UNATCOIsland
+run enemy-run 21 --url=01_NYC_UNATCOIsland --tracepath=Terrorist12
 run npc-upright 6 --url=01_NYC_UNATCOIsland
 run npc-hidden 123 --url=01_NYC_UNATCOIsland
 # The pause of a guard at a patrol point, with four frame rates. See tests/npc-patrol-pause.txt.
@@ -124,6 +124,9 @@ run npc-patrol-pause 20 --url=01_NYC_UNATCOIsland
 FIXED_FPS=60 SCRIPT_NAME=npc-patrol-pause run npc-patrol-pause-60 20 --url=01_NYC_UNATCOIsland
 FIXED_FPS=60.06 SCRIPT_NAME=npc-patrol-pause run npc-patrol-pause-60.06 20 --url=01_NYC_UNATCOIsland
 FIXED_FPS=59.94 SCRIPT_NAME=npc-patrol-pause run npc-patrol-pause-59.94 20 --url=01_NYC_UNATCOIsland
+# The way of a guard between two patrol points, with two frame rates. See tests/npc-patrol-path.txt.
+run npc-patrol-path 86 --url=01_NYC_UNATCOIsland --tracepath=Terrorist34
+FIXED_FPS=60 SCRIPT_NAME=npc-patrol-path run npc-patrol-path-60 86 --url=01_NYC_UNATCOIsland --tracepath=Terrorist34
 run save-fight 30 --url=01_NYC_UNATCOIsland
 run save-goals 17 --url=01_NYC_UNATCOIsland
 run travel-goals 30 --url=01_NYC_UNATCOIsland

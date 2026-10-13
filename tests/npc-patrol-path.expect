@@ -1,0 +1,15 @@
+# The log of the test must have a line for each of these patterns (grep -E). A line with "!" at the start is a
+# pattern that the log must not have. The patterns have no times, so they are good for each frame rate.
+# The guard stands on a navigation point in each search, and the next point is the neighbor of that point on the
+# shortest way along the reach specs.
+Harness: path Terrorist34 .* goal=PatrolPoint38 on=PatrolPoint37 next=PathNode194$
+Harness: path Terrorist34 .* goal=PatrolPoint38 on=PathNode194 next=PathNode864$
+Harness: path Terrorist34 .* goal=PatrolPoint38 on=PathNode864 next=PatrolPoint38$
+# The guard is on its way at the times of the dump commands.
+dump Terrorist34 state=Patrolling .* MoveTarget=PathNode'PathNode194' destPoint=PatrolPoint'PatrolPoint38'
+dump Terrorist34 state=Patrolling .* MoveTarget=PathNode'PathNode864' destPoint=PatrolPoint'PatrolPoint38'
+# The guard does not go to PathNode1005, which is not a neighbor of PatrolPoint37, and it does not take the south
+# way through PathNode431. Before the fix it went to PathNode1005 first, and then through PathNode431 with 30
+# frames per second.
+!dump Terrorist34 .* MoveTarget=PathNode'PathNode1005'
+!dump Terrorist34 .* MoveTarget=PathNode'PathNode431'

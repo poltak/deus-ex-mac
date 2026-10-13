@@ -1,13 +1,15 @@
 # UNATCO HQ (start with --url=01_NYC_UNATCOHQ): damage the left arm and the left leg of the player with a cheat,
 # use the medical bot from 80 units and click Heal All. The bot heals the two parts and starts to recharge.
 # The engine found no frob target at this distance before the TraceActors iterator had the direction of the original.
+# The bot has the order to wander, and it starts to move when the player is near. So the test uses the bot directly
+# after it puts the player in front of it.
 # tests/player-medbot.expect has the lines that the log must have.
 2.0  exec set DeusExPlayer bCheatsEnabled True
 2.2  exec DamagePart 2 40
 2.4  exec DamagePart 4 30
 2.6  dump DeusExPlayer 100000 HealthArmLeft,HealthLegLeft
 3.0  teleportto MedicalBot0 80
-4.2  rclick 0.5 0.5
+3.4  rclick 0.5 0.5
 5.5  shot 1-medbot-screen
 5.7  windows
 6.0  click 0.639 0.8146

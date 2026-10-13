@@ -20,5 +20,6 @@
 \[120\.00\].* dump Terrorist34 state=Patrolling .* health=75 Enemy=None
 \[120\.20\].* dump SecurityBot0 state=Patrolling .* lastRendered=0\.0 health=250 Enemy=None
 !dump TerroristCarcass[1-9]
-# The player goes to a guard and looks at it. The guard counts as drawn.
-\[121\.50\].* dump Terrorist34 .* dist=528 lastRendered=0\.0 
+# The test puts the player 500 units from a guard, and the player looks at it. The guard counts as drawn.
+# The guard walks, so the distance changes by some units in the half second after that.
+\[121\.50\].* dump Terrorist34 .* dist=5[0-9][0-9] lastRendered=0\.0 
