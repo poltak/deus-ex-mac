@@ -127,6 +127,9 @@ FIXED_FPS=59.94 SCRIPT_NAME=npc-patrol-pause run npc-patrol-pause-59.94 20 --url
 # The way of a guard between two patrol points, with two frame rates. See tests/npc-patrol-path.txt.
 run npc-patrol-path 86 --url=01_NYC_UNATCOIsland --tracepath=Terrorist34
 FIXED_FPS=60 SCRIPT_NAME=npc-patrol-path run npc-patrol-path-60 86 --url=01_NYC_UNATCOIsland --tracepath=Terrorist34
+# The wall contacts of the player and of a guard. See tests/player-wall-hit.txt.
+run player-wall-hit 9 --url=01_NYC_UNATCOIsland --tracepath=JCDentonMale0
+run npc-wall-hit 9 --url=01_NYC_UNATCOIsland --tracepath=Terrorist34
 run save-fight 30 --url=01_NYC_UNATCOIsland
 run save-goals 17 --url=01_NYC_UNATCOIsland
 run travel-goals 30 --url=01_NYC_UNATCOIsland

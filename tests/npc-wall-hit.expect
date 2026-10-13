@@ -1,0 +1,7 @@
+# The log of the test must have a line for each of these patterns (grep -E).
+# A person has a very large MinHitWall
+\[3\.00\].* dump Terrorist34 state=Patrolling .* MinHitWall=9999999827968\.000000
+# The guard pushes against the container, and its script gets the event
+Harness: hitwall Terrorist34 actor=LevelInfo0 normal=\(1\.00 0\.00 0\.00\) event$
+# The event does not end the move of the guard: the timer of the move counts down from about 14 seconds
+\[8\.00\].* dump Terrorist34 state=Patrolling loc=\(15[01][0-9] 55[67][0-9] -96\) .* MoveTimer=1[01]\.[0-9]+

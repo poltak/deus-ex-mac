@@ -1,0 +1,9 @@
+# Liberty Island (start with --url=01_NYC_UNATCOIsland --tracepath=Terrorist34): the wall contact of a guard.
+# The second guard of the first dock walks against the side of a container on its first way, from 6.4 seconds on.
+# The side has the normal (1 0 0). The class of the guard has a HitWall function, and a person has a very large
+# MinHitWall, so each wall counts. The script of the guard gets the event HitWall for this contact.
+# See tests/player-wall-hit.txt for the filter of the original before that event.
+# The engine option --tracepath=Terrorist34 writes a log line for the wall contacts of the guard.
+# tests/npc-wall-hit.expect has the lines that the log must have.
+3.0 dump Terrorist34 99999 MinHitWall,MoveTimer
+8.0 dump Terrorist34 99999 MoveTimer,Acceleration,Velocity

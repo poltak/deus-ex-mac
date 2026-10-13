@@ -1,0 +1,9 @@
+# The log of the test must have a line for each of these patterns (grep -E).
+# The values that the filter uses for the player
+\[2\.00\].* dump JCDentonMale0 .* Destination=\(X=0\.000000, Y=0\.000000, Z=0\.000000\) MinHitWall=-0\.600000 MoveTimer=-1\.9[0-9]+ bFromWall=False
+# The player stands at the west wall. That wall does not face against the way to the origin, so nothing changed.
+Harness: hitwall JCDentonMale0 actor=LevelInfo0 normal=\(1\.00 0\.00 0\.00\) no event, the wall does not face against the way
+\[5\.00\].* dump JCDentonMale0 .* loc=\(-4859 10431 -260\) .* MoveTimer=-4\.9[0-9]+ bFromWall=False Velocity=\(X=0\.000000, Y=0\.000000,
+# The player stands at the wall at the edge of the dock. That wall faces against the way, so the move ended.
+Harness: hitwall JCDentonMale0 actor=LevelInfo0 normal=\(0\.00 1\.00 0\.00\) no event, the move ends
+\[8\.00\].* dump JCDentonMale0 .* loc=\(-4648 10053 -260\) .* MoveTimer=-1\.0[0-9]+ bFromWall=True

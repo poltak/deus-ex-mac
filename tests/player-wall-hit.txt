@@ -1,0 +1,23 @@
+# Liberty Island (start with --url=01_NYC_UNATCOIsland --tracepath=JCDentonMale0): the wall contacts of a pawn.
+# The original has a filter between a wall contact and the script event HitWall (AActor::processHitWall of
+# Engine.dll). A wall counts for a pawn only when it faces against the way of the pawn: the dot product of the
+# direction to Destination and the wall normal must be MinHitWall at most. A pawn that has no HitWall function in
+# its state does not get the event for such a wall. Its move ends: MoveTimer becomes -1 and bFromWall becomes true.
+# The player class has no HitWall function. The player has the MinHitWall -0.6, and its Destination is the origin
+# of the map, because no code sets it. From the start dock the direction to the origin is (0.42 -0.91).
+# 1. The player walks west into a wall with the normal (1 0 0). The dot product is 0.42, so nothing changes.
+#    The MoveTimer of the player counts down from 0 at all times, so it is -4.97 at 5 seconds.
+# 2. The player walks south into the wall at the edge of the dock, which has the normal (0 1 0). The dot product is
+#    -0.91, so MoveTimer becomes -1 in each frame and bFromWall becomes true.
+# Before the fix the engine called the event for each wall contact, and it did not change MoveTimer and bFromWall.
+# The engine option --tracepath=JCDentonMale0 writes a log line for the wall contacts of the player.
+# tests/player-wall-hit.expect has the lines that the log must have.
+2.0 dump JCDentonMale0 99999 Destination,MinHitWall,MoveTimer,bFromWall
+2.5 teleport -4761 10431 -260 32768
+3.0 keydown w
+5.0 dump JCDentonMale0 99999 MoveTimer,bFromWall,Velocity
+5.1 keyup w
+5.5 teleport -4648 10184 -260 49152
+6.0 keydown w
+8.0 dump JCDentonMale0 99999 MoveTimer,bFromWall,Velocity
+8.1 keyup w
