@@ -130,6 +130,8 @@ FIXED_FPS=60 SCRIPT_NAME=npc-patrol-path run npc-patrol-path-60 86 --url=01_NYC_
 # The wall contacts of the player and of a guard. See tests/player-wall-hit.txt.
 run player-wall-hit 9 --url=01_NYC_UNATCOIsland --tracepath=JCDentonMale0
 run npc-wall-hit 9 --url=01_NYC_UNATCOIsland --tracepath=Terrorist34
+# The slide of the player along a thing that it touches at an angle. See tests/player-slide.txt.
+run player-slide 19 --url=01_NYC_UNATCOIsland --tracepath=JCDentonMale0
 run save-fight 30 --url=01_NYC_UNATCOIsland
 run save-goals 17 --url=01_NYC_UNATCOIsland
 run travel-goals 30 --url=01_NYC_UNATCOIsland

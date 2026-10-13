@@ -37,6 +37,7 @@ Scripted tests on an M2 Max show that these parts work:
 - A fight with the pistol: the HUD counts the rounds of the clip, the guard takes damage, flees and dies, and the search of the body gives its knife and the rounds of its pistol.
 - Weapons: the reload key, with the HUD that shows no numbers during the reload, and the ammo key that changes between the dart types of the mini crossbow.
 - Things in the world: the player lifts a trash can and throws it, breaks a crate with a crowbar and takes what was in it.
+- Contacts of the player: the player slides along a person, a door, a wall and a thing that it cannot push when it touches them at an angle, also on stairs. It pushes a light thing when it walks against the middle of it, and it slides past the thing when it touches its side.
 - The start of a map: a body that the map has from the start keeps its things hidden until the player searches it, a gun turret that hangs from a ceiling stays there, and a glass plate with an attach tag has its target as base.
 - Stasis: a thing or a person that the player did not see for 5 seconds, and that is far away or in a room that is not in view, stops until the player comes back. The scripts of the game are written for this rule of the original engine. The engine counts a thing as seen when a part of its rectangle on the screen is free of the level geometry in front of it, as the original renderer does.
 - The music: the calm, combat and conversation parts of a song, the fades between them, and the return to the place where the calm part stopped.
@@ -79,6 +80,15 @@ The same work found an older fault, and it is fixed. A person looks for a new pl
 
 The wall contacts of a pawn now follow the original also (`processHitWall` of `Engine.dll`). The original has a filter between a wall contact and the script event `HitWall`. A contact with a person gives no event, and a pawn with no acceleration gets no event. A wall counts for a pawn only when it faces against the way of the pawn to its destination. A pawn that has no `HitWall` function in its state gets no event for such a wall, and its move ends. An actor that falls onto a floor and does not bounce gets the event `Landed` only. Before, the engine called the event `HitWall` for each contact.
 
+The move of the player after a contact now follows the original also (`APawn::stepUp` of `Engine.dll`). A test on 2026-10-13 found two faults there:
+
+- A player that walked at an angle into an actor stopped dead. The actor can be a person, a door or a thing that the player cannot push, such as the police boat of the first dock. The engine had no rule for a contact of the player with an actor.
+- A player that walked up stairs at an angle into the side wall stopped in front of the next step. The engine did the slide along the wall after the move down from the height of a step, and the next step was in the way there.
+
+The original moves the pawn up by the height of a step, makes the rest of the move and the slide there, and then moves the pawn down. This rule is the same for the level and for an actor. Now the player slides along each of these things, also on stairs.
+
+The rule for a thing that the player can push changed also. The player pushes the thing when the contact is not more than 26 degrees away from head-on, as in the original. At a larger angle the player slides past the thing and gives it a short push. Before, the test for head-on used the length of the move, so the player pushed the thing at almost each angle and did not slide past it.
+
 No person has reported on these parts yet:
 
 - Sound by ear. The test runs are muted or go to a file.
@@ -95,7 +105,9 @@ Known gaps:
 - A mirror does not show a second mirror. When mirrors with different planes are in view at the same time, the engine makes one mirror picture, with the plane of one of them, for all of them. The original makes a picture for each mirror, and it shows a mirror in a mirror.
 - The second guard of the first dock of Liberty Island walks against the side of a container on its first way after the start of the map, and it pushes against it for 12 seconds. Then it goes back one navigation point and passes. The rules of the original for these steps are in the engine: a person stops less than 16 units before a navigation point, the reach spec of that place is for a radius of 21 units on the exact line between its two points, the guard has a radius of 20, and a wall contact does not end the move of a person. With these rules the straight way of the guard goes into the container by up to 3 units. So the original guard does the same in all probability, but no test with the original program confirmed it.
 - The reach tests and the direction test use the collision code of this engine for their test steps. A place that is very narrow can give a different answer than in the original.
-- A pawn that walks reports a wall contact to its script for a vertical wall only. The original reports a contact also for a slope that stops the pawn. For a pawn that flies or swims, the original tries a step up before it reports a contact with a vertical wall, and this engine does not.
+- Only the player has the move of the original after a contact. A person, an animal or a robot that walks still has the older code. It slides after the move down from the height of a step, so the next step of stairs can stop it when it slides along a wall or an actor, as it stopped the player. It reports a wall contact to its script for a vertical wall only, and the original reports a contact also for a slope that stops the pawn.
+- For a pawn that flies or swims, the original tries a step up before it reports a contact with a vertical wall, and this engine does not.
+- The speed with which the player pushes a thing changes with the frame rate. With a trash can it is about 100 units in a second with 30 frames per second, 50 with 60 and 83 with 120. The rule of the original takes a part of the velocity of the player in each frame with a contact. So the original has this property in all probability, but no test with the original program confirmed it.
 - The Effects Channels setting applies at the next start.
 - Multiplayer is not tested.
 

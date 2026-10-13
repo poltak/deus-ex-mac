@@ -1,0 +1,65 @@
+# Liberty Island (start with --url=01_NYC_UNATCOIsland --tracepath=JCDentonMale0): the player walks at an angle
+# into things, and it must slide along them.
+# The original moves a pawn that something stopped with APawn::stepUp of Engine.dll. The pawn goes up by the height
+# of a step, makes the rest of its move there, and comes down again. A contact at the height of the step makes the
+# pawn slide along the surface. This rule is the same for the level, for a mover and for each other actor. One
+# contact has a different rule. The player that walks against a decoration that it can push, not more than 26
+# degrees away from head-on, keeps a part of its velocity and pushes the decoration.
+# Before the fix the engine had no rule for a contact of the player with an actor, so the player stopped dead. It
+# also did the slide along a wall after the move down, so the next step of stairs stopped the slide.
+# 1. A decoration that the player cannot push, the police boat at the first dock. The player walks south and
+#    touches the collision cylinder of the boat 74 degrees away from head-on. It slides round the boat and walks
+#    on to the wall at the edge of the dock. Before the fix it stayed at (-4800 10227 -260).
+# 2. A mover, the locked double door DeusExMover16 and DeusExMover17. The player walks into the door at 45 degrees
+#    and slides along it to the door frame. Before the fix it stayed at (-4699 2289 -196).
+# 3. Stairs with a side wall, the wide stairs at (2040 200). The player walks up the stairs at 45 degrees into
+#    the side wall. It slides along the wall up the stairs, to a wall at the top. Before the fix it stayed at
+#    (2107 252 -36), in front of the next step.
+# 4. A decoration that the player can push, 50 degrees away from head-on. The decoration is a new trash can.
+#    The player slides past the can, and the can moves a short distance. Before the fix the player stayed behind
+#    the can and pushed it.
+# 5. A second new trash can, head-on. The player pushes the can along the dock and stays behind it. The speed
+#    of the push changes with the frame rate, so the numbers of this part are for 30 frames per second.
+# 6. A person, about 50 degrees away from head-on. The person is a new soldier. The player slides round the
+#    soldier. Before the fix it stayed at (-4721 10327 -260).
+#    A new soldier walks away after some time. The ground speed 0 keeps it at its place.
+# The map has the trash cans 0 and 1 and the soldiers 0 to 9, so the first new can is TrashCan2 and the new
+# soldier is UNATCOTroop10.
+# tests/player-slide.expect has the lines that the log must have.
+2.5  teleport -4800 10300 -260 49152
+3.0  keydown w
+3.5  dump JCDentonMale0 0 Velocity
+4.5  dump JCDentonMale0 0 Velocity
+4.6  keyup w
+5.0  teleport -4770 2360 -200 57344
+5.5  keydown w
+6.6  dump JCDentonMale0 0 Velocity
+6.7  keyup w
+7.5  teleport 2040 200 -60 8192
+8.0  keydown w
+9.0  dump JCDentonMale0 0 Velocity
+10.0 dump JCDentonMale0 0 Velocity
+10.1 keyup w
+11.0 exec set DeusExPlayer bCheatsEnabled True
+11.2 teleport -4761 10560 -250 0
+11.6 exec Summon TrashCan1
+12.0 teleport -4761 10530 -250 0
+12.3 dump Containers 100 bPushable,Mass
+12.5 keydown w
+13.3 dump JCDentonMale0 0 Velocity
+13.3 dump Containers 200 Velocity
+13.4 keyup w
+13.8 teleport -4761 10431 -250 0
+14.2 exec Summon TrashCan1
+14.6 keydown w
+16.1 dump JCDentonMale0 0 Velocity
+16.1 dump Containers 100 Velocity
+16.2 keyup w
+16.6 teleport -4761 10300 -250 0
+17.0 exec Summon UNATCOTroop
+17.05 setprop UNATCOTroop GroundSpeed 0
+17.3 teleport -4721 10410 -250 49152
+17.4 keydown w
+18.0 dump UNATCOTroop10 9999 GroundSpeed
+18.5 dump JCDentonMale0 0 Velocity
+18.5 dump UNATCOTroop10 9999 GroundSpeed
