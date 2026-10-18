@@ -85,6 +85,12 @@ rm -rf "$T/home/Library"
 make_game "$T/home/Library/Application Support/Steam/steamapps/common/Deus Ex"
 run "a Steam folder is found with no dialog" 0 "$T/home/Library/Application Support/Steam/steamapps/common/Deus Ex" none
 check_stored "the found folder is stored" "$T/home/Library/Application Support/Steam/steamapps/common/Deus Ex"
+rm -rf "$T/home/Library"
+make_game "$T/home/Library/Application Support/Steam/steamapps/content/app_6910/depot_6911"
+run "a depot download of the Steam console is found with no dialog" 0 "$T/home/Library/Application Support/Steam/steamapps/content/app_6910/depot_6911" none
+rm -rf "$T/home/Library"
+make_game "$T/home/Library/Application Support/Steam/steamapps/common/Deus Ex"
+run "a Steam folder is found again" 0 "$T/home/Library/Application Support/Steam/steamapps/common/Deus Ex" none
 chmod a-w "$T/home/Library/Application Support/Steam/steamapps/common/Deus Ex/System"
 run "a read-only game folder shows an alert" 1 "" alert
 

@@ -8,7 +8,7 @@
 #   2. the folder from the last start (~/Library/Application Support/DeusExMac/gamefolder.txt)
 #   3. a "DeusEx" or "Deus Ex" folder next to the app
 #   4. the DeusEx folder of a working copy of this project, where the app is in dist/ and the game folder is next to dist/
-#   5. some usual places
+#   5. some usual places, and the folder where the console command "download_depot 6910 6911" of Steam puts the game
 #   6. a folder dialog
 
 HERE="$(cd "$(dirname "$0")" && pwd)"
@@ -42,6 +42,7 @@ else
   for candidate in \
     "${NEAR_APP[@]}" \
     "$HOME/Library/Application Support/Steam/steamapps/common/Deus Ex" \
+    "$HOME/Library/Application Support/Steam/steamapps/content/app_6910/depot_6911" \
     "$HOME/Games/Deus Ex" \
     "$HOME/Games/DeusEx" \
     "$HOME/Documents/Deus Ex" \
