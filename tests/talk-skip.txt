@@ -1,0 +1,10 @@
+# Liberty Island (start with --url=01_NYC_UNATCOIsland): skip a speech line of the first conversation with Paul with
+# a mouse click. The line of Paul must stop, and the next line, from the player, must play alone. Before the fix,
+# the line of Paul played to its end together with the next line.
+# tests/talk-skip.expect has the lines that the log must have.
+1.0  keydown w
+9.0  keyup w
+28.5 sounds
+29.0 click 0.5 0.5
+29.5 sounds
+30.5 sounds

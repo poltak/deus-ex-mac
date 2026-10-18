@@ -91,6 +91,8 @@ run input-mac-keys 16 --url=01_NYC_UNATCOIsland
 run console 12 --url=01_NYC_UNATCOIsland
 run perf-m01 26 --url=01_NYC_UNATCOIsland
 run m01-paul-choice 130 --url=01_NYC_UNATCOIsland
+# A mouse click skips a speech line of Paul, and the line stops. See tests/talk-skip.txt.
+run talk-skip 31 --url=01_NYC_UNATCOIsland
 # The player crouches through the laser beams of the statue door, and the guards come. See tests/m01-laser-alarm.txt.
 run m01-laser-alarm 15 --url=01_NYC_UNATCOIsland
 run m01-mission-complete 14 --url=01_NYC_UNATCOIsland

@@ -1,0 +1,7 @@
+# The log of the test must have a line for each of these patterns (grep -E).
+# Paul speaks line 285 of the mission 1 conversations.
+\[28\.50\].* Harness: sound PaulDenton0 ConAudioMission01_285 slot=5
+# After the click, the player speaks line 286, and the line of Paul does not play.
+\[29\.50\].* Harness: sound JCDentonMale0 ConAudioMission01_286 slot=5
+\[30\.50\].* Harness: sound JCDentonMale0 ConAudioMission01_286 slot=5
+!\[(29|30)\.50\].* Harness: sound PaulDenton0 ConAudioMission01_285
