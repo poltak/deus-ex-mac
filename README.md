@@ -127,78 +127,135 @@ Known gaps:
 
 ### What you need
 
-- A Mac with Apple Silicon and macOS 15 or later. This is the only platform with tests: one machine, an M2 Max with macOS 15. Intel Macs, Windows and Linux are not tested. The app builder and the test tools are for macOS only.
-- Your own copy of Deus Ex, Game of the Year Edition (version 1112fm). The Steam edition and the GOG edition have the files. This repository has no game files.
-- The Xcode command line tools, CMake and Ninja to build the app (`brew install cmake ninja`). There is no ready app to download at this time.
+- A Mac with Apple Silicon and macOS 15 or later. Intel Macs are not supported. All tests ran on one machine, an M2 Max with macOS 15.
+- Your own copy of Deus Ex, Game of the Year Edition (version 1112fm), from Steam or GOG. Both stores sell only the Windows version, and the app plays the files of that version. You do not need Windows or Wine.
+- The app from the [releases page](https://github.com/poltak/deus-ex-mac/releases). You do not need build tools. To build the app yourself, see [Build the app](#build-the-app).
 
-### Step 1: get the game files
+You do these steps one time:
 
-Deus Ex is a Windows game, so Steam on a Mac does not install it. You need the folder of the Windows version. It is the folder that has `System`, `Maps`, `Textures`, `Sounds` and `Music` in it.
+1. Download the app.
+2. Get the game files.
+3. Open the app for the first time.
 
-Only the first of these ways was used in this project:
+### Step 1: download the app
 
-1. Copy the folder from a Windows or Linux computer where Steam installed the game. Steam keeps it in `steamapps/common/Deus Ex`.
-2. Use the console of Steam on your Mac (not tested here). Open the address `steam://open/console` in a browser, and type this command in the console of Steam. App 6910 is the Game of the Year Edition and 6911 is its file depot. Steam prints the folder of the download when it is complete.
+1. Open the [latest release](https://github.com/poltak/deus-ex-mac/releases/latest) and download `DeusEx-mac-<version>.zip`.
+2. Open the zip, if your browser did not open it. Safari opens a zip after the download.
+3. Move `Deus Ex.app` into your Applications folder. Do this before you open the app for the first time.
+
+The app has no game files in it. It has the engine and its libraries, and it is approximately 30 MB.
+
+### Step 2: get the game files
+
+The app needs the game folder of the Windows version. This folder is approximately 750 MB, and it has these folders in it:
+
+```
+System    (with DeusEx.u in it)
+Maps
+Textures
+Sounds
+Music
+```
+
+Put the game folder at `~/Games/Deus Ex`. This is the folder `Deus Ex` in the folder `Games` of your home folder. The app finds it there and does not ask you for it. The app can also use a different place, and then it asks you to select the folder at the first start. Do not use a place where you cannot write, because the game keeps its settings and saved games in the game folder.
+
+Use one of these ways to get the game folder. This project used only way B for its tests. Way A uses the same download as way B. Way C is not tested here.
+
+#### Way A: Steam on this Mac
+
+The Mac version of Steam does not install Deus Ex, because Steam has no Mac version of the game. But the console of Steam can download the Windows files of a game that you own.
+
+1. Open Steam and log in with the account that owns Deus Ex.
+2. Open the Terminal app, and type this command. It opens the console of Steam.
+
+   ```bash
+   open steam://open/console
+   ```
+
+3. In the console of Steam, type this command and press Enter. App 6910 is Deus Ex: Game of the Year Edition, and depot 6911 is its game files.
 
    ```
    download_depot 6910 6911
    ```
 
-3. Download the Windows files with SteamCMD (not tested here):
+   The console shows no progress. When the download is complete, it shows `Depot download complete` and the folder of the download.
+4. Move the downloaded folder to `~/Games/Deus Ex` with these Terminal commands:
 
    ```bash
-   steamcmd +@sSteamCmdForcePlatformType windows +force_install_dir "$HOME/Games/Deus Ex" +login YOUR_STEAM_NAME +app_update 6910 validate +quit
+   mkdir -p ~/Games
    ```
 
-4. Extract the GOG offline installer with `innoextract` (not tested here).
+   ```bash
+   mv ~/Library/Application\ Support/Steam/steamapps/content/app_6910/depot_6911 ~/Games/Deus\ Ex
+   ```
 
-Put the folder at `~/Games/Deus Ex`. The app finds it there with no question. A different place is also possible, and the app then asks for it. The folder must be in a place where you can write, because the engine keeps its settings and the save games in the game folder.
+If you do not move the folder, the app also finds it at its download place.
 
-The tests of this project used one copy of the game: the Steam edition with the conversation files of the GMDX mod. A copy with no mod has the original files, but it was not tested here.
+#### Way B: copy the folder from a Windows or Linux computer
 
-### Step 2: build the app
+On a Windows or Linux computer where Steam installed Deus Ex, the game folder is `steamapps/common/Deus Ex` in the Steam folder. On Windows, this is usually `C:\Program Files (x86)\Steam\steamapps\common\Deus Ex`. Copy the full folder to `~/Games/Deus Ex` on your Mac.
+
+#### Way C: the GOG installer
+
+GOG sells only the Windows version. The installer is an `.exe` file, and the program `innoextract` can unpack it on a Mac.
+
+1. On the GOG website, open your games library, select Deus Ex GOTY Edition, and download the offline backup installer for Windows (`setup_deus_ex_goty_<version>.exe`).
+2. Install Homebrew from [brew.sh](https://brew.sh), if you do not have it. Then install innoextract:
+
+   ```bash
+   brew install innoextract
+   ```
+
+3. Unpack the installer to `~/Games/Deus Ex`:
+
+   ```bash
+   innoextract --gog -d ~/Games/Deus\ Ex ~/Downloads/setup_deus_ex_goty_*.exe
+   ```
+
+4. Look for the `System` folder. If it is in a folder `app` in `~/Games/Deus Ex`, then `~/Games/Deus Ex/app` is the game folder. Select that folder when the app asks for the game folder.
+
+#### Check the game folder
+
+This Terminal command shows the file `DeusEx.u` if the game folder is in the correct place:
 
 ```bash
-git clone --recurse-submodules https://github.com/poltak/deus-ex-mac.git
+ls ~/Games/Deus\ Ex/System/DeusEx.u
 ```
+
+The game folder does not need the original `DeusEx.exe`. A folder where a mod launcher replaced that file also works. See [Game files with mods](#game-files-with-mods).
+
+### Step 3: open the app for the first time
+
+The app has no signature from an Apple developer account, so macOS stops it at the first start. You must let it open one time:
+
+1. Open `Deus Ex.app` in your Applications folder. macOS shows a message that it cannot verify the app. Click Done. Do not click Move to Trash.
+2. Open the Apple menu, then System Settings, then Privacy & Security.
+3. Go down to the Security part. It shows a message that "Deus Ex" was blocked. Click Open Anyway, and type your password.
+4. macOS asks one more time. Click Open Anyway.
+
+You can also use one Terminal command for this. It removes the download mark from the app, and then macOS does not stop it:
 
 ```bash
-cd deus-ex-mac
+xattr -dr com.apple.quarantine /Applications/Deus\ Ex.app
 ```
 
-The engine fork is the `SurrealEngine` folder. The first command downloads MoltenVK, the library that gives Vulkan on a Mac.
+You must do this again after you install a new version of the app.
 
-```bash
-cmake -S SurrealEngine -B SurrealEngine/build -G Ninja -DCMAKE_BUILD_TYPE=RelWithDebInfo
-```
-
-```bash
-ninja -C SurrealEngine/build SurrealEngine
-```
-
-```bash
-tools/make-app.sh
-```
-
-The result is `dist/Deus Ex.app`. It has the engine and its libraries in it, and no game data.
-
-### Step 3: start the game
-
-Open `dist/Deus Ex.app`.
-
-At the first start the app looks for the game folder. If it does not find one, a dialog asks you to select it. Select the folder that has `System` and `Maps` in it. The app stores your selection in `~/Library/Application Support/DeusExMac/gamefolder.txt`. Delete that file to select a different folder.
+The app then looks for the game folder. If it does not find one, a dialog asks you to select it. Select the folder that has `System` and `Maps` in it. The app stores your selection in `~/Library/Application Support/DeusExMac/gamefolder.txt`. Delete that file to select a different folder.
 
 The app looks in these places, in this order:
 
 1. The folder in the environment variable `DEUSEX_GAME_FOLDER`. This is for one start.
 2. The folder from the last start.
 3. A `DeusEx` or `Deus Ex` folder next to the app.
-4. The `DeusEx` folder at the top of this working copy. A developer can put the game folder there, and git ignores it.
-5. `~/Library/Application Support/Steam/steamapps/common/Deus Ex`, `~/Games/Deus Ex`, `~/Documents/Deus Ex` and `/Applications/Deus Ex`.
+4. The `DeusEx` folder at the top of a working copy of this repository. A developer can put the game folder there, and git ignores it.
+5. `~/Games/Deus Ex`, `~/Documents/Deus Ex`, `/Applications/Deus Ex`, the Steam folder `~/Library/Application Support/Steam/steamapps/common/Deus Ex` and the download folder of way A.
 
-The game folder does not need the original `DeusEx.exe`. A folder where a mod launcher replaced that file also works.
+When the game folder is in your Documents, Desktop or Downloads folder, macOS asks at the first start if the app can open files there. It asks again after each new version of the app. A game folder in `~/Games` does not cause this question.
 
-When the game folder is in your Documents, Desktop or Downloads folder, macOS asks at the first start if the app can open files there. It asks again after each new build of the app, because a new build has a new signature.
+### A new version
+
+Download the new zip and put the new `Deus Ex.app` in your Applications folder in place of the old one. Then do step 3 again. Your settings and saved games stay, because they are in the game folder.
 
 ### Controls and settings
 
@@ -218,7 +275,7 @@ The developer loader starts the game in a map that you select, with the weapons 
 To open the loader, hold the Option key while the app starts. You can also start the app with the `--loader` option:
 
 ```bash
-open "dist/Deus Ex.app" --args --loader
+open "/Applications/Deus Ex.app" --args --loader
 ```
 
 The loader window has these controls:
@@ -248,12 +305,61 @@ GMDX installs its conversation files over the original ones. A game folder with 
 
 - `SurrealEngine/` is the engine fork (git submodule, branch `master` of [poltak/SurrealEngine](https://github.com/poltak/SurrealEngine)).
 - `DeusEx/` is the place for your game folder, or for a link to it. Git ignores it. The tests read the game data from it and write nothing into it, and the app in `dist/` plays from it.
-- `packaging/` has the start script and the `Info.plist` of the app.
+- `packaging/` has the start script, the `Info.plist`, the license list and the release text of the app.
+- `.github/workflows/release.yml` builds the app and makes a draft release for a version tag.
 - `tests/` has input scripts for the test harness of the fork.
 - `tools/` has the scripts to run tests, to open the developer loader, to measure speed and to read the original DLLs.
 - `analysis/exports/` has the export table of each original DLL.
 - `runs/` gets the log and the pictures of each test run. Git ignores it.
 - `re-out/` gets the raw decompiler output. Git ignores it.
+
+### Build the app
+
+You need the Xcode command line tools, CMake and Ninja (`brew install cmake ninja`).
+
+```bash
+git clone --recurse-submodules https://github.com/poltak/deus-ex-mac.git
+```
+
+```bash
+cd deus-ex-mac
+```
+
+The engine fork is the `SurrealEngine` folder. The first command downloads MoltenVK, the library that gives Vulkan on a Mac.
+
+```bash
+cmake -S SurrealEngine -B SurrealEngine/build -G Ninja -DCMAKE_BUILD_TYPE=RelWithDebInfo
+```
+
+```bash
+ninja -C SurrealEngine/build SurrealEngine
+```
+
+```bash
+tools/make-app.sh
+```
+
+The result is `dist/Deus Ex.app`. It has the engine, its libraries and the license texts in it (`Contents/Resources/Licenses`), and no game data. It plays from the `DeusEx` folder of the working copy, if that folder has the game. macOS does not stop an app that you built on your Mac, so step 3 of [Play](#play) is not necessary for it.
+
+### Make a release
+
+The workflow `.github/workflows/release.yml` builds the app on an Apple Silicon Mac of GitHub. GitHub has no game data, so the workflow runs only `tests/start-script-test.sh`. Do these steps:
+
+1. Run the regression tests on a Mac with the game (`tools/regress.sh`).
+2. Push a tag with the version:
+
+   ```bash
+   git tag v0.1.0
+   ```
+
+   ```bash
+   git push origin v0.1.0
+   ```
+
+3. The workflow makes a draft release with `DeusEx-mac-<version>.zip`, its SHA-256 checksum and the text of `packaging/release-notes.md`. Download the zip, and start the app from it on a Mac with the game.
+4. Publish the draft on the releases page of GitHub.
+
+The Run workflow button of the workflow on GitHub builds the zip with no release. The zip is then an artifact of the workflow run.
 
 ### Run a test
 

@@ -1,0 +1,88 @@
+# Build "Deus Ex.app" on an Apple Silicon Mac of GitHub and attach it as a zip to a draft release.
+# A push of a tag v<version> (for example v0.1.0) makes the draft release of that tag. A maintainer checks the zip
+# and then publishes the release. A start by hand (Run workflow) builds the zip and keeps it as a workflow artifact,
+# with no release.
+# The Macs of GitHub have no game data, so this workflow runs only the test of the start script. Run the game tests
+# (tools/regress.sh) on a Mac with the game before you push a tag.
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: macos-26
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install Ninja
+        run: command -v ninja || brew install ninja
+
+      # The minimum macOS version is fixed here, because the default is the version of the build Mac
+      - name: Configure the engine
+        run: >
+          cmake -S SurrealEngine -B SurrealEngine/build -G Ninja
+          -DCMAKE_BUILD_TYPE=RelWithDebInfo
+          -DCMAKE_OSX_ARCHITECTURES=arm64
+          -DCMAKE_OSX_DEPLOYMENT_TARGET=15.0
+
+      - name: Build the engine
+        run: ninja -C SurrealEngine/build SurrealEngine
+
+      - name: Test the start script
+        run: tests/start-script-test.sh
+
+      - name: Set the version
+        run: |
+          if [ "$GITHUB_REF_TYPE" = tag ]; then VERSION="$GITHUB_REF_NAME"; else VERSION="$(git rev-parse --short HEAD)"; fi
+          echo "VERSION=$VERSION" >> "$GITHUB_ENV"
+          echo "ZIP=DeusEx-mac-$VERSION.zip" >> "$GITHUB_ENV"
+
+      - name: Make the app
+        run: tools/make-app.sh "$VERSION"
+
+      - name: Check the app
+        run: |
+          APP="dist/Deus Ex.app"
+          codesign --verify --deep --strict "$APP"
+          [ "$(lipo -archs "$APP/Contents/MacOS/SurrealEngine")" = arm64 ]
+          for f in "$APP/Contents/MacOS/SurrealEngine" "$APP/Contents/Frameworks/"*.dylib; do
+            minos="$(vtool -show-build "$f" | awk '/minos/ {print $2; exit}')"
+            echo "$f: macOS $minos or later"
+            [ "${minos%%.*}" -le 15 ]
+          done
+
+      # ditto keeps the signature of the start script, which is in the extended attributes of the file
+      - name: Make the zip
+        run: |
+          ditto -c -k --keepParent "dist/Deus Ex.app" "dist/$ZIP"
+          (cd dist && shasum -a 256 "$ZIP" > "$ZIP.sha256")
+          cat "dist/$ZIP.sha256"
+
+      - name: Keep the zip as a workflow artifact
+        if: github.ref_type != 'tag'
+        uses: actions/upload-artifact@v4
+        with:
+          name: DeusEx-mac-${{ env.VERSION }}
+          path: dist/DeusEx-mac-*
+
+      - name: Make the draft release
+        if: github.ref_type == 'tag'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          NOTES="$(mktemp)"
+          cat packaging/release-notes.md > "$NOTES"
+          printf '\n## Build\n\n- Project commit: %s\n- Engine commit: [%s](https://github.com/poltak/SurrealEngine/commit/%s)\n- SHA-256 of the zip: `%s`\n' \
+            "$GITHUB_SHA" "$(git -C SurrealEngine rev-parse --short HEAD)" "$(git -C SurrealEngine rev-parse HEAD)" \
+            "$(cut -d' ' -f1 "dist/$ZIP.sha256")" >> "$NOTES"
+          gh release create "$VERSION" --draft --verify-tag --title "Deus Ex for Mac $VERSION" --notes-file "$NOTES" \
+            "dist/$ZIP" "dist/$ZIP.sha256"
