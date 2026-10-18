@@ -1,0 +1,10 @@
+# The log of the test must have a line for each of these patterns (grep -E). A line with "!" at the start is a
+# pattern that the log must not have.
+# The five laser beams go from x = 1841 to the wall at x = 1999 at y = -949. Each proxy is on its beam, after the
+# start of the beam (the script moves the start 8 units forward), and the renderer counts it as seen.
+\[3\.00\].* dump LaserProxy[0-9]+ .* loc=\((18(49|[5-9][0-9])|19[0-9][0-9]) -949 -?0\) .* lastRendered=0\.0 
+\[3\.00\].* dump LaserProxy[0-9]+ .* loc=\((18(49|[5-9][0-9])|19[0-9][0-9]) -949 -128\) .* lastRendered=0\.0 
+!\[3\.00\].* dump LaserProxy[0-9]+ .* loc=\(1841 -949 
+# The arcs of the box go in random directions, so a proxy is not at its emitter
+\[5\.00\].* dump LaserProxy[0-9]+ .* lastRendered=0\.0 
+!\[5\.00\].* dump LaserProxy[0-9]+ .* loc=\((6952 -3266 -389|6906 -3266 -391|6927 -3262 -390)\) 

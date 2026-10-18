@@ -108,6 +108,8 @@ run player-medbot 11 --url=01_NYC_UNATCOHQ
 run player-repairbot 11 --url=01_NYC_UNATCOHQ
 run player-aug-install 16 --url=01_NYC_UNATCOHQ
 run fire-textures 9 --url=01_NYC_UNATCOIsland
+# The laser beams of the statue door and the electric arcs of the box in the basement. See tests/render-laser.txt.
+run render-laser 6 --url=01_NYC_UNATCOIsland
 run render-backface 5 --url=99_Endgame4
 run render-mirror 6 --url=02_NYC_Hotel
 run player-weapons 110 --url=01_NYC_UNATCOIsland

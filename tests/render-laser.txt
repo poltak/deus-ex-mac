@@ -1,0 +1,11 @@
+# Liberty Island (start with --url=01_NYC_UNATCOIsland): the laser beams of the statue door and the electric arcs of
+# the box in the basement. A beam is a LaserEmitter with a LaserIterator, and the renderer draws the LaserProxy mesh
+# at each 16-unit segment of the beam. After the last segment the proxy stays at a random segment of the beam.
+# Before the fix the engine did not use the iterator: each proxy stayed at its emitter, and the beams did not show.
+# tests/render-laser.expect has the lines that the log must have.
+2.0  teleport 1875 -1060 -100 16384
+3.0  dump LaserProxy 300 bHidden
+3.1  shot laser
+4.0  teleport 7077 -3190 -380 32768
+5.0  dump LaserProxy 300 bHidden
+5.1  shot arcs
