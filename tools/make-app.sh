@@ -1,9 +1,11 @@
 #!/bin/bash
 # make-app.sh [version]: build "dist/Deus Ex.app" from the engine build in SurrealEngine/build.
-# The app has the engine, its libraries and the start script in it. It has no game data.
+# The app has the engine, its libraries, the start script and the license texts in it. It has no game data.
+# A version with a "v" at the start (a release tag such as v0.1.0) goes into the app without the "v".
 set -e
 W="$(cd "$(dirname "$0")/.." && pwd)"
 VERSION="${1:-$(cd "$W" && git rev-parse --short HEAD 2>/dev/null || echo dev)}"
+VERSION="${VERSION#v}"
 BUILD="$W/SurrealEngine/build"
 SRC="$BUILD/SurrealEngine.app"
 APP="$W/dist/Deus Ex.app"
@@ -21,6 +23,17 @@ cp -L "$BUILD/Thirdparty/openal-soft/libopenal.1.dylib" "$APP/Contents/Framework
 cp "$W/packaging/DeusEx.sh" "$APP/Contents/MacOS/DeusEx"
 chmod +x "$APP/Contents/MacOS/DeusEx" "$APP/Contents/MacOS/SurrealEngine"
 sed "s/VERSION/$VERSION/g" "$W/packaging/Info.plist" > "$APP/Contents/Info.plist"
+
+# The licenses of this project, of the engine and of the libraries in the app. LICENSE.md of the engine has the
+# libraries that are part of the engine binary. OpenAL Soft and MoltenVK are separate files in Contents/Frameworks.
+LIC="$APP/Contents/Resources/Licenses"
+mkdir -p "$LIC"
+cp "$W/packaging/Licenses-README.txt" "$LIC/README.txt"
+cp "$W/LICENSE" "$LIC/deus-ex-mac.txt"
+cp "$W/SurrealEngine/LICENSE.md" "$LIC/SurrealEngine.md"
+cp "$W/SurrealEngine/Thirdparty/schrift/LICENSE.txt" "$LIC/schrift.txt"
+cp "$W/SurrealEngine/Thirdparty/openal-soft/COPYING" "$LIC/openal-soft.txt"
+cp "$BUILD/_deps/moltenvk-src/LICENSE" "$LIC/MoltenVK.txt"
 
 # The app icon is the icon of the engine. The game has its own logo, which is not ours to put in the app.
 ICONSET="$(mktemp -d "${TMPDIR:-/tmp}/dx-icon.XXXXXX")/AppIcon.iconset"
