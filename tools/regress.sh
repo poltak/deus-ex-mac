@@ -91,6 +91,8 @@ run input-mac-keys 16 --url=01_NYC_UNATCOIsland
 run console 12 --url=01_NYC_UNATCOIsland
 run perf-m01 26 --url=01_NYC_UNATCOIsland
 run m01-paul-choice 130 --url=01_NYC_UNATCOIsland
+# The player crouches through the laser beams of the statue door, and the guards come. See tests/m01-laser-alarm.txt.
+run m01-laser-alarm 15 --url=01_NYC_UNATCOIsland
 run m01-mission-complete 14 --url=01_NYC_UNATCOIsland
 run m01-boat-to-m02 24 --url=01_NYC_UNATCOIsland
 run m02-briefing 67 --url=02_NYC_BatteryPark
@@ -109,6 +111,9 @@ run render-mirror 6 --url=02_NYC_Hotel
 run player-weapons 110 --url=01_NYC_UNATCOIsland
 run player-swim 41 --url=01_NYC_UNATCOIsland
 run player-moves 18 --url=01_NYC_UNATCOIsland
+# The crouch next to the wide stairs and a crouch walk up the stairs, with 30 and with 120 frames per second.
+run player-crouch 14 --url=01_NYC_UNATCOIsland
+FIXED_FPS=120 SCRIPT_NAME=player-crouch run player-crouch-120 14 --url=01_NYC_UNATCOIsland
 run player-ladder 17 --url=01_NYC_UNATCOIsland
 run player-landing 16 --url=01_NYC_UNATCOIsland
 run player-elevator 12 --url=03_NYC_AirfieldHeliBase

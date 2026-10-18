@@ -1,0 +1,15 @@
+# Liberty Island (start with --url=01_NYC_UNATCOIsland): the player crouches through the laser beams of the statue door.
+# The lowest beam sounds the alarm, and the guards near the door go to the place of the alarm.
+# Before the crouch fix the crouch failed on this floor, and the player stayed 43 units high with the feet 27 units
+# down in the floor. The place of the alarm was then under the floor, and the guards found no way to it.
+# tests/m01-laser-alarm.expect has the lines that the log must have.
+2.0  teleport 1875 -1100 -100 16384
+2.5  keydown x
+3.0  dump JCDentonMale0 0 Location,CollisionHeight,bIsCrouching
+3.2  keydown w
+5.6  keyup w
+5.7  dump JCDentonMale0 0 Location,CollisionHeight
+5.8  dump LaserTrigger4 0 AmbientSound,actorLocation
+7.0  dump Terrorist 1600 Orders,AlarmTimer,SeekLevel
+9.0  dump Terrorist 1600 Orders,AlarmTimer,SeekLevel
+14.0 dump Terrorist 1600 Orders,AlarmTimer,SeekLevel
