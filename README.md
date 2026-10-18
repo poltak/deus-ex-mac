@@ -8,7 +8,7 @@ The fork is at [poltak/SurrealEngine](https://github.com/poltak/SurrealEngine), 
 
 This repository has no game data. You need your own copy of Deus Ex.
 
-## State on 2026-10-13
+## State on 2026-10-18
 
 Scripted tests on an M2 Max show that these parts work:
 
@@ -89,6 +89,16 @@ The original moves the pawn up by the height of a step, makes the rest of the mo
 
 The rule for a thing that the player can push changed also. The player pushes the thing when the contact is not more than 26 degrees away from head-on, as in the original. At a larger angle the player slides past the thing and gives it a short push. Before, the test for head-on used the length of the move, so the player pushed the thing at almost each angle and did not slide past it.
 
+A person played all of Liberty Island on 2026-10-18 and found seven faults. All seven are fixed:
+
+- The crouch failed on many floors, and the camera then went below the floor. The crouch script makes the collision cylinder of the player smaller and moves the player down with `Move` until the feet touch the floor. The original `Move` (`ULevel::MoveActor` of `Engine.dll`) gives true when the actor moved some part of the distance. This engine gave true only for the full distance, and on many floors the collision code gives such a move a fraction a little below 1. Then the script made the player full height again, with the feet 27 units down in the floor. The walk physics then lifted the player at each step and the script put the player down again, and the eye height script moved the camera down by the same distance in each frame. Before the fix, the camera of a test went 192 units below the feet of the player at the first step of the wide stairs.
+- The sniper rifle hurt nobody. Its shot is a line test of 48000 units. The line test of the engine looked for actors only when the line was shorter than 100 cells of the actor grid (25600 units) on each axis, so the shot could hit only level geometry. Now the line test looks at the cells along the line in parts of one cell. The pistol and the crossbow have shorter lines, so they worked before.
+- The guards did not come to a laser alarm. This was a result of the crouch fault: the place of the alarm is under the feet of the person who breaks the beam, so it was under the floor, and the guards found no way to it. Now the guards near the laser door of the statue come to the door. As in the original, a guard hears the alarm only when the player saw it in the last 5 seconds or when it is less than 1200 units from the player, and when it is not in stasis.
+- The dark background of the pause menu covered only a 4:3 part in the middle of a wide screen. The root window of the interface is a 4:3 box in this engine, and the menu draws its background texture on the root window. Now the background of the root window covers the full screen, as the root window of the original does.
+- A speech line that the player skipped with the mouse played to its end, together with the next line. The script of a conversation plays a line through the person who speaks and stops it with `player.StopSound`. The original `StopSound` uses only the sound id, and this engine also wanted the actor of the request to be the actor of the sound. A new harness command `sounds` lists the sounds that play.
+- The weapon of the player went into a wall near the camera. The original clears the depth buffer before the `RenderOverlays` event, in which the weapon is drawn (`URender::DrawWorld` of `Render.dll`). This engine did not.
+- The electric arcs of the box in the basement of Liberty Island did not show, and the laser beams of the statue door did not show either. A beam is drawn by a `LaserIterator` (native code of `DeusEx.dll`), which puts the `LaserProxy` mesh at each 16-unit segment of the beam. An electric arc moves each segment by a random amount. The engine did not have this iterator. All segments of a beam use one light list, so a view of the five laser beams costs about 0.4 ms of processor time for each frame.
+
 No person has reported on these parts yet:
 
 - Sound by ear. The test runs are muted or go to a file.
@@ -109,6 +119,8 @@ Known gaps:
 - For a pawn that flies or swims, the original tries a step up before it reports a contact with a vertical wall, and this engine does not.
 - The speed with which the player pushes a thing changes with the frame rate. With a trash can it is about 100 units in a second with 30 frames per second, 50 with 60 and 83 with 120. The rule of the original takes a part of the velocity of the player in each frame with a contact. So the original has this property in all probability, but no test with the original program confirmed it.
 - The Effects Channels setting applies at the next start.
+- The setting UI/Menu Background has the values "Render 3D", "Snapshot" and "Black". Only the default "Render 3D", which makes the game view darker, is tested. The engine has no draw code for the raw background of the root window (`SetRawBackground`), so "Snapshot" shows no snapshot.
+- An electric arc can show one extra segment for one frame at a place of the arc of the frame before. The renderer also draws the proxy mesh of a beam as a normal actor, at the random segment where the iterator left it. The original renderer in all probability does the same, but no test with the original program confirmed it.
 - Multiplayer is not tested.
 
 ## Play
