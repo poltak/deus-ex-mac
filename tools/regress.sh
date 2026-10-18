@@ -121,6 +121,8 @@ run map-start 8 --url=01_NYC_UNATCOIsland
 run map-attach 3 --url=00_TrainingCombat
 run actor-stasis 12 --url=01_NYC_UNATCOIsland
 run player-fight 19 --url=01_NYC_UNATCOIsland
+# Shots with the sniper rifle at a far and at a near guard. See tests/player-rifle.txt.
+run player-rifle 13 --url=01_NYC_UNATCOIsland
 run enemy-run 21 --url=01_NYC_UNATCOIsland --tracepath=Terrorist12
 run npc-upright 6 --url=01_NYC_UNATCOIsland
 run npc-hidden 123 --url=01_NYC_UNATCOIsland

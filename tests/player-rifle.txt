@@ -1,0 +1,27 @@
+# Liberty Island (start with --url=01_NYC_UNATCOIsland): shots with the sniper rifle at a guard 700 units away and at
+# a guard 120 units away. The line of a rifle shot is 48000 units long. Before the fix, the line test of the engine
+# looked for actors only on a line of less than 100 grid cells (25600 units) on each axis, so the rifle hurt nobody.
+# tests/player-rifle.expect has the lines that the log must have.
+2.0  exec set DeusExPlayer bCheatsEnabled True
+2.2  exec God
+3.0  teleport -4761 10431 -250 0
+3.2  exec Summon WeaponRifle
+4.0  teleportto WeaponRifle 50
+4.6  rclick 0.5 0.5
+5.0  inv
+5.3  teleportto Terrorist3 150
+5.5  key 1
+7.1  dump Terrorist 999999 Health
+7.2  teleportto Terrorist4 700
+7.4  keydown lmb
+7.55 keyup lmb
+8.5  dump Terrorist4 0 Health
+9.0  teleportto Terrorist3 120
+9.2  keydown lmb
+9.35 keyup lmb
+10.0 dump Terrorist3 0 Health
+11.4 teleportto Terrorist3 120
+11.5 keydown lmb
+11.65 keyup lmb
+12.5 dump Terrorist3 0 Health
+12.6 dump TerroristCarcass 300 Name

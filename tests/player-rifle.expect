@@ -1,0 +1,9 @@
+# The log of the test must have a line for each of these patterns (grep -E).
+# Before the shots both guards have 75 health.
+\[7\.10\].* dump Terrorist3 .* health=75 
+\[7\.10\].* dump Terrorist4 .* health=75 
+# One shot from 700 units hurts the far guard.
+\[8\.50\].* dump Terrorist4 .* health=([0-9]|[1-6][0-9]|7[0-4]) 
+# The first shot from 120 units hurts the near guard, and the second shot kills it. Its body lies near the player.
+\[10\.00\].* dump Terrorist3 .* health=([0-9]|[1-6][0-9]|7[0-4]) 
+\[12\.60\].* dump TerroristCarcass[0-9]+ 
