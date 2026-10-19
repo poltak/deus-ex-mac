@@ -15,9 +15,27 @@
 # That run uses tests/npc-patrol-pause.txt. It uses tests/npc-patrol-pause-60.expect when that file is there, and
 # tests/npc-patrol-pause.expect when it is not. So one script can run with more than one frame rate.
 # With test names as arguments, the script runs only these tests: tools/regress.sh computer-email keys
+# JOBS=<n> (default 6) runs n tests or chains at the same time. The tests of a chain still run one after the other.
+# The game advances a fixed time for each frame, so the results are the same as with JOBS=1. Each line comes when
+# its test ends, and the full list in the order of this script comes at the end.
 W="$(cd "$(dirname "$0")/.." && pwd)"
 SRC="${GAME:-$W/DeusEx}"
-FAILED=0
+JOBS="${JOBS:-6}"
+RES="$W/runs/reg-results"
+rm -rf "$RES"; mkdir -p "$RES"
+CHAINS=0
+START=$(date +%s)
+# A watcher writes each change of the app in front to runs/reg-results/focus.txt. A test must never be that app.
+(
+  last=""
+  while :; do
+    front="$(lsappinfo info -only name "$(lsappinfo front 2>/dev/null)" 2>/dev/null | sed -n 's/.*="\(.*\)"/\1/p')"
+    if [ "$front" != "$last" ]; then echo "$(( $(date +%s) - START )) s: ${front:-none}" >> "$RES/focus.txt"; last="$front"; fi
+    sleep 0.2
+  done
+) &
+FOCUS_WATCH=$!
+disown $FOCUS_WATCH
 SELECTED=" $* "
 selected() {
   [ "$SELECTED" = "  " ] && return 0
@@ -59,7 +77,7 @@ run_one() {
     checks=", checks $((total - missing)) of $total"
   fi
   echo "$name: $ended, accessed none $none, errors $errors$checks${perf:+, $perf}${inv:+, last inventory: $inv}"
-  [ "$ended" = "run ended correctly" ] && [ "$errors" = 0 ] && [ "$missing" = 0 ] || FAILED=1
+  [ "$ended" = "run ended correctly" ] && [ "$errors" = 0 ] && [ "$missing" = 0 ]
 }
 # chain "<test> <seconds> [engine arguments]" ...: run these tests in this order in one new game folder.
 # When the arguments of this script select a test of a chain, the tests before it in the chain run also.
@@ -69,13 +87,22 @@ chain() {
     if selected "${members[$i]%% *}"; then last=$((i + 1)); fi
   done
   [ "$last" -gt 0 ] || return 0
-  GAME="$("$W/tools/fresh-game.sh" "$W/runs/reg-game" "$SRC")" || exit 2
-  export GAME
-  for ((i = 0; i < last; i++)); do
-    # The words of a member are the arguments of run_one
-    # shellcheck disable=SC2086
-    run_one ${members[$i]}
-  done
+  # Wait for a free place. bash 3.2 of macOS has no "wait -n".
+  while [ "$(jobs -rp | wc -l)" -ge "$JOBS" ]; do sleep 0.2; done
+  CHAINS=$((CHAINS + 1))
+  local out="$RES/$CHAINS"
+  (
+    # Each chain has a game folder of its own, because chains run at the same time
+    GAME="$("$W/tools/fresh-game.sh" "$W/runs/reg-game-${members[0]%% *}" "$SRC")" || { echo "${members[0]%% *}: no game folder" > "$out.txt"; touch "$out.failed"; exit 0; }
+    export GAME
+    for ((i = 0; i < last; i++)); do
+      # The words of a member are the arguments of run_one
+      # shellcheck disable=SC2086
+      line="$(run_one ${members[$i]})" || touch "$out.failed"
+      echo "$line" >> "$out.txt"
+      echo "$line"
+    done
+  ) &
 }
 # run <test> <seconds> [engine arguments]: run one test in a new game folder
 run() { chain "$*"; }
@@ -174,4 +201,17 @@ run pad-menu 12 --tracekeys
 run pad-inventory 17 --url=01_NYC_UNATCOIsland
 run pad-bind 18 --url=01_NYC_UNATCOIsland
 run pad-talk 82 --url=01_NYC_UNATCOIsland
+wait
+kill $FOCUS_WATCH 2>/dev/null
+FAILED=0
+echo "--- all results in the order of the suite"
+for ((i = 1; i <= CHAINS; i++)); do
+  cat "$RES/$i.txt"
+  [ -f "$RES/$i.failed" ] && FAILED=1
+done
+if grep -q "SurrealEngine" "$RES/focus.txt"; then
+  echo "--- a test engine was the app in front. Changes of the app in front:"
+  cat "$RES/focus.txt"
+fi
+echo "--- $(cat "$RES"/[0-9]*.txt | wc -l | tr -d ' ') runs in $(( $(date +%s) - START )) seconds with JOBS=$JOBS, $(ls "$RES" | grep -c failed) chains with a failure"
 exit $FAILED
