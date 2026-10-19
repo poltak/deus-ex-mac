@@ -1,0 +1,38 @@
+# Liberty Island (start with --url=01_NYC_UNATCOIsland): the moves of the player with a controller.
+# The left stick runs and walks, the right stick turns and looks up, A jumps, B crouches, and LB with LT leans left
+# (the second layer). The W key still runs while the controller is connected and its sticks are in the middle.
+# The places and speeds are those of tests/player-moves.txt, which does the same with the keyboard.
+# tests/pad-moves.expect has the lines that the log must have.
+2.5  teleport -4761 10431 -250 0
+3.0  pad stick left 0 1
+5.0  pad stick left 0 0
+5.5  dump DeusExPlayer 0 Velocity
+6.0  teleport -4761 10431 -250 0
+6.5  pad stick left 0 0.3
+8.5  pad stick left 0 0
+9.0  dump DeusExPlayer 0 Velocity
+9.5  teleport -4761 10431 -250 0
+10.0 keydown w
+12.0 keyup w
+12.5 dump DeusExPlayer 0 Velocity
+13.0 teleport -4761 10431 -250 0
+13.5 pad stick right 1 0
+14.5 pad stick right 0 0
+14.6 dump DeusExPlayer 0 ViewRotation
+15.0 pad stick right 0 1
+15.3 pad stick right 0 0
+15.4 dump DeusExPlayer 0 ViewRotation
+16.0 teleport -4761 10431 -250 0
+16.5 pad tap a
+16.9 dump DeusExPlayer 0 Velocity,Physics
+17.6 dump DeusExPlayer 0 Velocity,Physics
+18.0 pad down b
+18.5 dump DeusExPlayer 0 CollisionHeight,bIsCrouching
+18.6 pad up b
+19.2 dump DeusExPlayer 0 CollisionHeight,bIsCrouching
+19.5 pad down lb
+19.6 pad down lt
+20.2 dump DeusExPlayer 0 curLeanDist
+20.3 pad up lt
+20.4 pad up lb
+21.0 dump DeusExPlayer 0 curLeanDist

@@ -1,0 +1,16 @@
+# The log of the test must have a line for each of these patterns (grep -E).
+\[8\.50\].* inv count=6 WeaponCrowbar AmmoNone MedKit WeaponPistol Ammo10mm NanoKeyRing
+# Back opens the inventory screen, and the controller then works the interface.
+\[9\.00\].* Gamepad: mode menu
+# The right stick moves the cursor from the middle of the screen onto the medkit, and RT selects it.
+\[10\.60\].* Harness: cursor DeusExCursor2 .* window=PersonaClientWindow
+\[11\.50\].* Harness: cursor DeusExCursor2 .* window=PersonaInventoryItemButton
+\[12\.20\].* PersonaInventoryItemButton x=53 y=0 w=54 h=54 selectable focus
+\[12\.20\].* PersonaHeaderTextWindow .* text="Medkit"
+# During the drag with RT down, the picture of the item is the cursor. After the drop the medkit is three rows lower.
+\[13\.20\].* Harness: cursor LargeIconMedKit .* shadow=none
+\[14\.00\].* PersonaInventoryItemButton x=53 y=159 w=54 h=54 selectable focus
+\[14\.20\].* Harness: cursor DeusExCursor2
+# B closes the screen, and A jumps again.
+\[14\.50\].* Gamepad: mode game
+\[16\.40\].* JCDentonMale0 .* Physics=PHYS_Falling

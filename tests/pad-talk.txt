@@ -1,0 +1,15 @@
+# Liberty Island (start with --url=01_NYC_UNATCOIsland): the first conversation with Paul, with a controller.
+# The left stick walks to Paul. A skips a speech line of Paul, as the mouse click of tests/talk-skip.txt does.
+# When the answers show, D-pad down moves the focus to the second answer, the GEP gun, and A selects it.
+# tests/pad-talk.expect has the lines that the log must have.
+1.0  pad stick left 0 1
+9.0  pad stick left 0 0
+28.5 sounds
+29.0 pad tap a
+29.5 sounds
+78.0 windows
+78.5 pad tap down
+79.0 windows
+79.5 pad tap a
+80.5 windows
+81.0 sounds

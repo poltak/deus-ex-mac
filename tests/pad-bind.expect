@@ -1,0 +1,15 @@
+# The log of the test must have a line for each of these patterns (grep -E).
+\[8\.00\].* text x=309 y=227 "Space, Insert"
+# A is Enter: the screen waits for a key, and the controller gives its joystick keys.
+\[8\.30\].* Gamepad: mode key capture
+\[8\.80\].* text .* "Please press the key or button you wish to assign
+# Y is the joystick key Joy4, the new second key of Jump. The name comes from the game (DeusEx.int).
+\[9\.80\].* text x=309 y=227 "Insert, Joystick Button 4"
+# Start stops a second wait, and the keys of Jump stay the same.
+\[10\.50\].* Gamepad: menu Escape
+\[11\.00\].* text x=309 y=227 "Insert, Joystick Button 4"
+\[12\.50\].* window   MenuSettings
+# In the game, Y makes the player jump.
+\[15\.50\].* JCDentonMale0 .* Physics=PHYS_Walking
+\[16\.30\].* JCDentonMale0 .* loc=\(-4761 10431 -21[0-9]\) .* Physics=PHYS_Falling
+\[17\.50\].* JCDentonMale0 .* Physics=PHYS_Walking

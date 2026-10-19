@@ -1,0 +1,22 @@
+# Title screen: work the main menu with a controller. Start opens the menu, as the Escape key does. The D-pad and
+# the left stick move the keyboard focus, A presses the button with the focus, and B goes back.
+# The positions of the focus are those of tests/menu-keyboard.txt, which does the same with the keyboard.
+# tests/pad-menu.expect has the lines that the log must have.
+3.0  pad tap start
+4.5  windows
+5.0  pad tap down
+5.3  windows
+5.6  pad stick left 0 -1
+5.8  pad stick left 0 0
+5.9  windows
+6.2  pad tap up
+6.5  windows
+6.8  pad stick left 0 1
+7.0  pad stick left 0 0
+7.1  windows
+7.4  pad tap down
+7.7  windows
+8.0  pad tap a
+9.5  windows
+10.0 pad tap b
+11.5 windows

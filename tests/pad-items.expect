@@ -1,0 +1,17 @@
+# The log of the test must have a line for each of these patterns (grep -E).
+# LT is the right mouse button of the game: it picks up the two weapons.
+\[7\.20\].* inv count=5 WeaponCrowbar AmmoNone WeaponPistol Ammo10mm NanoKeyRing
+# D-pad right gives the next item of the belt, D-pad left the item before it.
+\[9\.00\].* JCDentonMale0 .* inHand=WeaponPistol
+\[10\.20\].* JCDentonMale0 .* inHand=WeaponCrowbar
+\[11\.40\].* JCDentonMale0 .* inHand=WeaponPistol
+# RT fires one round, and X reloads the clip.
+\[11\.60\].* WeaponPistol[0-9]+ state=Idle .* ClipCount=0
+\[12\.60\].* WeaponPistol[0-9]+ state=Idle .* ClipCount=1
+\[13\.50\].* WeaponPistol[0-9]+ state=Reload
+\[17\.50\].* WeaponPistol[0-9]+ state=Idle .* ClipCount=0
+# D-pad down puts the pistol away.
+\[18\.70\].* JCDentonMale0 .* inHand=None
+# R3 turns the light augmentation (F12) on and off.
+\[19\.50\].* AugLight0 state=Active .* bIsActive=True
+\[20\.20\].* AugLight0 state=Inactive .* bIsActive=False

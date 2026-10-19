@@ -166,4 +166,12 @@ run computer-hack 16 --url=01_NYC_UNATCOIsland
 run loader-loadout 6
 run loader-window 6
 run loader-main-menu 6
+# A controller: the game, the menus, the inventory screen, the key binding screen and a conversation
+run pad-moves 22 --url=01_NYC_UNATCOIsland
+FIXED_FPS=120 SCRIPT_NAME=pad-moves run pad-moves-120 22 --url=01_NYC_UNATCOIsland
+run pad-items 21 --url=01_NYC_UNATCOIsland
+run pad-menu 12 --tracekeys
+run pad-inventory 17 --url=01_NYC_UNATCOIsland
+run pad-bind 18 --url=01_NYC_UNATCOIsland
+run pad-talk 82 --url=01_NYC_UNATCOIsland
 exit $FAILED

@@ -1,0 +1,28 @@
+# Liberty Island (start with --url=01_NYC_UNATCOIsland): bind a controller button in the Keyboard/Mouse Settings
+# screen of the game. The player selects the Jump function and presses A (Enter). While the screen waits for a key,
+# the controller gives its joystick keys, so Y binds Joy4 to Jump. After the OK button, Y makes the player jump.
+# A second wait ends with Start, which is Escape while the screen waits, and the binding stays.
+# The clicks are those of tests/menu-keys.txt, which binds the J key.
+# tests/pad-bind.expect has the lines that the log must have.
+2.0  teleport -4761 10431 -250 0
+3.0  key esc
+4.5  click 0.511 0.388
+6.0  click 0.505 0.258
+7.5  click 0.3 0.483
+8.0  texts
+8.3  pad tap a
+8.8  texts
+9.2  pad tap y
+9.8  texts
+10.0 pad tap a
+10.5 pad tap start
+11.0 texts
+11.5 click 0.565 0.905
+12.5 windows
+13.0 key esc
+14.0 key esc
+15.0 windows
+15.5 dump DeusExPlayer 0 Physics
+16.0 pad tap y
+16.3 dump DeusExPlayer 0 Physics
+17.5 dump DeusExPlayer 0 Physics

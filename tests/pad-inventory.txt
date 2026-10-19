@@ -1,0 +1,37 @@
+# Liberty Island (start with --url=01_NYC_UNATCOIsland): the inventory screen with a controller.
+# Back opens the screen. The right stick moves the mouse cursor from the middle of the screen to the medkit, and RT
+# clicks it. A drag with RT down moves the medkit two rows lower, as tests/persona-inventory.txt does with the mouse.
+# B closes the screen, and the controller works the game again.
+# tests/pad-inventory.expect has the lines that the log must have.
+2.0  exec set DeusExPlayer bCheatsEnabled True
+3.0  teleport -4761 10431 -250 0
+3.2  exec Summon WeaponPistol
+4.0  teleportto WeaponPistol 50
+4.6  pad tap lt
+5.0  exec Summon MedKit
+5.6  teleportto MedKit 50
+6.2  pad tap lt
+6.6  exec Summon WeaponCrowbar
+7.2  teleportto WeaponCrowbar 50
+7.8  pad tap lt
+8.5  inv
+9.0  pad tap back
+10.5 move 0.5 0.5
+10.6 cursor
+10.7 pad stick right -1 0
+11.1 pad stick right 0 1
+11.4 pad stick right 0 0
+11.5 cursor
+11.6 pad tap rt
+12.2 windows
+12.4 pad down rt
+12.6 pad stick right 0 -1
+12.95 pad stick right 0 0
+13.2 cursor
+13.4 pad up rt
+14.0 windows
+14.2 cursor
+14.5 pad tap b
+15.5 windows
+16.0 pad tap a
+16.4 dump DeusExPlayer 0 Physics

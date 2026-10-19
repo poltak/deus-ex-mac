@@ -1,0 +1,16 @@
+# The log of the test must have a line for each of these patterns (grep -E).
+# Start opens the main menu, and the controller then works the interface.
+\[3\.00\].* Gamepad: mode menu
+# The six positions of the focus: New Game when the menu opens, Load Game and Settings with D-pad down and the
+# left stick down, Load Game and New Game with D-pad up and the stick up, and Load Game again.
+\[4\.50\].* MenuUIMenuButtonWindow x=7 y=13 .* focus
+\[5\.30\].* MenuUIMenuButtonWindow x=7 y=85 .* focus
+\[5\.90\].* MenuUIMenuButtonWindow x=7 y=121 .* focus
+\[6\.50\].* MenuUIMenuButtonWindow x=7 y=85 .* focus
+\[7\.10\].* MenuUIMenuButtonWindow x=7 y=13 .* focus
+\[7\.70\].* MenuUIMenuButtonWindow x=7 y=85 .* focus
+# A presses Load Game, and B goes back to the main menu.
+\[9\.50\].* window +MenuScreenLoadGame 
+\[11\.50\].* window +MenuMain 
+\[11\.50\].* MenuUIMenuButtonWindow x=7 y=85 .* focus
+!\[11\.50\].* window +MenuScreenLoadGame 

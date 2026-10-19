@@ -1,0 +1,34 @@
+# Liberty Island (start with --url=01_NYC_UNATCOIsland): items and augmentations with a controller.
+# LT picks up a pistol and a crowbar, the D-pad changes the item in the hand, RT fires the pistol, X reloads it,
+# D-pad down puts it away, and R3 turns the light augmentation on and off.
+# tests/pad-items.expect has the lines that the log must have.
+2.0  exec set DeusExPlayer bCheatsEnabled True
+2.2  exec God
+3.0  teleport -4761 10431 -250 0
+3.2  exec Summon WeaponPistol
+4.0  teleportto WeaponPistol 50
+4.6  pad tap lt
+5.0  teleport -4761 10431 -250 0
+5.2  exec Summon WeaponCrowbar
+6.0  teleportto WeaponCrowbar 50
+6.6  pad tap lt
+7.2  inv
+7.5  teleport -4761 10431 -250 16384
+8.0  pad tap right
+9.0  dump DeusExPlayer 0 inHand
+9.2  pad tap right
+10.2 dump DeusExPlayer 0 inHand
+10.4 pad tap left
+11.4 dump DeusExPlayer 0 inHand
+11.6 dump WeaponPistol 100 ClipCount
+11.8 pad tap rt
+12.6 dump WeaponPistol 100 ClipCount
+12.8 pad tap x
+13.5 dump WeaponPistol 100 ClipCount
+17.5 dump WeaponPistol 100 ClipCount
+17.7 pad tap down
+18.7 dump DeusExPlayer 0 inHand
+19.0 pad tap r3
+19.5 dump AugLight 99999 bIsActive
+19.7 pad tap r3
+20.2 dump AugLight 99999 bIsActive

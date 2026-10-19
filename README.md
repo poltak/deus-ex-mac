@@ -8,7 +8,7 @@ The fork is at [poltak/SurrealEngine](https://github.com/poltak/SurrealEngine), 
 
 This repository has no game data. You need your own copy of Deus Ex.
 
-## State on 2026-10-18
+## State on 2026-10-19
 
 Scripted tests on an M2 Max show that these parts work:
 
@@ -47,6 +47,7 @@ Scripted tests on an M2 Max show that these parts work:
 - Mirrors: a mirror shows the player and the room in front of it, and it shows nothing of the room behind its wall. The tests use the two bathroom mirrors of the 'Ton hotel.
 - All 88 map files of the game start with no error.
 - Developer loader: a window that selects a map, a start point, the weapons and the values of the player, and starts the game there. See "Developer loader" below.
+- A controller: the sticks move and aim, with the same turn speed at 30 and at 120 frames per second. The buttons give the actions of the game, and LB gives a second layer with the augmentations. The D-pad and A work the menus and the answers of a conversation, the right stick moves the mouse cursor on the inventory screen, and the Keyboard/Mouse Settings screen binds a controller button. See "Controller" below.
 
 Speed: the main thread needs 6 to 7 ms of processor time for each frame on the three heaviest maps, which are Liberty Island and two maps of Hong Kong. The mean of all maps is about 2 ms. A display with 120 Hz shows the game at 120 frames per second on most maps.
 
@@ -104,6 +105,7 @@ No person has reported on these parts yet:
 - Sound by ear. The test runs are muted or go to a file.
 - Mouse look in real play. The tests send input without the mouse capture.
 - Fullscreen. The tests run in a window, and no test covers the fullscreen switch.
+- A real controller. The tests use a test controller of the harness, and the speeds of the sticks need a person to tune them.
 - A full mission from start to end.
 
 Known gaps:
@@ -117,6 +119,10 @@ Known gaps:
 - The reach tests and the direction test use the collision code of this engine for their test steps. A place that is very narrow can give a different answer than in the original.
 - Only the player has the move of the original after a contact. A person, an animal or a robot that walks still has the older code. It slides after the move down from the height of a step, so the next step of stairs can stop it when it slides along a wall or an actor, as it stopped the player. It reports a wall contact to its script for a vertical wall only, and the original reports a contact also for a slope that stops the pawn.
 - For a pawn that flies or swims, the original tries a step up before it reports a contact with a vertical wall, and this engine does not.
+- The controller has no on-screen keyboard. The login of a computer needs the keyboard for the user name and the password.
+- The HUD and the help texts show keyboard keys, for example F3 next to an augmentation icon.
+- A small push of the left stick does not walk. The player gets to the full speed later, but at each position of the stick. L3 changes between walk and run.
+- The controller has no rumble, and the engine reads a controller only on macOS.
 - The speed with which the player pushes a thing changes with the frame rate. With a trash can it is about 100 units in a second with 30 frames per second, 50 with 60 and 83 with 120. The rule of the original takes a part of the velocity of the player in each frame with a contact. So the original has this property in all probability, but no test with the original program confirmed it.
 - The Effects Channels setting applies at the next start.
 - The setting UI/Menu Background has the values "Render 3D", "Snapshot" and "Black". Only the default "Render 3D", which makes the game view darker, is tested. The engine has no draw code for the raw background of the root window (`SetRawBackground`), so "Snapshot" shows no snapshot.
@@ -268,6 +274,76 @@ Download the new zip and put the new `Deus Ex.app` in your Applications folder i
 - T opens the talk line, which is also the console. To turn the cheats on, press T, delete `Say`, and type `set DeusExPlayer bCheatsEnabled True`.
 - The console command `timedemo 1` shows the frame rate.
 
+### Controller
+
+The engine reads a controller through the Game Controller framework of macOS. That framework supports Xbox, PlayStation and Switch Pro controllers. Connect the controller in System Settings, Bluetooth, before or during play. The controller works while the game window is the active window. The tests use a test controller, and no person has played with a real controller yet.
+
+In the game:
+
+| Control | Action |
+|---|---|
+| Left stick | Move |
+| Right stick | Turn and look up and down |
+| RT | Fire, or use the item in the hand |
+| LT | Use the thing in front of you: open, pick up, talk |
+| A | Jump |
+| B | Crouch |
+| X | Reload |
+| Y | Change the ammo |
+| RB | Scope on and off |
+| L3 | Walk or run |
+| R3 | Light (F12) |
+| D-pad left and right | The item before or after the item in the hand on the belt |
+| D-pad up | Goals and notes |
+| D-pad down | Put the item in the hand away |
+| Back (View, Share, Minus) | Inventory |
+| Start (Menu, Options, Plus) | Main menu |
+
+Hold LB for the second layer:
+
+| Control | Action |
+|---|---|
+| LB + D-pad up, right, down, left | Augmentations F3, F4, F5, F6 |
+| LB + Y, B, A, X | Augmentations F7, F8, F9, F10 |
+| LB + RB | Augmentation F11 |
+| LB + LT, LB + RT | Lean left, lean right |
+| LB + L3 | Drop the item in the hand |
+| LB + R3 | Laser sight on and off |
+| LB + Start | Quick save |
+| LB + Back | Quick load |
+
+The HUD shows the F key of each augmentation next to its icon.
+
+On a screen of the game, for example a menu, the inventory, a conversation, a computer or a keypad:
+
+| Control | Action |
+|---|---|
+| D-pad, left stick | Arrow keys: move the focus, select an answer |
+| A | Enter |
+| B, Back, Start | Escape |
+| X | Backspace. On the inventory screen it drops the selected item. |
+| Y | Delete |
+| Right stick | Move the mouse cursor |
+| RT, LT | Left and right mouse button. Hold RT to drag an item. |
+| LB, RB | Mouse wheel up and down |
+
+To bind a button in the game, open Settings, Keyboard/Mouse, select the function, press A and then the button. While the screen waits for the button, Start stops the wait.
+
+The bindings are in `System/SE-User.ini` of the game folder, section `[Extension.InputExt]`. The engine writes this file when the game stops, so change it while the game does not run. The names of the controls are those of the joystick keys of the original engine:
+
+- `Joy1` to `Joy4` are A, B, X and Y. `Joy5` is LB, `Joy6` RB, `Joy7` Back, `Joy8` Start, `Joy9` L3, `Joy10` R3, `Joy11` LT and `Joy12` RT.
+- `JoyPovUp`, `JoyPovDown`, `JoyPovLeft` and `JoyPovRight` are the D-pad.
+- `JoyX` and `JoyY` are the left stick, `JoyU` and `JoyV` the right stick. The `Speed` of `JoyU` and `JoyV` (280 and 200) sets the speed of the turn and of the look up and down. A negative `Speed` for `JoyV` turns the vertical look the other way.
+- A name with `Layer` in front, for example `LayerJoy1`, is the binding while LB is down. A button with no `Layer` binding does its usual action while LB is down.
+
+The section `[SurrealEngine.Gamepad]` has three settings:
+
+- `DeadZone=0.15`: the part of the way of a stick, from the middle, that has no effect.
+- `LookCurve=2.0`: a larger number makes small movements of the right stick slower, for exact aim. 1.0 is a straight line.
+- `CursorSpeed=480`: the speed of the mouse cursor on a screen, in interface units per second. The screen is 640 units wide.
+
+The engine writes these bindings and settings one time, at the first start of this version. They take the place of the joystick bindings of the original game, which are for a joystick of the year 2000. The original Windows game reads such a joystick only when `UseJoystick` is on in `DeusEx.ini`, and its menus need the mouse.
+
 ### Developer loader
 
 The developer loader starts the game in a map that you select, with the weapons and the player values that you select. It shows no menu and no intro.
@@ -373,7 +449,7 @@ The engine of a test starts as a child process of the test script, with a hidden
 
 A run repeats exactly. The game advances a fixed time for each frame with a fixed random seed, and it starts only when the window has its size, because the size of the view changes which actors the player sees. A run is also faster than real time, and it does not wait for the display after each frame (`VSYNC=1` turns that wait on).
 
-`SCRIPT=tests/<name>.txt` gives the run an input script. Each line has a time and a command: keys, mouse clicks, console commands, pictures, commands that list actors, flags, goals, interface windows and the inventory, and commands that set a flag or send a trigger event to actors. The file `SurrealEngine/SurrealEngine/Harness.h` has the full list. The `key` command gives a key to the engine. The `oskey` command sends a key with its macOS key code through the window, as the real keyboard does, so a test with it also covers the key table of the macOS window code.
+`SCRIPT=tests/<name>.txt` gives the run an input script. Each line has a time and a command: keys, mouse clicks, console commands, pictures, commands that list actors, flags, goals, interface windows and the inventory, and commands that set a flag or send a trigger event to actors. The file `SurrealEngine/SurrealEngine/Harness.h` has the full list. The `key` command gives a key to the engine. The `pad` command gives the input of a test controller: a button, a stick position or a trigger position. A run with a script does not read the real controller. The `oskey` command sends a key with its macOS key code through the window, as the real keyboard does, so a test with it also covers the key table of the macOS window code.
 
 The engine option `--tracepath=<name>` writes log lines for the person with that name. A `path` line for each path search has the place of the person, the goal, the navigation point that the person stands on (`on`) or the nearest point that it can go to (`from`), and the next point of the way (`next`). A `reach` line for each reach test of the script has the goal and the answer. A `direction` line for each direction test has the direction, the range of distances and the place that the test found. A `hitwall` line for a wall contact has the actor of the wall, the normal of the wall, and the result of the filter before the script event. The same `hitwall` line comes one time in a second at most. `tests/npc-patrol-path.txt`, `tests/enemy-run.txt`, `tests/player-wall-hit.txt` and `tests/npc-wall-hit.txt` use the option.
 

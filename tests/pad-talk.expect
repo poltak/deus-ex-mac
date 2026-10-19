@@ -1,0 +1,14 @@
+# The log of the test must have a line for each of these patterns (grep -E).
+# The conversation is a Deus Ex screen, so the controller works the interface.
+\[2[45]\.[0-9]+\].* Gamepad: mode menu
+# A is Enter: the line of Paul stops, and the next line, from the player, plays alone.
+\[28\.50\].* Harness: sound PaulDenton0 ConAudioMission01_285 slot=5
+\[29\.50\].* Harness: sound JCDentonMale0 ConAudioMission01_286 slot=5
+!\[29\.50\].* Harness: sound PaulDenton0 ConAudioMission01_285
+# The first answer has the focus when the answers show, and D-pad down gives it to the second, the GEP gun.
+\[78\.00\].* ConChoiceWindow x=2 y=2 .* focus text="~ I like to pick
+\[79\.00\].* ConChoiceWindow x=2 y=23 .* focus text="~ Never know when
+# A selects it: the answers go away, and the player speaks the answer for the GEP gun (line 293). With the same
+# steps, tests/m01-paul-choice.txt gets the GEP gun.
+!\[80\.50\].* ConChoiceWindow
+\[81\.00\].* Harness: sound JCDentonMale0 ConAudioMission01_293 slot=5

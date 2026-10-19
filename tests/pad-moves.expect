@@ -1,0 +1,23 @@
+# The log of the test must have a line for each of these patterns (grep -E).
+# The test controller connects at the first "pad" command.
+Gamepad: connected test controller
+# Two seconds with the left stick at its full way: 606 units, as with the W key.
+\[5\.50\].* JCDentonMale0 .* loc=\(-415[45] 10431 -260\)
+# With the stick at 30% of its way the player gets to the same speed, but later: 536 units.
+\[9\.00\].* JCDentonMale0 .* loc=\(-422[45] 10431 -260\)
+# The W key runs as before while the controller is connected.
+\[12\.50\].* JCDentonMale0 .* loc=\(-415[45] 10431 -260\)
+# One second of the right stick at its full way turns the view by 197 degrees (35800 of 65536) at each frame rate,
+# and 0.3 seconds up give 42 degrees up.
+\[14\.60\].* ViewRotation=\(Pitch=0, Yaw=35[78][0-9][0-9], Roll=0\)
+\[15\.40\].* ViewRotation=\(Pitch=76[0-9][0-9], Yaw=35[78][0-9][0-9], Roll=0\)
+# A jumps.
+\[16\.90\].* loc=\(-476[01] 10431 -21[89]\) .* Physics=PHYS_Falling
+\[17\.60\].* Physics=PHYS_Walking
+# B crouches while it is down.
+\[18\.50\].* CollisionHeight=16\.000000 bIsCrouching=True
+\[19\.20\].* CollisionHeight=43\.000000 bIsCrouching=False
+# LT with LB down uses the binding of the second layer: lean left. The lean stops when LT goes up.
+Gamepad: press Joy11 \(layer: LeanLeft\)
+\[20\.20\].* curLeanDist=-40\.000000
+\[21\.00\].* curLeanDist=0\.000000
