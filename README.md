@@ -104,7 +104,7 @@ No person has reported on these parts yet:
 
 - Sound by ear. The test runs are muted or go to a file.
 - Mouse look in real play. The tests send input without the mouse capture.
-- Fullscreen. The tests run in a window, and no test covers the fullscreen switch.
+- Fullscreen and the free mouse on the menus. The tests run in a hidden window that never has the keyboard focus, so no test covers the menu bar, the fullscreen switch or the mouse of macOS.
 - A real controller. The tests use a test controller of the harness, and the speeds of the sticks need a person to tune them.
 - A full mission from start to end.
 
@@ -267,8 +267,14 @@ Download the new zip and put the new `Deus Ex.app` in your Applications folder i
 
 - The first start opens a window that is the largest whole multiple of 640x480 pixels that fits on your screen. The game scales its screens by whole numbers, as the original does.
 - Settings, Display, Screen Resolution in the game changes the size of the window. The list has each whole multiple of 640x480 pixels that fits on your screen. The engine keeps the size for the next start.
-- Settings, Display, Toggle Full-Screen Mode and the green button of the window switch between the window and fullscreen.
-- The window size and the fullscreen switch are also in `System/SE-DeusEx.ini` in the game folder, section `[Engine.SurrealClient]`: `WindowedViewportX`, `WindowedViewportY` (in points) and `StartupFullscreen`.
+- To switch between the window and fullscreen, use one of these:
+  - View, Enter Full Screen in the menu bar, or Control-Command-F, or Fn-F.
+  - Settings, Display, Toggle Full-Screen Mode in the game.
+  - The green button of the window.
+- In the game, the window holds the mouse for the view. While a menu, a screen of the game or a conversation is open, the mouse is free, and the cursor of the game follows it. Then you can move the mouse to the title bar, the green button or the menu bar, also in fullscreen. Press Escape for the main menu.
+- The window lets go of the mouse when you switch to a different app.
+- Command-Q and the red button stop the game and save the settings. Command-H hides the game and Command-M minimizes the window.
+- The engine keeps the window size and the fullscreen state for the next start. They are also in `System/SE-DeusEx.ini` in the game folder, section `[Engine.SurrealClient]`: `WindowedViewportX`, `WindowedViewportY` (in points) and `StartupFullscreen`.
 - The key bindings are the ones of the game. Change them in the game under Settings, Keyboard/Mouse. The engine saves them in `System/SE-User.ini`.
 - The engine does not change `DeusEx.ini` and `User.ini` of the game. It keeps its own copies with the prefix `SE-`.
 - T opens the talk line, which is also the console. To turn the cheats on, press T, delete `Say`, and type `set DeusExPlayer bCheatsEnabled True`.
