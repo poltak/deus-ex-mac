@@ -42,7 +42,7 @@ else
   for candidate in \
     "${NEAR_APP[@]}" \
     "$HOME/Library/Application Support/Steam/steamapps/common/Deus Ex" \
-    "$HOME/Library/Application Support/Steam/steamapps/content/app_6910/depot_6911" \
+    "$HOME/Library/Application Support/Steam/Steam.AppBundle/Steam/Contents/MacOS/steamapps/content/app_6910/depot_6911" \
     "$HOME/Games/Deus Ex" \
     "$HOME/Games/DeusEx" \
     "$HOME/Documents/Deus Ex" \

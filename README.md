@@ -165,7 +165,7 @@ Music
 
 Put the game folder at `~/Games/Deus Ex`. This is the folder `Deus Ex` in the folder `Games` of your home folder. The app finds it there and does not ask you for it. The app can also use a different place, and then it asks you to select the folder at the first start. Do not use a place where you cannot write, because the game keeps its settings and saved games in the game folder.
 
-Use one of these ways to get the game folder. This project used only way B for its tests. Way A uses the same download as way B. Way C is not tested here.
+Use one of these ways to get the game folder. This project tested way A and way B. On 2026-10-21 a person did way A and steps 1 to 3 with version 0.2.0 of the app and macOS 15.8. Way C is not tested here.
 
 #### Way A: Steam on this Mac
 
@@ -184,7 +184,7 @@ The Mac version of Steam does not install Deus Ex, because Steam has no Mac vers
    download_depot 6910 6911
    ```
 
-   The console shows no progress. When the download is complete, it shows `Depot download complete` and the folder of the download.
+   The console shows `Downloading depot 6911 (293 files, 402 MB)` and then no progress. When the download is complete, it shows `Depot download complete` and the folder of the download. In that folder name, some `/` characters show as `\`.
 4. Move the downloaded folder to `~/Games/Deus Ex` with these Terminal commands:
 
    ```bash
@@ -192,10 +192,12 @@ The Mac version of Steam does not install Deus Ex, because Steam has no Mac vers
    ```
 
    ```bash
-   mv ~/Library/Application\ Support/Steam/steamapps/content/app_6910/depot_6911 ~/Games/Deus\ Ex
+   mv ~/Library/Application\ Support/Steam/Steam.AppBundle/Steam/Contents/MacOS/steamapps/content/app_6910/depot_6911 ~/Games/Deus\ Ex
    ```
 
-If you do not move the folder, the app also finds it at its download place.
+Version 0.2.0 of the app does not find the folder at its download place, so move the folder. Later versions find it at its download place also.
+
+The download has the original files of the game. Its `DeusEx.u`, maps, textures, sounds and music are the same as the files of way B. It also has a `Manual` folder with the manual of the game as PDF files.
 
 #### Way B: copy the folder from a Windows or Linux computer
 
@@ -247,7 +249,12 @@ xattr -dr com.apple.quarantine /Applications/Deus\ Ex.app
 
 You must do this again after you install a new version of the app.
 
-The app then looks for the game folder. If it does not find one, a dialog asks you to select it. Select the folder that has `System` and `Maps` in it. The app stores your selection in `~/Library/Application Support/DeusExMac/gamefolder.txt`. Delete that file to select a different folder.
+Then the app looks for the game folder:
+
+- If the game folder is at `~/Games/Deus Ex`, the app finds it, and the main menu of Deus Ex opens.
+- If the app does not find a game folder, it opens a dialog with the text "Select your Deus Ex folder. It is the folder that has the System and Maps folders in it." Select that folder and click Choose. If you select the `System` folder, the app uses the folder above it. The main menu of Deus Ex then opens.
+
+The app stores the folder in `~/Library/Application Support/DeusExMac/gamefolder.txt`. Delete that file to select a different folder.
 
 The app looks in these places, in this order:
 
