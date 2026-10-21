@@ -35,17 +35,17 @@ cp "$W/SurrealEngine/Thirdparty/schrift/LICENSE.txt" "$LIC/schrift.txt"
 cp "$W/SurrealEngine/Thirdparty/openal-soft/COPYING" "$LIC/openal-soft.txt"
 cp "$BUILD/_deps/moltenvk-src/LICENSE" "$LIC/MoltenVK.txt"
 
-# The app icon is the icon of the engine. The game has its own logo, which is not ours to put in the app.
+# The app icon is our own picture (packaging/AppIcon.svg). The game has its own logo, which is not ours to put in the
+# app. packaging/AppIcon-1024.png is the SVG rendered with rsvg-convert, with fine noise against color bands in the
+# dark background (magick -channel RGB -attenuate 0.12 +noise Gaussian). sips makes the smaller sizes from it, so the
+# build needs no tool that is not on each Mac.
 ICONSET="$(mktemp -d "${TMPDIR:-/tmp}/dx-icon.XXXXXX")/AppIcon.iconset"
 mkdir -p "$ICONSET"
-RES="$W/SurrealEngine/Resources"
-cp "$RES/surreal-engine-icon-16.png" "$ICONSET/icon_16x16.png"
-cp "$RES/surreal-engine-icon-32.png" "$ICONSET/icon_16x16@2x.png"
-cp "$RES/surreal-engine-icon-32.png" "$ICONSET/icon_32x32.png"
-cp "$RES/surreal-engine-icon-64.png" "$ICONSET/icon_32x32@2x.png"
-cp "$RES/surreal-engine-icon-128.png" "$ICONSET/icon_128x128.png"
-cp "$RES/surreal-engine-icon-256.png" "$ICONSET/icon_128x128@2x.png"
-cp "$RES/surreal-engine-icon-256.png" "$ICONSET/icon_256x256.png"
+ICON="$W/packaging/AppIcon-1024.png"
+for size in 16 32 128 256 512; do
+  sips -z "$size" "$size" "$ICON" --out "$ICONSET/icon_${size}x${size}.png" >/dev/null
+  sips -z "$((size * 2))" "$((size * 2))" "$ICON" --out "$ICONSET/icon_${size}x${size}@2x.png" >/dev/null
+done
 iconutil -c icns "$ICONSET" -o "$APP/Contents/Resources/AppIcon.icns" 2>/dev/null || echo "note: the app icon was not made (iconutil failed)"
 rm -rf "$(dirname "$ICONSET")"
 
