@@ -393,7 +393,7 @@ GMDX installs its conversation files over the original ones. A game folder with 
 ### Layout
 
 - `SurrealEngine/` is the engine fork (git submodule, branch `master` of [poltak/SurrealEngine](https://github.com/poltak/SurrealEngine)).
-- `DeusEx/` is the place for your game folder, or for a link to it. Git ignores it. The tests read the game data from it and write nothing into it, and the app in `dist/` plays from it.
+- `DeusEx/` is the place for your game folder, or for a link to it. Git ignores it. The tests read the game data from it and write nothing into it, and the app in `dist/` plays from it. Make it a link to the game folder of step 2, for example `ln -s ~/Games/Deus\ Ex DeusEx`. Then the tests and your play use the same files. The tests expect the original files of the Steam version (way A), with no mods. The conversation files of GMDX, for example, have other text and other sound numbers.
 - `packaging/` has the start script, the `Info.plist`, the license list and the release text of the app.
 - `.github/workflows/release.yml` builds the app and makes a draft release for a version tag.
 - `tests/` has input scripts for the test harness of the fork.

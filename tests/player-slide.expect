@@ -25,5 +25,4 @@ Harness: hitwall JCDentonMale0 actor=UNATCOTroop10 normal=\(-0\.[78][0-9] 0\.[56
 \[18\.00\].* dump UNATCOTroop10 .* loc=\(-4691 10300 -260\) .* GroundSpeed=0\.000000
 \[18\.50\].* dump JCDentonMale0 .* loc=\(-47[34][0-9] 101[0-9][0-9] -260\) .* Velocity=\(X=-?[0-9]\.[0-9]+, Y=-3[0-9][0-9]\.
 \[18\.50\].* dump UNATCOTroop10 .* loc=\(-4691 10300 -260\)
-# The way along the dock in part 5 starts an infolink, and an infolink of the GMDX conversation file gives one warning.
-!^\[[0-9.]+\] ([^D]|D[^a])[^:]*: Accessed None
+!Accessed None

@@ -16,4 +16,4 @@
 # The binoculars from the crate lie on the ground, and the player takes them.
 \[15\.90\].* dump Binoculars[0-9]+ state=Pickup .* Physics=PHYS_None
 \[17\.70\].* inv count=4 Binoculars WeaponCrowbar AmmoNone NanoKeyRing
-!^\[[0-9.]+\] ([^D]|D[^a])[^:]*: Accessed None
+!Accessed None

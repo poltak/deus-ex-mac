@@ -13,4 +13,4 @@ dump JCDentonMale[0-9]+ state=Conversation loc=\(-620 -3679 284\) .* Physics=PHY
 dump AnnaNavarre0 state=Conversation 
 window +TextWindow .* text="Anna Navarre: "
 inv count=1 NanoKeyRing
-!^\[[0-9.]+\] ([^D]|D[^a])[^:]*: Accessed None
+!Accessed None

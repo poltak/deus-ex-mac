@@ -18,4 +18,4 @@ Music: LibertyIsland_Music section 3 starts at order 3
 \[17\.00\].* inv count=5 WeaponCombatKnife AmmoNone WeaponPistol Ammo10mm NanoKeyRing
 \[17\.20\].* dump TerroristCarcass1 .* Inventory=None
 \[17\.30\].* dump Ammo10mm[0-9]+ .* AmmoAmount=[1-9][0-9]* Owner=JCDentonMale'JCDentonMale0'
-!^\[[0-9.]+\] ([^D]|D[^a])[^:]*: Accessed None
+!Accessed None

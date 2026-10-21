@@ -2,7 +2,7 @@
 # The talk starts when the map starts.
 \[5\.00\].* dump JCDentonMale0 state=Conversation loc=\(-620 -3679 284\)
 \[5\.10\].* TextWindow .* text="Anna Navarre: "
-\[5\.10\].* TextWindow .* text="Alright, let's go\.
+\[5\.10\].* TextWindow .* text="All right, let's go\.
 \[25\.00\].* TextWindow .* text="A precious opportunity we cannot neglect\."
 # Anna Navarre gives the picture, and the game shows what the player got.
 \[45\.00\].* TextWindow .* text="Received:"
@@ -19,4 +19,4 @@
 # The goals screen has the goal of the mission.
 \[61\.00\].* PersonaHeaderTextWindow .* text="Primary Goals"
 \[61\.00\].* PersonaGoalTextWindow .* text="Locate the stolen barrel of Ambrosia in Castle C
-!^\[[0-9.]+\] ([^D]|D[^a])[^:]*: Accessed None
+!Accessed None

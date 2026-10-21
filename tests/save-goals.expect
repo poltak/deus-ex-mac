@@ -17,4 +17,4 @@
 \[12\.00\].* PersonaNotesEditWindow .* text="The code of the test door is 1234"
 # The saved map has no reference that the load cannot follow.
 !an import has an object of this package as its outer object
-!^\[[0-9.]+\] ([^D]|D[^a])[^:]*: Accessed None
+!Accessed None

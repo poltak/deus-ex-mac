@@ -23,4 +23,4 @@
 \[12\.80\].* dump DeusExMover16 .* Tag=UN_maindoor bLocked=False KeyNum=1
 \[12\.80\].* dump DeusExMover17 .* Tag=UN_maindoor bLocked=False KeyNum=1
 \[12\.50\].* flags count=[0-9]+ .*MS_MissionComplete=True
-!^\[[0-9.]+\] ([^D]|D[^a])[^:]*: Accessed None
+!Accessed None

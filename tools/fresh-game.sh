@@ -30,4 +30,17 @@ for f in "$SRC/System"/*; do
     *) ln -s "$f" "$NEW/System/$n" ;;
   esac
 done
+# New Game asks a player one time if they want to play the training mission first (bAskedToTrain of DeusExPlayer).
+# The User.ini of a new Steam copy does not have the answer, and a folder that was played has it. The tests start as a
+# player who answered the question, so they do not depend on the history of the game folder.
+U="$NEW/System/User.ini"
+if [ -f "$U" ]; then
+  if grep -q "^bAskedToTrain=" "$U"; then
+    perl -pi -e 's/^bAskedToTrain=[^\r\n]*/bAskedToTrain=True/' "$U"
+  elif grep -q "^\[DeusEx.DeusExPlayer\]" "$U"; then
+    perl -pi -e 's/^(\[DeusEx\.DeusExPlayer\](\r?\n))/$1bAskedToTrain=True$2/' "$U"
+  else
+    printf '\n[DeusEx.DeusExPlayer]\nbAskedToTrain=True\n' >> "$U"
+  fi
+fi
 echo "$NEW"

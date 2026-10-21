@@ -20,4 +20,4 @@
 \[14\.00\].* dump JCDentonMale0 .* Velocity=\(X=0\.000000, Y=0\.000000,
 \[14\.80\].* dump JCDentonMale0 .* Velocity=
 !\[14\.80\].* dump JCDentonMale0 .* Velocity=\(X=-?0\.0+, Y=-?0\.0+,
-!^\[[0-9.]+\] ([^D]|D[^a])[^:]*: Accessed None
+!Accessed None

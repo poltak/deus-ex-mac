@@ -9,5 +9,4 @@
 \[11\.00\].* JCDentonMale0 .* health=99 Base=BarrelFire'BarrelFire0' Physics=PHYS_Walking
 # A fall of 660 units hurts the legs and the torso.
 \[15\.00\].* JCDentonMale0 .* loc=\(-4761 10431 -260\) .* health=70 Base=LevelInfo'LevelInfo0' HealthLegLeft=0 HealthLegRight=61 HealthTorso=50
-# The place where the player lands can start an infolink, and an infolink of the GMDX conversation file gives one warning.
-!^\[[0-9.]+\] ([^D]|D[^a])[^:]*: Accessed None
+!Accessed None
