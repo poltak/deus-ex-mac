@@ -61,8 +61,9 @@ for pair in $ENGINE_ENV; do ENV_ARG+=("$pair"); done
 # runs the script, so a test opens no permission dialog.
 # SURREAL_NO_ACTIVATE keeps the engine from making itself the active app, so a test does not take the keyboard focus.
 # SURREAL_HIDDEN_WINDOW hides the windows of the engine from the person at the computer: a window is fully
-# transparent, the mouse goes through it, the engine has no icon in the Dock, and a window manager does not take the
-# window. The engine draws into the window as usual, so the pictures and the results of a test are the same.
+# transparent, the mouse goes through it, the engine has no icon in the Dock, a window manager does not take the
+# window, and macOS cannot make the engine the active app. Without a hidden window, macOS can make the engine the
+# active app when the app that started this script is in front (for example the terminal). The engine draws into the window as usual, so the pictures and the results of a test are the same.
 # VISIBLE=1 shows the window behind the windows of the active app. FOREGROUND=1 shows it in front.
 HIDDEN=""
 if [ -z "$FOREGROUND" ]; then
