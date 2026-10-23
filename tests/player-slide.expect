@@ -2,27 +2,27 @@
 # 1. The police boat. The contact gives no script event. The player goes on to the south with a part to the east,
 #    and it comes to the wall at the edge of the dock.
 Harness: hitwall JCDentonMale0 actor=NYPoliceBoat0 normal=\(0\.9[0-9] 0\.[12][0-9] 0\.00\) no event, the wall does not face against the way
-\[3\.50\].* dump JCDentonMale0 .* loc=\(-479[0-9] 101[0-9][0-9] -260\) .* Velocity=\(X=[1-9][0-9]\.[0-9]+, Y=-3[0-9][0-9]\.
-\[4\.50\].* dump JCDentonMale0 .* loc=\(-478[0-9] 10053 -260\)
+\[3\.50\].* dump JCDentonMale0 .* loc=\(-479[0-9] 101[0-9][0-9] -259\) .* Velocity=\(X=[1-9][0-9]\.[0-9]+, Y=-3[0-9][0-9]\.
+\[4\.50\].* dump JCDentonMale0 .* loc=\(-478[0-9] 10053 -259\)
 # 2. The double door. The player slides 54 units along the door, to the door frame.
 Harness: hitwall JCDentonMale0 actor=DeusExMover1[67] normal=\(0\.00 1\.00 0\.00\) no event
-\[6\.60\].* dump JCDentonMale0 .* loc=\(-464[0-9] 228[0-9] -196\)
+\[6\.60\].* dump JCDentonMale0 .* loc=\(-464[0-9] 228[0-9] -195\)
 # 3. The stairs. The player is on the stairs along the side wall after 1 second, and at the top after 2 seconds.
 \[9\.00\].* dump JCDentonMale0 .* loc=\(22[0-9][0-9] 25[0-9] [0-9]+\) .* Velocity=\(X=(2[5-9]|3[0-2])[0-9]\.
-\[10\.00\].* dump JCDentonMale0 .* loc=\(249[0-9] 25[0-9] 156\)
+\[10\.00\].* dump JCDentonMale0 .* loc=\(249[0-9] 25[0-9] 157\)
 # 4. The trash can, 50 degrees away from head-on. The player is past the can with its full speed, and the can
 #    moved less than 40 units.
 \[12\.30\].* dump TrashCan[0-9]+ .* loc=\(-469[0-9] 1056[0-9] -271\) .* bPushable=True Mass=50\.000000
-\[13\.30\].* dump JCDentonMale0 .* loc=\(-45[0-9][0-9] 105[01][0-9] -260\) .* Velocity=\(X=3[0-9][0-9]\.
+\[13\.30\].* dump JCDentonMale0 .* loc=\(-45[0-9][0-9] 105[01][0-9] -259\) .* Velocity=\(X=3[0-9][0-9]\.
 \[13\.30\].* dump TrashCan[0-9]+ .* loc=\(-46[5-8][0-9] 105[56][0-9] -271\)
 # 5. The trash can head-on. The player pushed the can more than 90 units in 1.5 seconds. It is behind the can, and
 #    its speed is about a third of the walking speed.
-\[16\.10\].* dump JCDentonMale0 .* loc=\(-4[56][0-9][0-9] 1043[01] -260\) .* Velocity=\(X=([89][0-9]|1[0-2][0-9])\.
+\[16\.10\].* dump JCDentonMale0 .* loc=\(-4[56][0-9][0-9] 1043[01] -259\) .* Velocity=\(X=([89][0-9]|1[0-2][0-9])\.
 \[16\.10\].* dump TrashCan[0-9]+ .* loc=\(-45[0-9][0-9] 1043[01] -271\) dist=4[0-9] lastRendered
 # 6. The soldier. It stays at its place. A contact with a pawn gives no script event. The player is past the soldier
 #    with its full speed.
 Harness: hitwall JCDentonMale0 actor=UNATCOTroop10 normal=\(-0\.[78][0-9] 0\.[56][0-9] 0\.00\) no event, the actor is a pawn
-\[18\.00\].* dump UNATCOTroop10 .* loc=\(-4691 10300 -260\) .* GroundSpeed=0\.000000
-\[18\.50\].* dump JCDentonMale0 .* loc=\(-47[34][0-9] 101[0-9][0-9] -260\) .* Velocity=\(X=-?[0-9]\.[0-9]+, Y=-3[0-9][0-9]\.
-\[18\.50\].* dump UNATCOTroop10 .* loc=\(-4691 10300 -260\)
+\[18\.00\].* dump UNATCOTroop10 .* loc=\(-4691 10300 -259\) .* GroundSpeed=0\.000000
+\[18\.50\].* dump JCDentonMale0 .* loc=\(-47[34][0-9] 101[0-9][0-9] -259\) .* Velocity=\(X=-?[0-9]\.[0-9]+, Y=-3[0-9][0-9]\.
+\[18\.50\].* dump UNATCOTroop10 .* loc=\(-4691 10300 -259\)
 !Accessed None

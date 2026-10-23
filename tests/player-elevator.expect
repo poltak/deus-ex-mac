@@ -1,10 +1,10 @@
 # The log of the test must have a line for each of these patterns (grep -E).
 # The player stands in the cabin, and the cabin is the base of the player.
-\[3\.00\].* JCDentonMale0 .* loc=\(2768 -326 45\) .* Base=ElevatorMover'ElevatorMover9' Physics=PHYS_Walking
+\[3\.00\].* JCDentonMale0 .* loc=\(2768 -326 46\) .* Base=ElevatorMover'ElevatorMover9' Physics=PHYS_Walking
 # The button starts the elevator.
 \[4\.10\].* ElevatorMover9 .* KeyNum=1 bIsMoving=True
 # The player goes up with the cabin: 1376 units in 6 seconds, with no damage.
-\[6\.00\].* JCDentonMale0 .* loc=\(2768 -326 664\) .* health=100 Base=ElevatorMover'ElevatorMover9'
-\[10\.50\].* JCDentonMale0 .* loc=\(2768 -326 1421\) .* health=100 Base=ElevatorMover'ElevatorMover9' Physics=PHYS_Walking
+\[6\.00\].* JCDentonMale0 .* loc=\(2768 -326 665\) .* health=100 Base=ElevatorMover'ElevatorMover9'
+\[10\.50\].* JCDentonMale0 .* loc=\(2768 -326 1422\) .* health=100 Base=ElevatorMover'ElevatorMover9' Physics=PHYS_Walking
 \[10\.60\].* ElevatorMover9 .* loc=\(2768 -336 1440\) .* KeyNum=1 bIsMoving=False
 !Accessed None

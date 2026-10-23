@@ -2,13 +2,13 @@
 # pattern that the log must not have.
 # The player is in front of the mirror that faces the y direction. The picture has the view of the player and the
 # frame of the mirror. The player counts as drawn, because the mirror shows the player.
-\[3\.50\].* dump JCDentonMale0 .* loc=\(-95 -3110 108\) .* lastRendered=0\.0 
-\[3\.50\].* visible frames=2 surfaces=58 
+\[3\.50\].* dump JCDentonMale0 .* loc=\(-95 -3110 109\) .* lastRendered=0\.0 
+\[3\.50\].* visible frames=2 surfaces=63 
 # The faucet of the bathroom is in view. The faucet of the kitchen is behind the wall of the mirror, and the frame of
 # the mirror does not have it.
 \[3\.50\].* dump Faucet1 .* loc=\(-100 -3020 121\) .* lastRendered=0\.0 
 \[3\.50\].* dump Faucet0 .* loc=\(-89 -2980 117\) 
 !\[3\.50\].* dump Faucet0 .* lastRendered=0\.0 
 # The player is in front of the mirror that faces the x direction, and that mirror shows the player also.
-\[5\.50\].* dump JCDentonMale0 .* loc=\(1830 -1150 108\) .* lastRendered=0\.0 
-\[5\.50\].* visible frames=2 surfaces=64 
+\[5\.50\].* dump JCDentonMale0 .* loc=\(1830 -1150 109\) .* lastRendered=0\.0 
+\[5\.50\].* visible frames=2 surfaces=66 

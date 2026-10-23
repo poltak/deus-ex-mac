@@ -17,5 +17,5 @@ Developer loader: start in 02_NYC_Street#FromNYCUndergroundSewer2
 Developer loader: the player has 14 of 14 selected things
 # The player is at the selected start point of the map, with the selected things. No ammunition type is added.
 \[3\.00\].* inv count=15 MedKit WeaponGasGrenade AmmoGasGrenade WeaponBaton AmmoNone WeaponProd AmmoBattery WeaponPepperGun AmmoPepper WeaponMiniCrossbow AmmoDartPoison WeaponStealthPistol WeaponPistol Ammo10mm NanoKeyRing
-\[3\.10\].* dump JCDentonMale0 state=PlayerWalking loc=\(966 -2046 -612\) .* Credits=800 CombatDifficulty=1\.500000 ReducedDamageType=All bCheatsEnabled=True
+\[3\.10\].* dump JCDentonMale0 state=PlayerWalking loc=\(966 -2046 -611\) .* Credits=800 CombatDifficulty=1\.500000 ReducedDamageType=All bCheatsEnabled=True
 \[3\.20\].* dump MedKit[0-9]+ .* NumCopies=7

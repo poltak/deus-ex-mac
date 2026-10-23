@@ -1,0 +1,14 @@
+# NSF warehouse (start with --url=02_NYC_Warehouse): a jump onto a platform at a ladder on the roof. The platform is
+# 48 units higher than the roof. The player walks against its wall and jumps. A jump goes up 47.4 units, and a walking
+# player stays 2.1 units above the floor, as in the original. So the player gets onto the platform.
+# tests/player-jump-ledge.expect has the lines that the log must have. regress.sh runs this script at 30 and 120
+# frames per second.
+2.0  exec set DeusExPlayer bCheatsEnabled True
+2.1  exec God
+3.0  teleport -1500 2230 2010 0
+3.4  dump DeusExPlayer 0 Physics
+3.5  keydown w
+3.9  key space
+4.5  keyup w
+5.0  dump DeusExPlayer 0 Physics
+5.1  shot on-platform

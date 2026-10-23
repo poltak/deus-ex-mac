@@ -3,7 +3,7 @@
 \[3\.00\].* dump Terrorist3 state=
 \[3\.00\].* dump Terrorist36 state=
 \[3\.10\].* dump UNATCOTroop3 state=Idle .* BindName="custodytroop" bHidden=True
-\[3\.20\].* dump PaulDenton0 state=Standing loc=\(-2366 8295 -260\)
+\[3\.20\].* dump PaulDenton0 state=Standing loc=\(-2366 8295 -259\)
 \[3\.30\].* dump GuntherHermann0 
 \[3\.40\].* dump AutoTurret0 
 \[3\.50\].* flags count=0
@@ -14,7 +14,7 @@
 \[12\.10\].* dump UNATCOTroop3 state=Patrolling .* BindName="custodytroop" bHidden=False
 \[12\.10\].* dump UNATCOTroop9 state=Patrolling .* BindName="postmissiontroops" bHidden=False
 # Paul stands at the HQ, Gunther and the thugs are gone, and only the small turret is left.
-\[12\.20\].* dump PaulDenton0 state=Standing loc=\(-4681 2640 -96\)
+\[12\.20\].* dump PaulDenton0 state=Standing loc=\(-4681 2640 -95\)
 !\[12\.30\].* dump GuntherHermann0 state=
 !\[12\.40\].* dump AutoTurret[02] state=
 \[12\.40\].* dump AutoTurretSmall0 

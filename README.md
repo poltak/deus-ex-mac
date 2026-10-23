@@ -34,6 +34,7 @@ Scripted tests on an M2 Max show that these parts work:
 - Swimming, the breath timer and drowning. The death of the player, with the camera sequence and the return to the title screen.
 - Ladders: the player climbs up with a level view and down with the view down, holds on with no key down, and gets on a ladder that starts above the floor with a jump.
 - Landings: a person pushes off a player who lands on its head, a burning barrel burns, and a long fall hurts the legs.
+- Jumps: a jump goes up 47.4 units at each frame rate, as in the original. The player gets onto the 48 units high platforms at the ladders on the roofs of the NSF warehouse.
 - A fight with the pistol: the HUD counts the rounds of the clip, the guard takes damage, flees and dies, and the search of the body gives its knife and the rounds of its pistol.
 - Weapons: the reload key, with the HUD that shows no numbers during the reload, and the ammo key that changes between the dart types of the mini crossbow.
 - Things in the world: the player lifts a trash can and throws it, breaks a crate with a crowbar and takes what was in it.
@@ -99,6 +100,10 @@ A person played all of Liberty Island on 2026-10-18 and found seven faults. All 
 - A speech line that the player skipped with the mouse played to its end, together with the next line. The script of a conversation plays a line through the person who speaks and stops it with `player.StopSound`. The original `StopSound` uses only the sound id, and this engine also wanted the actor of the request to be the actor of the sound. A new harness command `sounds` lists the sounds that play.
 - The weapon of the player went into a wall near the camera. The original clears the depth buffer before the `RenderOverlays` event, in which the weapon is drawn (`URender::DrawWorld` of `Render.dll`). This engine did not.
 - The electric arcs of the box in the basement of Liberty Island did not show, and the laser beams of the statue door did not show either. A beam is drawn by a `LaserIterator` (native code of `DeusEx.dll`), which puts the `LaserProxy` mesh at each 16-unit segment of the beam. An electric arc moves each segment by a random amount. The engine did not have this iterator. All segments of a beam use one light list, so a view of the five laser beams costs about 0.4 ms of processor time for each frame.
+
+A person played mission 2 on 2026-10-23 and found a fault that stopped the game. It is fixed:
+
+- The player could not get off the roofs of the NSF warehouse (`02_NYC_Warehouse`). Each way down starts on a platform at a ladder, and these platforms are 48 units higher than the roof. A jump went up only 44.8 units at 30 frames per second and about 46 units at 120. Two rules of the original (`AActor::physFalling` and `APawn::physWalking` of `Engine.dll`) were not in the engine. First, a falling actor moves with the mean speed of each step, so a jump goes up 47.4 units at each frame rate. Second, a walking pawn stays 1.9 to 2.4 units above the floor (2.1 units after a correction), and the engine kept it 1 unit above the floor. So a jump starts 1.1 units higher now. The feet of the player now get 49.5 units above the floor, as in the original. A person that starts deep inside level geometry stays where it is, as before. Without that limit, the woman behind the flower stand of `99_Endgame3` went onto the stand. A third rule of the original is now in the engine also: a pawn in the air that moves at less than 10 units per second to the side gets to that speed in one step. So a player who jumps against a wall moves onto the ledge at the top of the jump.
 
 No person has reported on these parts yet:
 

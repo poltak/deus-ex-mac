@@ -147,6 +147,9 @@ run player-crouch 14 --url=01_NYC_UNATCOIsland
 FIXED_FPS=120 SCRIPT_NAME=player-crouch run player-crouch-120 14 --url=01_NYC_UNATCOIsland
 run player-ladder 17 --url=01_NYC_UNATCOIsland
 run player-landing 16 --url=01_NYC_UNATCOIsland
+# A jump onto a platform on a roof of the NSF warehouse, with 30 and with 120 frames per second.
+run player-jump-ledge 6 --url=02_NYC_Warehouse
+FIXED_FPS=120 SCRIPT_NAME=player-jump-ledge run player-jump-ledge-120 6 --url=02_NYC_Warehouse
 run player-elevator 12 --url=03_NYC_AirfieldHeliBase
 run map-start 8 --url=01_NYC_UNATCOIsland
 run map-attach 3 --url=00_TrainingCombat

@@ -2,8 +2,8 @@
 # Far from the player, a soldier that wanders is in stasis and does not move. Its place is 1 unit from its start
 # place (-6009 1735), because it made one step before it went into stasis. A soldier that wanders goes about 25
 # units in each second.
-\[3\.00\].* dump UNATCOTroop2 state=Wandering loc=\(-60[01][0-9] 17[23][0-9] -100\) .* inStasis
-\[6\.00\].* dump UNATCOTroop2 state=Wandering loc=\(-60[01][0-9] 17[23][0-9] -100\) .* inStasis
+\[3\.00\].* dump UNATCOTroop2 state=Wandering loc=\(-60[01][0-9] 17[23][0-9] -99\) .* inStasis
+\[6\.00\].* dump UNATCOTroop2 state=Wandering loc=\(-60[01][0-9] 17[23][0-9] -99\) .* inStasis
 # A security computer in stasis did not run its start code, which turns it off.
 \[3\.20\].* dump ComputerSecurity0 state=Off .* inStasis bOn=True
 # Three medical bots are in stasis. They go away when they become transient.

@@ -1,6 +1,6 @@
 # The log of the test must have a line for each of these patterns (grep -E).
 # The talk starts when the map starts.
-\[5\.00\].* dump JCDentonMale0 state=Conversation loc=\(-620 -3679 284\)
+\[5\.00\].* dump JCDentonMale0 state=Conversation loc=\(-620 -3679 285\)
 \[5\.10\].* TextWindow .* text="Anna Navarre: "
 \[5\.10\].* TextWindow .* text="All right, let's go\.
 \[25\.00\].* TextWindow .* text="A precious opportunity we cannot neglect\."
@@ -8,9 +8,9 @@
 \[45\.00\].* TextWindow .* text="Received:"
 \[45\.00\].* TextWindow .* text="IMAGE"
 # After the talk the player has the picture and can move.
-\[58\.00\].* dump JCDentonMale0 state=PlayerWalking loc=\(-620 -3679 284\)
+\[58\.00\].* dump JCDentonMale0 state=PlayerWalking loc=\(-620 -3679 285\)
 \[58\.10\].* inv count=2 Image02_Ambrosia_Flyer NanoKeyRing
-\[65\.50\].* dump JCDentonMale0 state=PlayerWalking loc=\(-1[0-9]+ -3[0-9]+ 284\)
+\[65\.50\].* dump JCDentonMale0 state=PlayerWalking loc=\(-1[0-9]+ -3[0-9]+ 285\)
 # The goal from the talk is a secondary goal, and the goal from the cheat command is a primary goal.
 \[58\.30\].* goal FindAmbrosia primary=False completed=False text="Locate the stolen barrel of Ambrosia in Castle Clinton\."
 \[58\.70\].* goal TestGoal primary=True completed=False text="Test text"

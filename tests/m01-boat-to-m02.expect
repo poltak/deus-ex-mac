@@ -9,7 +9,7 @@
 Deus Ex travel to 02_NYC_BatteryPark: the current mission number is 1, the next is 2
 Deus Ex travel: the player accepted [0-9]+ objects
 # In Battery Park the player stands at the boat and talks with Anna Navarre.
-dump JCDentonMale[0-9]+ state=Conversation loc=\(-620 -3679 284\) .* Physics=PHYS_Walking bInterpolating=False
+dump JCDentonMale[0-9]+ state=Conversation loc=\(-620 -3679 285\) .* Physics=PHYS_Walking bInterpolating=False
 dump AnnaNavarre0 state=Conversation 
 window +TextWindow .* text="Anna Navarre: "
 inv count=1 NanoKeyRing
