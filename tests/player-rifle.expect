@@ -4,6 +4,7 @@
 \[7\.10\].* dump Terrorist4 .* health=75 
 # One shot from 700 units hurts the far guard.
 \[8\.50\].* dump Terrorist4 .* health=([0-9]|[1-6][0-9]|7[0-4]) 
-# The first shot from 120 units hurts the near guard, and the second shot kills it. Its body lies near the player.
-\[10\.00\].* dump Terrorist3 .* health=([0-9]|[1-6][0-9]|7[0-4]) 
-\[12\.60\].* dump TerroristCarcass[0-9]+ 
+# The first shot from 120 units hurts the near guard. The second shot hurts it more or kills it, and then its body lies
+# near the player. The part of the body that a shot hits is random, so the guard lives with some seeds of a run.
+\[10\.00\].* dump Terrorist3 .* health=([0-9]|[1-6][0-9]|7[0-4])
+\[12\.(50|60)\].* dump (Terrorist3 .* health=([0-9]|1[0-9]|2[0-4]) |TerroristCarcass[0-9]+ )
